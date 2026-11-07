@@ -103,6 +103,37 @@ def test_chart_has_clickable_nodes_and_edges_and_separate_color_scales():
     assert refuted, "INC-104 has a refuted suspect edge to draw dashed"
 
 
+def test_compact_canvas_keeps_round_rings_and_labels_inside():
+    view = _view(node="SVC-CHECKOUT-API")
+    shown, _ = graph_view.visible_edges(view["nodes"], view["edges"], False)
+    pos = graph_view.ring_layout(view["nodes"], shown)
+    width = graph_view.COMPACT_WIDTH
+    spec = graph_view.build_chart(view["nodes"], shown, pos, width=width).to_dict()
+    assert spec["width"] == width
+    assert spec["autosize"]["type"] == "pad"  # the legend must not shrink the plot
+    x0, x1, y0, y1, height = graph_view._bounds(pos, width)
+    assert math.isclose((x1 - x0) / width, (y1 - y0) / height)
+
+    nodes, _ = graph_view.build_frames(view["nodes"], shown, pos, set(), None, width=width)
+    labelled = nodes[nodes["placement"].isin(["left", "right"])]
+    assert not labelled.empty
+    for row in labelled.itertuples():
+        text_px = len(row.short) * graph_view.CHAR_PX + graph_view.LABEL_OFFSET_PX
+        if row.placement == "right":
+            assert row.px + text_px <= width
+        else:
+            assert row.px - text_px >= 0
+    assert nodes["short"].str.len().max() <= 14
+
+
+def test_wide_canvas_is_unchanged_by_default():
+    view = _view(node="INC-104")
+    pos = graph_view.ring_layout(view["nodes"], view["edges"])
+    spec = graph_view.build_chart(view["nodes"], view["edges"], pos).to_dict()
+    assert spec["width"] == graph_view.WIDTH
+    assert "autosize" not in spec
+
+
 def test_selection_parsing():
     assert graph_view.selection_of({"selection": {"node": [{"key": "INC-104"}]}}) == (
         "node",

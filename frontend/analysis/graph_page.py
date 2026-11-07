@@ -11,6 +11,7 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
+from frontend import layout
 from frontend.analysis import api, graph_view, state
 
 SEED, DEPTH, DIRECTION, TYPES = "g_seed", "g_depth", "g_direction", "g_relation_types"
@@ -116,7 +117,7 @@ def _on_canvas_select(key: str) -> None:
 
 
 def _search_box(ref: dict[str, Any]) -> None:
-    c = st.columns([3, 3, 1, 1], vertical_alignment="bottom")
+    c = st.container(key="bar-search").columns([3, 3, 1, 1], vertical_alignment="bottom")
     c[0].text_input(
         "Find a node by ID, name or alias",
         key=SEARCH,
@@ -160,7 +161,14 @@ def _search_box(ref: dict[str, Any]) -> None:
 
 def _controls(facets: dict[str, Any], dmin: date, dmax: date) -> None:
     relation_types = {o["value"]: f"{o['label']} ({o['count']})" for o in facets["relation_types"]}
-    with st.container(border=True):
+    ss = st.session_state
+    hops = ss[DEPTH]
+    summary = (
+        f"Traversal: {hops} hop{'s' if hops > 1 else ''} · "
+        f"{DIRECTIONS[ss[DIRECTION]].lower()} · "
+        f"{len(ss[TYPES]) or 'all'} relation type{'s' if len(ss[TYPES]) != 1 else ''}"
+    )
+    with layout.panel(summary, key="g_controls_panel", border=True):
         c = st.columns([2, 2, 4, 2], vertical_alignment="bottom")
         c[0].segmented_control(
             "Hops",
@@ -231,7 +239,7 @@ def _traversal_params() -> dict[str, Any]:
 def _breadcrumb(view: dict[str, Any]) -> None:
     labels = {n["key"]: n["label"] for n in view["nodes"]}
     trail = [labels.get(view["seed"], view["seed"])] + [labels.get(k, k) for k in view["expanded"]]
-    c = st.columns([6, 1, 1], vertical_alignment="center")
+    c = st.container(key="bar-crumb").columns([6, 1, 1], vertical_alignment="center")
     c[0].markdown(
         "**Start:** "
         + " › ".join(f"`{t}`" for t in trail[:1])
@@ -293,6 +301,7 @@ def _canvas(
         theme=_theme(),
         radial_labels=not path_mode,
         dim_unfocused=not path_mode,
+        width=graph_view.COMPACT_WIDTH if layout.is_compact() else graph_view.WIDTH,
     )
     with st.container(border=True):
         st.markdown(

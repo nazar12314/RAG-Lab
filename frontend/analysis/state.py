@@ -87,6 +87,16 @@ def api_filters(facets: dict[str, Any]) -> dict[str, Any]:
     return params
 
 
+def active_filter_count(facets: dict[str, Any]) -> int:
+    """Number of filters narrowing the records (a date or length range counts once)."""
+    params = api_filters(facets)
+    return sum(
+        1
+        for key, value in params.items()
+        if key not in ("date_to", "length_max") and value not in (None, [], "")
+    )
+
+
 def clear_filters(facets: dict[str, Any]) -> None:
     ss = st.session_state
     ss[SERVICE] = None

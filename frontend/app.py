@@ -10,7 +10,10 @@ if str(ROOT) not in sys.path:
 
 import streamlit as st  # noqa: E402
 
+from frontend import layout  # noqa: E402
+
 st.set_page_config(page_title="GraphRAG Lab", layout="wide")
+layout.setup()
 
 navigation = st.navigation(
     [

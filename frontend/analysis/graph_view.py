@@ -22,6 +22,7 @@ import altair as alt
 import pandas as pd
 
 WIDTH, HEIGHT = 1180, 720
+COMPACT_WIDTH = 320  # fits a ~390px phone viewport inside a bordered container
 NODE_SELECTION, EDGE_SELECTION = "node", "edge"
 MIN_GAP = 0.55  # minimum arc distance between neighbors on a ring, in layout units
 RING_STEP = 1.7  # distance between rings; leaves room for outward labels of the inner ring
@@ -197,7 +198,7 @@ def visible_edges(
 MIN_HEIGHT = 280
 
 
-def _bounds(pos: dict[str, Position]) -> tuple[float, float, float, float, int]:
+def _bounds(pos: dict[str, Position], width: int = WIDTH) -> tuple[float, float, float, float, int]:
     """Data domain plus canvas height. Flat layouts (paths) get a shorter canvas instead of
     floating in empty space."""
     xs = [p[0] for p in pos.values()] or [0.0]
@@ -205,12 +206,17 @@ def _bounds(pos: dict[str, Position]) -> tuple[float, float, float, float, int]:
     pad_x = max(0.9, (max(xs) - min(xs)) * 0.18)  # room for labels beside the outer ring
     pad_y = max(0.35, (max(ys) - min(ys)) * 0.1)
     x0, x1, y0, y1 = min(xs) - pad_x, max(xs) + pad_x, min(ys) - pad_y, max(ys) + pad_y
-    height = int(min(HEIGHT, max(MIN_HEIGHT, (y1 - y0) / (x1 - x0) * WIDTH)))
+    min_height = MIN_HEIGHT if width >= WIDTH else MIN_HEIGHT // 2
+    height = int(min(HEIGHT, max(min_height, (y1 - y0) / (x1 - x0) * width)))
     # Same units-per-pixel on both axes, so hop rings render as circles.
-    units_per_px = max((x1 - x0) / WIDTH, (y1 - y0) / height)
+    units_per_px = max((x1 - x0) / width, (y1 - y0) / height)
     cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    half_w, half_h = units_per_px * WIDTH / 2, units_per_px * height / 2
+    half_w, half_h = units_per_px * width / 2, units_per_px * height / 2
     return cx - half_w, cx + half_w, cy - half_h, cy + half_h, height
+
+
+def _is_compact(width: int) -> bool:
+    return width < WIDTH / 2
 
 
 def _short(text: str, size: int = 24) -> str:
@@ -236,12 +242,16 @@ def _overlaps(a: tuple[float, ...], b: tuple[float, ...]) -> bool:
     return a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]
 
 
-def place_labels(rows: list[dict[str, Any]], radial: bool, keep: set[str]) -> dict[str, str | None]:
+def place_labels(
+    rows: list[dict[str, Any]], radial: bool, keep: set[str], max_x: float | None = None
+) -> dict[str, str | None]:
     """Greedy collision-free label placement in screen space.
 
     Higher-priority nodes (start, focus, inner rings, busier nodes) choose first. Each tries
     its natural side, then below / above / the opposite side; if every side collides the
     label is hidden (the tooltip still names the node). Nodes in `keep` always get a label.
+    With `max_x`, a side that would run past the left or right canvas edge counts as a
+    collision (narrow canvases have no spare room around the outer ring).
     """
     obstacles = [
         (r["px"] - NODE_BOX_PX, r["py"] - NODE_BOX_PX, r["px"] + NODE_BOX_PX, r["py"] + NODE_BOX_PX)
@@ -273,6 +283,8 @@ def place_labels(rows: list[dict[str, Any]], radial: bool, keep: set[str]) -> di
         chosen = None
         for side in dict.fromkeys(candidates):
             box = _label_box(side, r["px"], r["py"], width)
+            if max_x is not None and (box[0] < 0 or box[2] > max_x):
+                continue
             if not any(_overlaps(box, p) for p in placed) and not any(
                 _overlaps(box, o) for o in obstacles if o != own
             ):
@@ -301,10 +313,12 @@ def build_frames(
     theme: str = "light",
     radial_labels: bool = True,
     dim_unfocused: bool = True,
+    width: int = WIDTH,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     t = THEMES.get(theme, THEMES["light"])
-    x0, x1, y0, y1, height = _bounds(pos)
-    sx, sy = WIDTH / (x1 - x0), height / (y1 - y0)
+    x0, x1, y0, y1, height = _bounds(pos, width)
+    sx, sy = width / (x1 - x0), height / (y1 - y0)
+    compact = _is_compact(width)
     labels = {n["key"]: n["label"] for n in nodes}
 
     # Focus: the selected node, or the endpoints of a selected edge.
@@ -338,13 +352,13 @@ def build_frames(
         nx_, ny_ = -dy_px / length, dx_px / length
         in_focus = e["id"] in focus_edges
         if e["id"] in highlight_edges:
-            color, width = t.highlight, 3.0
+            color, stroke = t.highlight, 3.0
         elif e["verified_status"] == "refuted":
-            color, width = t.refuted, 1.6
+            color, stroke = t.refuted, 1.6
         elif e["verified_status"] == "unverified":
-            color, width = t.unverified, 1.6
+            color, stroke = t.unverified, 1.6
         else:
-            color, width = (t.edge_focus, 1.8) if in_focus and focused else (t.edge, 1.2)
+            color, stroke = (t.edge_focus, 1.8) if in_focus and focused else (t.edge, 1.2)
         edge_rows.append(
             {
                 "edge_id": e["id"],
@@ -367,7 +381,7 @@ def build_frames(
                 "evidence": e["evidence"],
                 "validity": _validity(e),
                 "color": color,
-                "width": width,
+                "width": stroke,
                 "dashed": e["verified_status"] != "verified" and e["id"] not in highlight_edges,
                 "alpha": 1.0 if (in_focus or not focused) else DIM_EDGE,
                 "show_label": in_focus,
@@ -391,8 +405,11 @@ def build_frames(
                 "y": y,
                 "label": n["label"],
                 "description": n.get("description", n["label"]),
-                # Incident IDs alone say nothing; show the start of the title as well.
-                "short": _short(n.get("description", n["label"]), 30)
+                # Incident IDs alone say nothing; show the start of the title as well
+                # (except on a phone-width canvas, where the ID is all that fits).
+                "short": _short(n["label"], 14)
+                if compact
+                else _short(n.get("description", n["label"]), 30)
                 if n["entity_type"] == "incident"
                 else _short(n["label"]),
                 "entity_type": n["entity_type"],
@@ -412,7 +429,7 @@ def build_frames(
             }
         )
     keep = {n["key"] for n in nodes if n["is_seed"]} | focus_nodes
-    sides = place_labels(node_rows, radial_labels, keep)
+    sides = place_labels(node_rows, radial_labels, keep, max_x=width if compact else None)
     for row in node_rows:
         row["placement"] = sides[row["key"]] or "hidden"
     return pd.DataFrame(node_rows), pd.DataFrame(edge_rows)
@@ -430,6 +447,7 @@ def build_chart(
     theme: str = "light",
     radial_labels: bool = True,
     dim_unfocused: bool = True,
+    width: int = WIDTH,
 ) -> alt.LayerChart:
     t = THEMES.get(theme, THEMES["light"])
     node_df, edge_df = build_frames(
@@ -441,8 +459,10 @@ def build_chart(
         theme,
         radial_labels,
         dim_unfocused,
+        width,
     )
-    x0, x1, y0, y1, height = _bounds(pos)
+    x0, x1, y0, y1, height = _bounds(pos, width)
+    compact = _is_compact(width)
 
     def X(field: str) -> alt.X:  # noqa: N802 - mirrors alt.X
         return alt.X(f"{field}:Q", scale=alt.Scale(domain=[x0, x1]), axis=None)
@@ -530,6 +550,7 @@ def build_chart(
             title="Node type",
             symbolSize=120,
             labelFontSize=12,
+            columns=3 if compact else 0,
         )
         color = alt.Color(
             "entity_type:N",
@@ -585,12 +606,17 @@ def build_chart(
                 )
             )
     # Layers share scales by default; edge colors and node-type colors must not be merged.
-    return (
+    chart = (
         alt.layer(*layers)
         .resolve_scale(color="independent", shape="independent")
-        .properties(width=WIDTH, height=height)
+        .properties(width=width, height=height)
         .configure_view(strokeWidth=0)
     )
+    if compact:
+        # Streamlit's default "fit" autosize takes the legend's rows out of the plot height,
+        # which flattens the rings on a short canvas; "pad" keeps the plot at width x height.
+        chart = chart.properties(autosize=alt.AutoSizeParams(type="pad"))
+    return chart
 
 
 def selection_of(event: Any) -> tuple[str, str] | None:

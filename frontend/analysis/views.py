@@ -10,6 +10,7 @@ from urllib.parse import quote
 import pandas as pd
 import streamlit as st
 
+from frontend import layout
 from frontend.analysis import api, charts, graph_page, state
 from frontend.analysis.api import LabApiError
 from frontend.analysis.rendering import highlight_html, snippet_html
@@ -109,6 +110,12 @@ def _reset_snapshot() -> None:
 
 
 def _snapshot_controls(datasets: list[dict[str, Any]]) -> dict[str, Any]:
+    current = st.session_state.get("da_dataset") or datasets[0]["id"]
+    with layout.panel(f"Dataset: {current}", key="da_snapshot_panel"):
+        return _snapshot_fields(datasets)
+
+
+def _snapshot_fields(datasets: list[dict[str, Any]]) -> dict[str, Any]:
     cols = st.columns([2, 2, 2, 4])
     by_id = {d["id"]: d for d in datasets}
     dataset_id = cols[0].selectbox(
@@ -156,7 +163,9 @@ def _filter_bar(facets: dict[str, Any]) -> None:
     entity_types = _label_with_count(facets["entity_types"])
     relation_types = _label_with_count(facets["relation_types"])
     dmin, dmax = state.date_bounds(facets)
-    with st.container(border=True):
+    active = state.active_filter_count(facets)
+    label = f"Filters ({active} active)" if active else "Filters"
+    with layout.panel(label, key="da_filter_panel", border=True):
         c = st.columns([2, 2, 2, 2])
         c[0].selectbox(
             "Service",
@@ -238,16 +247,19 @@ def _on_chart_select(spec: dict[str, Any], key: str, facets: dict[str, Any]) -> 
 def _overview(ref: dict[str, Any], filters: dict[str, Any], facets: dict[str, Any]) -> None:
     ov = api.get("/analysis/overview", **ref, **filters)
     cards = ov["cards"]
-    for start in range(0, len(cards), 6):
-        cols = st.columns(6)
-        for col, card in zip(cols, cards[start : start + 6], strict=False):
-            value = card["value"]
-            if card.get("total") is not None and card["total"] != value:
-                value = f"{value} / {card['total']}"
-            col.metric(card["label"], value, help=card["help"], border=True)
+    with st.container(key="grid2-metrics"):
+        for start in range(0, len(cards), 6):
+            cols = st.columns(6)
+            for col, card in zip(cols, cards[start : start + 6], strict=False):
+                value = card["value"]
+                if card.get("total") is not None and card["total"] != value:
+                    value = f"{value} / {card['total']}"
+                col.metric(card["label"], value, help=card["help"], border=True)
 
     if ov["observations"]:
-        with st.expander(f"Observations ({len(ov['observations'])})", expanded=True):
+        with st.expander(
+            f"Observations ({len(ov['observations'])})", expanded=not layout.is_compact()
+        ):
             for i, obs in enumerate(ov["observations"]):
                 left, right = st.columns([6, 1], vertical_alignment="center")
                 icon = ":material/warning:" if obs["level"] == "warning" else ":material/info:"
@@ -329,7 +341,7 @@ def _records(ref: dict[str, Any], filters: dict[str, Any]) -> None:
     if page["ignored_filters"]:
         summary += f" Not applicable to {label}: {', '.join(page['ignored_filters'])}."
 
-    c = st.columns([4, 2, 1, 1, 1, 1], vertical_alignment="bottom")
+    c = st.container(key="bar-records").columns([4, 2, 1, 1, 1, 1], vertical_alignment="bottom")
     c[0].markdown(summary)
     c[1].selectbox(
         "Sort by",
@@ -400,7 +412,7 @@ def _detail(ref: dict[str, Any]) -> None:
     st.divider()
     with st.container(border=True):
         trail = st.session_state["da_history"][-3:]
-        c = st.columns([1, 1, 6], vertical_alignment="center")
+        c = st.container(key="bar-detail").columns([1, 1, 6], vertical_alignment="center")
         c[0].button(
             "Back",
             icon=":material/arrow_back:",
@@ -538,7 +550,8 @@ def _document(ref: dict[str, Any], selected: dict[str, Any]) -> None:
         ("Length", f"{doc['length_chars']:,} chars · {doc['word_count']:,} words"),
         ("Edges supported", str(len(doc["highlights"]))),
     ]
-    for col, (label, value) in zip(st.columns(len(facts)), facts, strict=True):
+    fact_cols = st.container(key="grid2-doc-facts").columns(len(facts))
+    for col, (label, value) in zip(fact_cols, facts, strict=True):
         col.caption(label)
         col.text(value)
     st.caption(

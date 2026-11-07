@@ -78,6 +78,15 @@ suggested in the spec (st-graph-workbench 0.1.0, one release; streamlit-sigmajs 
 reviewed and not adopted for now; the backend's `GraphView` is widget-independent, so one can
 be swapped in later without API changes.
 
+## Phone layout
+
+Phones get a compact layout, chosen from the browser's User-Agent (`frontend/layout.py`):
+dataset, filter and traversal controls fold into collapsed expanders (the filter header shows
+how many are active), metric tiles and document facts sit two per row, toolbar buttons pair
+up, and the graph canvas is drawn 320px wide with ID-only labels that never leave the canvas.
+Append `?layout=compact` or `?layout=wide` to the URL to force either layout for the session.
+Desktop rendering is unchanged.
+
 ## Architecture
 
 ```txt
