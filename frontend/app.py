@@ -1,15 +1,22 @@
-import os
+import sys
+from pathlib import Path
 
-import httpx
-import streamlit as st
+# `streamlit run frontend/app.py` only puts frontend/ on sys.path; screens import `frontend.*`.
+# Screens live outside a `pages/` folder so Streamlit's legacy multipage mode never bypasses
+# this entry point.
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+import streamlit as st  # noqa: E402
 
 st.set_page_config(page_title="GraphRAG Lab", layout="wide")
-st.title("GraphRAG Lab")
 
-try:
-    health = httpx.get(f"{BACKEND_URL}/health", timeout=3).json()
-    st.success(f"Backend connected · dataset: {health['dataset_version']}")
-except httpx.HTTPError:
-    st.error(f"Backend not reachable at {BACKEND_URL}")
+navigation = st.navigation(
+    [
+        st.Page("screens/home.py", title="Home", icon=":material/home:", default=True),
+        st.Page("screens/data_analysis.py", title="Data Analysis", icon=":material/query_stats:"),
+    ],
+    position="top",
+)
+navigation.run()

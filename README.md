@@ -26,7 +26,9 @@ backend/app/
   agent/           # LangChain tools and runner
   generation/      # answer generation
   evaluation/      # benchmark runner and metrics
-frontend/          # Streamlit app
+  analysis/        # data analysis: snapshot, filters, charts, record details
+  dataset/         # dataset generator, validator and seed loader
+frontend/          # Streamlit app (screens/ + analysis/ UI components)
 data/seed/         # synthetic company data
 data/benchmark/    # benchmark questions and labels
 migrations/        # Alembic migrations
@@ -83,3 +85,9 @@ The lab ships a synthetic engineering-operations corpus (20 services, 38 inciden
 87 deployments, 138 documents, a curated graph and 80 labeled benchmark questions).
 See [docs/data_model.md](docs/data_model.md) for its structure, the database schemas and
 the gold-label boundary.
+
+## Data Analysis
+
+The **Data Analysis** page explores that corpus before any retriever runs: distributions with
+click-to-filter charts, a record browser, record details with their supporting passages, and a
+document inspector with evidence highlights. See [docs/data_analysis.md](docs/data_analysis.md).
