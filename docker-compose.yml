@@ -1,0 +1,50 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-raglab}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-raglab}
+      POSTGRES_DB: ${POSTGRES_DB:-raglab}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: .
+    command: uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-raglab}:${POSTGRES_PASSWORD:-raglab}@db:5432/${POSTGRES_DB:-raglab}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./migrations:/app/migrations
+      - ./data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: .
+    command: streamlit run frontend/app.py --server.address 0.0.0.0 --server.port 8501
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports:
+      - "${FRONTEND_PORT:-8501}:8501"
+    volumes:
+      - ./frontend:/app/frontend
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
