@@ -44,9 +44,16 @@ Local exploration of the selected graph version instead of a whole-graph hairbal
   "only edges valid on" a date (historical dependencies drop out), show/hide refuted edges, and
   a node cap (default 100). Every response states its projection, e.g. "1-hop neighborhood of
   SVC-CHECKOUT-API over DEPENDS_ON, AFFECTED_BY, following edges outgoing only".
-- **Canvas**: the start node in the center, one ring per hop. Node color and shape show the
-  entity type; arrowheads show the stored direction; grey = verified, dashed red = refuted,
-  dashed orange = unverified, thick blue = selected edge or path.
+- **Canvas**: the start node in the center, one ring per hop, nodes grouped by type around
+  each ring. Node color and shape show the entity type; arrowheads show the stored direction;
+  grey = verified, dashed red = refuted, dashed orange = unverified, thick blue = selected edge
+  or path. Colors follow the active Streamlit theme (light or dark palette).
+- **Readability**: only edges leading one hop further out are drawn by default; links between
+  nodes on the same ring are counted and hidden behind *Show links between neighbors*.
+  Clicking a node puts it in focus: its links (including hidden ones) and neighbors stay in
+  front with relation labels, the rest fades. Labels sit outside the ring and are placed to
+  avoid collisions; a label with no free space is hidden (hover the node for its full name).
+  Incident nodes show the start of their title, not just the ID.
 - **Click a node** to see its type, aliases, incoming/outgoing degree, connected records and
   source record, with actions *Expand neighbors*, *Make start node* and *Path from start*.
   Expansions form a breadcrumb trail with *Undo expand* and *Reset*.

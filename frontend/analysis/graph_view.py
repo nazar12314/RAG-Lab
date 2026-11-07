@@ -194,17 +194,23 @@ def visible_edges(
 # ---------------------------------------------------------------- frames
 
 
-def _bounds(pos: dict[str, Position]) -> tuple[float, float, float, float]:
+MIN_HEIGHT = 280
+
+
+def _bounds(pos: dict[str, Position]) -> tuple[float, float, float, float, int]:
+    """Data domain plus canvas height. Flat layouts (paths) get a shorter canvas instead of
+    floating in empty space."""
     xs = [p[0] for p in pos.values()] or [0.0]
     ys = [p[1] for p in pos.values()] or [0.0]
     pad_x = max(0.9, (max(xs) - min(xs)) * 0.18)  # room for labels beside the outer ring
-    pad_y = max(0.6, (max(ys) - min(ys)) * 0.1)
+    pad_y = max(0.35, (max(ys) - min(ys)) * 0.1)
     x0, x1, y0, y1 = min(xs) - pad_x, max(xs) + pad_x, min(ys) - pad_y, max(ys) + pad_y
+    height = int(min(HEIGHT, max(MIN_HEIGHT, (y1 - y0) / (x1 - x0) * WIDTH)))
     # Same units-per-pixel on both axes, so hop rings render as circles.
-    units_per_px = max((x1 - x0) / WIDTH, (y1 - y0) / HEIGHT)
+    units_per_px = max((x1 - x0) / WIDTH, (y1 - y0) / height)
     cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    half_w, half_h = units_per_px * WIDTH / 2, units_per_px * HEIGHT / 2
-    return cx - half_w, cx + half_w, cy - half_h, cy + half_h
+    half_w, half_h = units_per_px * WIDTH / 2, units_per_px * height / 2
+    return cx - half_w, cx + half_w, cy - half_h, cy + half_h, height
 
 
 def _short(text: str, size: int = 24) -> str:
@@ -297,8 +303,8 @@ def build_frames(
     dim_unfocused: bool = True,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     t = THEMES.get(theme, THEMES["light"])
-    x0, x1, y0, y1 = _bounds(pos)
-    sx, sy = WIDTH / (x1 - x0), HEIGHT / (y1 - y0)
+    x0, x1, y0, y1, height = _bounds(pos)
+    sx, sy = WIDTH / (x1 - x0), height / (y1 - y0)
     labels = {n["key"]: n["label"] for n in nodes}
 
     # Focus: the selected node, or the endpoints of a selected edge.
@@ -436,7 +442,7 @@ def build_chart(
         radial_labels,
         dim_unfocused,
     )
-    x0, x1, y0, y1 = _bounds(pos)
+    x0, x1, y0, y1, height = _bounds(pos)
 
     def X(field: str) -> alt.X:  # noqa: N802 - mirrors alt.X
         return alt.X(f"{field}:Q", scale=alt.Scale(domain=[x0, x1]), axis=None)
@@ -582,7 +588,7 @@ def build_chart(
     return (
         alt.layer(*layers)
         .resolve_scale(color="independent", shape="independent")
-        .properties(width=WIDTH, height=HEIGHT)
+        .properties(width=WIDTH, height=height)
         .configure_view(strokeWidth=0)
     )
 
