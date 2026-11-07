@@ -7,7 +7,7 @@ from typing import Any
 
 import streamlit as st
 
-VIEWS = ["Overview", "Records & Documents"]
+VIEWS = ["Overview", "Records & Documents", "Graph Explorer"]
 RECORD_TYPES = [
     "documents",
     "incidents",

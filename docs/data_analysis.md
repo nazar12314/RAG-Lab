@@ -1,8 +1,8 @@
 # Data Analysis module
 
 A read-only workspace for inspecting the corpus before experimenting with retrieval. It
-implements phase DA-1 of the Data Analysis spec: **Overview** and **Records & Documents**.
-Graph Explorer (DA-2) and Data Quality / graph statistics (DA-3) build on the same API.
+implements phases DA-1 (**Overview**, **Records & Documents**) and DA-2 (**Graph Explorer**) of
+the Data Analysis spec. Data Quality / graph statistics (DA-3) build on the same API.
 
 No OpenAI key, embeddings or index are needed.
 
@@ -29,10 +29,47 @@ make frontend     # Streamlit on :8501 -> "Data Analysis" in the top navigation
   supports (select one to highlight its passage), and the full text as escaped source with
   evidence highlights, rendered markdown, or raw text.
 - **Stable links**: `?record=<type>/<id>` opens any record, e.g.
-  `/data_analysis?record=incidents/INC-104`.
+  `/data_analysis?record=incidents/INC-104`; `?node=<key>` opens the Graph Explorer there.
 
 The browser search is for locating records; it is deliberately not one of the benchmarked
 retrieval methods.
+
+## Graph Explorer
+
+Local exploration of the selected graph version instead of a whole-graph hairball.
+
+- **Find a node** by ID, name or alias (`payment-service` resolves to Payments API). *Start
+  here* makes it the center; *Path to* sets it as a path target.
+- **Traversal controls**: 1-3 hops, direction (both / outgoing / incoming), relation types,
+  "only edges valid on" a date (historical dependencies drop out), show/hide refuted edges, and
+  a node cap (default 100). Every response states its projection, e.g. "1-hop neighborhood of
+  SVC-CHECKOUT-API over DEPENDS_ON, AFFECTED_BY, following edges outgoing only".
+- **Canvas**: the start node in the center, one ring per hop. Node color and shape show the
+  entity type; arrowheads show the stored direction; grey = verified, dashed red = refuted,
+  dashed orange = unverified, thick blue = selected edge or path.
+- **Click a node** to see its type, aliases, incoming/outgoing degree, connected records and
+  source record, with actions *Expand neighbors*, *Make start node* and *Path from start*.
+  Expansions form a breadcrumb trail with *Undo expand* and *Reset*.
+- **Click an edge** (its ◆ midpoint) to see relation type, direction, validity, verification
+  status and the supporting passages or records; *Open in document* jumps to the exact
+  sentence. Edges without a source say "No supporting source available."
+- **Path mode**: up to five shortest connections between the start node and a target, drawn
+  left to right and listed as `A —REL→ B ←REL— C`. By default direction is ignored and refuted
+  edges are excluded; edges walked against their arrow keep their stored direction. A shortest
+  connection is not proof of causality.
+- **Safeguards**: the node and edge caps report how many nodes were reachable and suggest
+  narrowing the filters; layouts are deterministic; a table view and JSON export are always
+  available.
+- **Examples**: *Checkout → INC-104* loads the spec's demo story (Checkout API depends on
+  Payments API, affected by INC-104, triggered by v2.8.0) with the triggering edge and its
+  postmortem passage selected; *shortest path* shows two 2-hop connections from Checkout API to
+  that deployment.
+
+Rendering uses NetworkX for traversal and Altair for the canvas (both native to the stack), so
+node and edge clicks use Streamlit's built-in selection events. The third-party graph widgets
+suggested in the spec (st-graph-workbench 0.1.0, one release; streamlit-sigmajs 0.3.0) were
+reviewed and not adopted for now; the backend's `GraphView` is widget-independent, so one can
+be swapped in later without API changes.
 
 ## Architecture
 
@@ -65,6 +102,9 @@ labels.
 | `GET /analysis/records/{type}/{id}` | record detail, links and supporting passages |
 | `GET /analysis/documents/{id}` | full document, evidence highlights, chunks when indexed |
 | `GET /analysis/export` | filtered CSV or JSON (up to 10,000 rows) |
+| `GET /analysis/graph/search` | nodes matching an ID, name or alias, ranked |
+| `GET /analysis/graph/neighborhood` | bounded 1-3 hop subgraph with projection and truncation |
+| `GET /analysis/graph/path` | up to 10 shortest connections, edges in stored direction |
 
 All endpoints take `dataset` and optional `graph`; an index profile or graph that does not
 belong to the dataset is rejected with HTTP 400. Record pages report which filters were

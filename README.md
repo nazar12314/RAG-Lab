@@ -89,5 +89,6 @@ the gold-label boundary.
 ## Data Analysis
 
 The **Data Analysis** page explores that corpus before any retriever runs: distributions with
-click-to-filter charts, a record browser, record details with their supporting passages, and a
-document inspector with evidence highlights. See [docs/data_analysis.md](docs/data_analysis.md).
+click-to-filter charts, a record browser, record details with their supporting passages, a
+document inspector with evidence highlights, and a Graph Explorer for bounded neighborhood
+traversal, shortest paths and edge provenance. See [docs/data_analysis.md](docs/data_analysis.md).

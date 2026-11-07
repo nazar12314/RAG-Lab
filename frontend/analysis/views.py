@@ -10,7 +10,7 @@ from urllib.parse import quote
 import pandas as pd
 import streamlit as st
 
-from frontend.analysis import api, charts, state
+from frontend.analysis import api, charts, graph_page, state
 from frontend.analysis.api import LabApiError
 from frontend.analysis.rendering import highlight_html, snippet_html
 
@@ -48,14 +48,20 @@ def render() -> None:
         st.stop()
     state.init(facets)
     _apply_deep_link()
-    _filter_bar(facets)
-    filters = state.api_filters(facets)
 
     st.segmented_control(
         "View", state.VIEWS, key="da_view", required=True, label_visibility="collapsed"
     )
+    view = st.session_state["da_view"]
     try:
-        if st.session_state["da_view"] == "Overview":
+        if view == "Graph Explorer":
+            # The explorer has its own traversal controls; record filters do not apply.
+            dataset = next(d for d in datasets if d["id"] == ref["dataset"])
+            graph_page.render(ref, facets, dataset, _detail)
+            return
+        _filter_bar(facets)
+        filters = state.api_filters(facets)
+        if view == "Overview":
             _overview(ref, filters, facets)
         else:
             _records(ref, filters)
@@ -68,8 +74,13 @@ def render() -> None:
 
 
 def _apply_deep_link() -> None:
-    """`?record=<type>/<id>` opens that record, so any record can be shared as a stable link."""
+    """`?record=<type>/<id>` opens a record and `?node=<key>` a graph neighborhood, so both
+    can be shared as stable links."""
     ss = st.session_state
+    node = st.query_params.get("node")
+    if node and node != ss.get("da_node_applied"):
+        ss["da_node_applied"] = node
+        graph_page.start_at(node)
     target = st.query_params.get("record")
     if not target or target == ss.get("da_link_applied") or "/" not in target:
         return
@@ -77,8 +88,9 @@ def _apply_deep_link() -> None:
     ss["da_link_applied"] = target
     if record_type in state.RECORD_TYPES:
         state.select(record_type, record_id)
-        ss["da_view"] = "Records & Documents"
-        ss["da_record_type"] = record_type
+        if ss["da_view"] != "Graph Explorer":
+            ss["da_view"] = "Records & Documents"
+            ss["da_record_type"] = record_type
 
 
 def _sync_deep_link(selected: dict[str, Any] | None) -> None:
@@ -450,12 +462,32 @@ def _link_groups(groups: list[dict[str, Any]], key_prefix: str) -> None:
         )
 
 
+def _graph_key(rt: str, record_id: str, detail: dict[str, Any]) -> str | None:
+    """The graph node a record corresponds to (graph keys reuse corpus record IDs)."""
+    if rt in ("services", "incidents", "deployments", "entities"):
+        return record_id
+    if rt == "relations":
+        return detail["attributes"]["source_key"]
+    return None
+
+
 def _record(ref: dict[str, Any], selected: dict[str, Any]) -> None:
     rt, record_id = selected["type"], selected["id"]
     detail = api.get(f"/analysis/records/{rt}/{quote(record_id, safe='')}", **ref)
     st.subheader(detail["label"])
     st.caption(state.RECORD_LABELS[rt].rstrip("s") if rt != "entities" else "Entity")
-    st.code(record_id, language=None)
+    c = st.columns([5, 1], vertical_alignment="center")
+    c[0].code(record_id, language=None)
+    graph_key = _graph_key(rt, record_id, detail)
+    if graph_key:
+        c[1].button(
+            "Explore in graph",
+            icon=":material/hub:",
+            width="stretch",
+            key=f"explore-{rt}-{record_id}",
+            on_click=graph_page.start_at,
+            args=(graph_key,),
+        )
     for note in detail["notes"]:
         st.warning(note, icon=":material/report:")
     left, right = st.columns([2, 3])
