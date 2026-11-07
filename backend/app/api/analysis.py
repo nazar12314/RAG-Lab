@@ -12,18 +12,24 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
 
 from backend.app.analysis.details import NotFound
+from backend.app.analysis.graph import DEFAULT_MAX_EDGES, DEFAULT_MAX_NODES, MAX_DEPTH
 from backend.app.config import get_settings
 from backend.app.models.analysis import (
     DatasetInfo,
     DatasetRef,
+    Direction,
     DocumentDetail,
     EvidenceFilter,
     Facets,
     FilterSet,
+    GraphView,
+    NodeMatch,
     Overview,
+    PathResult,
     RecordDetail,
     RecordPage,
     RecordType,
+    TraversalFilter,
 )
 from backend.app.services.analysis_service import (
     MAX_PAGE_SIZE,
@@ -179,3 +185,73 @@ def export(
             {k: "; ".join(map(str, v)) if isinstance(v, list) else v for k, v in item.items()}
         )
     return Response(buffer.getvalue(), media_type="text/csv", headers=headers)
+
+
+# ---------------------------------------------------------------- graph explorer
+
+
+def get_traversal(
+    relation_type: Annotated[list[str], Query()] = [],  # noqa: B006 - FastAPI query list default
+    direction: Direction = "both",
+    as_of: Annotated[date | None, Query(description="Only edges valid on this date")] = None,
+    include_refuted: bool = True,
+) -> TraversalFilter:
+    return TraversalFilter(
+        relation_types=relation_type,
+        direction=direction,
+        as_of=as_of,
+        include_refuted=include_refuted,
+    )
+
+
+Traversal = Annotated[TraversalFilter, Depends(get_traversal)]
+
+
+@router.get("/graph/search", response_model=list[NodeMatch])
+def graph_search(
+    service: Service,
+    ref: Ref,
+    q: Annotated[str, Query(min_length=1, max_length=100)],
+    limit: Annotated[int, Query(ge=1, le=50)] = 20,
+) -> list[NodeMatch]:
+    return service.graph_search(ref, q, limit)
+
+
+@router.get("/graph/neighborhood", response_model=GraphView)
+def graph_neighborhood(
+    service: Service,
+    ref: Ref,
+    traversal: Traversal,
+    node: str,
+    depth: Annotated[int, Query(ge=1, le=MAX_DEPTH)] = 1,
+    expand: Annotated[list[str], Query(max_length=20)] = [],  # noqa: B006
+    max_nodes: Annotated[int, Query(ge=5, le=200)] = DEFAULT_MAX_NODES,
+    max_edges: Annotated[int, Query(ge=5, le=400)] = DEFAULT_MAX_EDGES,
+) -> GraphView:
+    try:
+        return service.graph_neighborhood(ref, node, depth, traversal, expand, max_nodes, max_edges)
+    except NotFound as exc:
+        raise _not_found(exc) from exc
+
+
+@router.get("/graph/path", response_model=PathResult)
+def graph_path(
+    service: Service,
+    ref: Ref,
+    source: str,
+    target: str,
+    relation_type: Annotated[list[str], Query()] = [],  # noqa: B006
+    as_of: date | None = None,
+    include_refuted: Annotated[
+        bool, Query(description="Refuted edges are excluded from paths by default")
+    ] = False,
+    directed: bool = False,
+    limit: Annotated[int, Query(ge=1, le=10)] = 5,
+) -> PathResult:
+    traversal = TraversalFilter(
+        relation_types=relation_type, as_of=as_of, include_refuted=include_refuted
+    )
+    try:
+        return service.graph_path(ref, source, target, traversal, directed, limit)
+    except NotFound as exc:
+        raise _not_found(exc) from exc

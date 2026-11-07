@@ -224,3 +224,100 @@ class DocumentDetail(BaseModel):
     index_profile: str | None
     chunks: list[ChunkSpan]
     chunk_status: str
+
+
+# ---------------------------------------------------------------- graph explorer
+
+Direction = Literal["both", "out", "in"]
+
+
+class TraversalFilter(BaseModel):
+    """Which edges a traversal may follow. Recorded with every graph response."""
+
+    relation_types: list[str] = Field(default_factory=list)
+    direction: Direction = "both"
+    as_of: date | None = None
+    include_refuted: bool = True
+
+
+class NodeMatch(BaseModel):
+    key: str
+    label: str
+    entity_type: str
+    matched_on: Literal["id", "alias", "name"]
+    matched_text: str
+    degree: int
+
+
+class GraphNode(BaseModel):
+    key: str
+    label: str
+    entity_type: str
+    depth: int
+    in_degree: int
+    out_degree: int
+    is_seed: bool
+    is_expanded: bool
+    record: RecordLink | None
+
+
+class GraphEdge(BaseModel):
+    id: str
+    source: str
+    target: str
+    relation_type: str
+    verified_status: str
+    confidence: float
+    valid_from: date | None
+    valid_to: date | None
+    doc_evidence: int
+    record_evidence: int
+    evidence: str
+
+
+class GraphProjection(BaseModel):
+    graph: str
+    graph_kind: str
+    filter: TraversalFilter
+    depth: int
+    max_nodes: int
+    max_edges: int
+    description: str
+
+
+class GraphView(BaseModel):
+    ref: DatasetRef
+    projection: GraphProjection
+    seed: str
+    expanded: list[str]
+    nodes: list[GraphNode]
+    edges: list[GraphEdge]
+    reachable_nodes: int
+    truncated: bool
+    truncation_reason: str | None
+    computed_at: datetime
+
+
+class PathStep(BaseModel):
+    """One hop; each edge keeps its stored direction, which may point against the walk."""
+
+    from_key: str
+    to_key: str
+    edges: list[GraphEdge]
+
+
+class GraphPath(BaseModel):
+    nodes: list[str]
+    steps: list[PathStep]
+
+
+class PathResult(BaseModel):
+    ref: DatasetRef
+    source: str
+    target: str
+    directed: bool
+    filter: TraversalFilter
+    length: int | None
+    paths: list[GraphPath]
+    nodes: list[GraphNode]
+    message: str

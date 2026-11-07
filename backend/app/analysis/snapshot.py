@@ -39,6 +39,7 @@ class Snapshot:
     teams: dict[str, str]
     subsystems: dict[str, str]
     aliases: dict[str, list[str]] = field(default_factory=dict)
+    graph_index: Any = field(default=None, repr=False)
 
     @property
     def as_of(self) -> date:

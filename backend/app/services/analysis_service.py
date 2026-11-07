@@ -7,6 +7,7 @@ from typing import Any, Protocol
 
 from backend.app.analysis import details
 from backend.app.analysis.details import NotFound
+from backend.app.analysis.graph import DEFAULT_MAX_EDGES, DEFAULT_MAX_NODES, graph_index
 from backend.app.analysis.overview import SEVERITY_LABEL, build_overview
 from backend.app.analysis.records import COLUMNS, apply_filters, base_frame, sort_page, to_items
 from backend.app.analysis.snapshot import Snapshot, build_snapshot
@@ -18,11 +19,15 @@ from backend.app.models.analysis import (
     Facets,
     FilterSet,
     GraphInfo,
+    GraphView,
     IndexInfo,
+    NodeMatch,
     Overview,
+    PathResult,
     RecordDetail,
     RecordPage,
     RecordType,
+    TraversalFilter,
 )
 
 MAX_PAGE_SIZE = 200
@@ -207,3 +212,31 @@ class AnalysisService:
                 )
             chunks = self.source.chunks(index_profile, document_id)
         return details.document_detail(s, ref, document_id, index_profile, chunks)
+
+    def graph_search(self, ref: DatasetRef, query: str, limit: int = 20) -> list[NodeMatch]:
+        return graph_index(self.snapshot(ref)).search(query, limit)
+
+    def graph_neighborhood(
+        self,
+        ref: DatasetRef,
+        node: str,
+        depth: int,
+        f: TraversalFilter,
+        expand: list[str] | None = None,
+        max_nodes: int = DEFAULT_MAX_NODES,
+        max_edges: int = DEFAULT_MAX_EDGES,
+    ) -> GraphView:
+        return graph_index(self.snapshot(ref)).neighborhood(
+            ref, node, depth, f, expand, max_nodes, max_edges
+        )
+
+    def graph_path(
+        self,
+        ref: DatasetRef,
+        source: str,
+        target: str,
+        f: TraversalFilter,
+        directed: bool,
+        limit: int = 5,
+    ) -> PathResult:
+        return graph_index(self.snapshot(ref)).paths(ref, source, target, f, directed, limit)
