@@ -252,6 +252,7 @@ class NodeMatch(BaseModel):
 class GraphNode(BaseModel):
     key: str
     label: str
+    description: str
     entity_type: str
     depth: int
     in_degree: int

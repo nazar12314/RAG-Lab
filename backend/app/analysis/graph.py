@@ -98,6 +98,8 @@ class GraphIndex:
         return GraphNode(
             key=key,
             label=data["label"],
+            # e.g. "INC-104 Card payments failing at checkout" where the label is only the ID
+            description=self.s.label(key),
             entity_type=data["entity_type"],
             depth=depth,
             in_degree=self.g.in_degree(key),

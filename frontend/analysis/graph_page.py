@@ -17,6 +17,7 @@ SEED, DEPTH, DIRECTION, TYPES = "g_seed", "g_depth", "g_direction", "g_relation_
 USE_DATE, AS_OF, REFUTED, MAX_NODES = "g_use_date", "g_as_of", "g_include_refuted", "g_max_nodes"
 EXPANDED, MODE, TARGET, DIRECTED = "g_expanded", "g_mode", "g_path_target", "g_path_directed"
 PATH_REFUTED, SEARCH, PRESELECT = "g_path_refuted", "g_search", "g_preselect"
+CROSS = "g_cross_links"
 
 MODES = ["Neighborhood", "Path"]
 DIRECTIONS = {"both": "Both directions", "out": "Outgoing →", "in": "← Incoming"}
@@ -41,6 +42,7 @@ def init(as_of: date) -> None:
         PATH_REFUTED: False,
         SEARCH: "",
         PRESELECT: None,
+        CROSS: False,
     }
     for key, value in defaults.items():
         st.session_state.setdefault(key, value)
@@ -210,14 +212,12 @@ def _controls(facets: dict[str, Any], dmin: date, dmax: date) -> None:
             key=REFUTED,
             help="Refuted edges are suspicions that were ruled out (drawn dashed red).",
         )
-        c[3].button(
-            "Example: Checkout → INC-104",
-            on_click=_load_story,
-            width="stretch",
-            help="Checkout API depends on Payments API, which was affected by INC-104, "
-            "triggered by deployment v2.8.0.",
+        c[3].toggle(
+            "Show links between neighbors",
+            key=CROSS,
+            help="Off: only edges that lead one hop further out are drawn, which keeps the "
+            "picture readable. Links of the selected node are always shown.",
         )
-        c[4].button("Example: shortest path", on_click=_load_path_example, width="stretch")
 
 
 def _traversal_params() -> dict[str, Any]:
@@ -268,6 +268,13 @@ def _apply_preselect(view: dict[str, Any]) -> None:
             return
 
 
+def _theme() -> str:
+    try:
+        return st.context.theme.type or "light"
+    except AttributeError:
+        return "light"
+
+
 def _canvas(
     nodes: list[dict],
     edges: list[dict],
@@ -275,14 +282,26 @@ def _canvas(
     key: str,
     highlight: set[str],
     selected_node: str | None,
+    path_mode: bool = False,
 ) -> None:
-    chart = graph_view.build_chart(nodes, edges, pos, highlight, selected_node)
-    st.altair_chart(chart, key=key, on_select=partial(_on_canvas_select, key), width="content")
-    st.caption(
-        "Click a node or an edge's ◆ midpoint to inspect it. Edges: grey = verified, "
-        "dashed red = refuted, dashed orange = unverified, thick blue = selected / path. "
-        "Arrowheads show the stored direction."
+    chart = graph_view.build_chart(
+        nodes,
+        edges,
+        pos,
+        highlight,
+        selected_node,
+        theme=_theme(),
+        radial_labels=not path_mode,
+        dim_unfocused=not path_mode,
     )
+    with st.container(border=True):
+        st.markdown(
+            "**Edges:** :gray[━ verified] · :red[┅ refuted] · :orange[┅ unverified] · "
+            ":blue[━ selected / path] · arrowheads show the stored direction.  \n"
+            ":gray[Click a node to focus it (its links stay, the rest fades) or an edge's ◆ "
+            "midpoint to see the passage that supports it.]"
+        )
+        st.altair_chart(chart, key=key, on_select=partial(_on_canvas_select, key), width="content")
 
 
 def _node_actions(view_keys: set[str]) -> None:
@@ -372,16 +391,20 @@ def _neighborhood(ref: dict[str, Any]) -> set[str]:
     view = api.get("/analysis/graph/neighborhood", **params)
     _apply_preselect(view)
     _breadcrumb(view)
-    st.caption(
+    selected_node, highlight = _selection()
+    shown, hidden = graph_view.visible_edges(view["nodes"], view["edges"], ss[CROSS], selected_node)
+    summary = (
         f"{view['projection']['description']} {len(view['nodes'])} nodes, "
-        f"{len(view['edges'])} edges."
+        f"{len(shown)} of {len(view['edges'])} edges drawn."
     )
+    if hidden:
+        summary += f" {hidden} links between neighbors hidden (see *Show links between neighbors*)."
+    st.caption(summary)
     if view["truncated"]:
         st.warning(f"Too many nodes: {view['truncation_reason']}", icon=":material/hub:")
-    selected_node, highlight = _selection()
     pos = graph_view.ring_layout(view["nodes"], view["edges"])
     key = f"g_canvas_{abs(hash(json.dumps(params, sort_keys=True, default=str)))}"
-    _canvas(view["nodes"], view["edges"], pos, key, highlight, selected_node)
+    _canvas(view["nodes"], shown, pos, key, highlight, selected_node)
     keys = {n["key"] for n in view["nodes"]}
     _node_actions(keys)
     _tables(view["nodes"], view["edges"], view, f"graph-{ss[SEED]}.json")
@@ -437,7 +460,15 @@ def _path(ref: dict[str, Any]) -> set[str]:
     selected_node, highlight = _selection()
     pos = graph_view.path_layout(result["paths"])
     key = f"g_path_{abs(hash(json.dumps(params, sort_keys=True, default=str)))}"
-    _canvas(result["nodes"], list(edges.values()), pos, key, highlight | set(edges), selected_node)
+    _canvas(
+        result["nodes"],
+        list(edges.values()),
+        pos,
+        key,
+        highlight | set(edges),
+        selected_node,
+        path_mode=True,
+    )
     keys = {n["key"] for n in result["nodes"]}
     _node_actions(keys)
     _tables(result["nodes"], list(edges.values()), result, f"path-{ss[SEED]}-{ss[TARGET]}.json")
@@ -458,7 +489,22 @@ def render(
     )
     _search_box(ref)
     _controls(facets, dmin, dmax)
-    st.segmented_control("Mode", MODES, key=MODE, required=True, label_visibility="collapsed")
+    c = st.columns([3, 2, 2], vertical_alignment="center")
+    c[0].segmented_control("Mode", MODES, key=MODE, required=True, label_visibility="collapsed")
+    c[1].button(
+        "Example: Checkout → INC-104",
+        on_click=_load_story,
+        width="stretch",
+        icon=":material/play_circle:",
+        help="Checkout API depends on Payments API, which was affected by INC-104, "
+        "triggered by deployment v2.8.0.",
+    )
+    c[2].button(
+        "Example: shortest path",
+        on_click=_load_path_example,
+        width="stretch",
+        icon=":material/route:",
+    )
     if st.session_state[MODE] == "Neighborhood":
         _neighborhood(ref)
     else:
