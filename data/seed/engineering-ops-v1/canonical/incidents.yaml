@@ -1,0 +1,1040 @@
+# Canonical incident truth. Text placeholders:
+#   {svc:<slug>}       service, rendered with a per-document alias choice
+#   {svc:<slug>|name}  service, always rendered with its canonical name
+#   {dpl:<DPL-ID>}     deployment, rendered as "<service> <version>" in varying styles
+#   {ext:<EXT-ID>}     external system
+# Fields:
+#   trigger            deployment that triggered the incident (verified cause)
+#   root_cause_in      service / external system where the root cause lived, when not a deployment
+#   ruled_out          deployments that were suspected but verified as NOT causing the incident
+#   resolved_by        deployments that resolved / mitigated it (rollbacks, hotfixes, config reverts)
+#   preliminary        early hypothesis written during the incident; may be wrong on purpose
+#   record             how the incident appears in the business tables when it differs from the truth
+incidents:
+  - id: INC-101
+    title: Stale product images on product pages
+    severity: 4
+    primary_service: catalog-service
+    affected: [{service: catalog-service, impact: primary}]
+    started_at: "2026-04-09T08:10:00Z"
+    detected_at: "2026-04-09T09:30:00Z"
+    mitigated_at: "2026-04-09T11:00:00Z"
+    resolved_at: "2026-04-09T11:00:00Z"
+    cause_category: config
+    trigger: DPL-004
+    resolved_by: []
+    summary: Product pages showed outdated or missing images for newly updated products.
+    impact: Cosmetic only. About 1,200 products showed an old thumbnail for up to three hours; no orders were affected.
+    detection: A merchandiser reported in #help-catalog that edited product photos were not appearing on the storefront.
+    preliminary: Looks like the CDN is not picking up new uploads, possibly a CDN provider issue.
+    root_cause: The new image pipeline in {dpl:DPL-004} set a one-week Cache-Control max-age on thumbnail URLs that do not change when the image changes, so the CDN kept serving the old file.
+    resolution: The team purged the CDN cache for the thumbnail path and shortened max-age to ten minutes in the service configuration.
+    action_items: [Version thumbnail URLs with a content hash]
+    timeline:
+      - {at: "09:30", text: Merchandiser reports stale images.}
+      - {at: "10:15", text: "{svc:catalog-service} on-call confirms Cache-Control headers of one week."}
+      - {at: "11:00", text: CDN purge completed and max-age reduced.}
+
+  - id: INC-102
+    title: Users logged out and unable to sign in
+    severity: 2
+    primary_service: auth-service
+    affected:
+      - {service: auth-service, impact: primary}
+      - {service: shared-redis, impact: degraded}
+      - {service: checkout-api, impact: downstream}
+      - {service: api-gateway, impact: downstream}
+    started_at: "2026-04-09T13:05:00Z"
+    detected_at: "2026-04-09T13:12:00Z"
+    mitigated_at: "2026-04-09T15:20:00Z"
+    resolved_at: "2026-04-09T16:45:00Z"
+    cause_category: capacity
+    root_cause_in: shared-redis
+    resolved_by: [DPL-005]
+    summary: Customers were randomly signed out, including in the middle of checkout, and some could not log back in.
+    impact: For about two hours roughly one in five active sessions was dropped. Customers lost their place in checkout and had to log in again; around 9% of login attempts failed with a generic error.
+    detection: Alert AuthSessionMissRateHigh fired at 13:12 and the support queue spiked with "logged out" complaints.
+    preliminary: Suspect the auth-service v6.0.0 session key prefix change from earlier this week.
+    root_cause: The {svc:shared-redis} shards were at their 8 GB memory limit and the allkeys-lru eviction policy started evicting live session keys, which have no TTL priority over cache entries. Traffic growth after the spring campaign pushed memory over the limit.
+    ruled_out_text: The session key prefix change shipped in auth-service v6.0.0 was reviewed and is unrelated; keys were present until evicted.
+    resolution: Platform SRE switched the eviction policy to volatile-lru and doubled maxmemory to 16 GB per shard ({dpl:DPL-005}); session loss stopped immediately after the change.
+    action_items: [Separate the session cache from general caches, Alert on Redis evicted_keys rate]
+    timeline:
+      - {at: "13:12", text: AuthSessionMissRateHigh alert fires.}
+      - {at: "13:40", text: "Identity on-call sees sessions missing from {svc:shared-redis}."}
+      - {at: "14:30", text: "evicted_keys counter found climbing on all shards."}
+      - {at: "15:20", text: "Eviction policy and memory limit changed; errors drop."}
+      - {at: "16:45", text: Incident resolved after an hour of stable metrics.}
+
+  - id: INC-103
+    title: Order confirmation emails delayed
+    severity: 3
+    primary_service: email-dispatcher
+    affected:
+      - {service: email-dispatcher, impact: primary}
+      - {service: notification-service, impact: degraded}
+    started_at: "2026-04-15T17:00:00Z"
+    detected_at: "2026-04-15T17:40:00Z"
+    mitigated_at: "2026-04-15T20:10:00Z"
+    resolved_at: "2026-04-15T21:30:00Z"
+    cause_category: external
+    root_cause_in: EXT-MAILRELAY
+    resolved_by: []
+    summary: Order confirmation and shipping emails arrived up to four hours late.
+    impact: About 22,000 transactional emails were delayed by up to four hours. No emails were lost.
+    detection: The email queue depth alert fired when the backlog exceeded 5,000 messages.
+    preliminary: Mailer workers may be stuck; restart them.
+    root_cause: "{ext:EXT-MAILRELAY} started returning HTTP 429 after our sending volume exceeded the account's hourly quota during a flash sale. The {svc:email-dispatcher} retried with a fixed one-minute delay, which kept us above the quota."
+    resolution: MailRelay support raised the hourly quota at 20:10 and the backlog drained by 21:30. Restarting workers had no effect.
+    action_items: [Ask MailRelay for a permanent quota increase before campaigns, Exponential backoff on 429 responses]
+    timeline:
+      - {at: "17:40", text: Queue depth alert.}
+      - {at: "18:05", text: Workers restarted without improvement.}
+      - {at: "18:50", text: "429 Too Many Requests from {ext:EXT-MAILRELAY} identified."}
+      - {at: "20:10", text: Quota raised by the provider.}
+
+  - id: INC-104
+    title: Card payments failing at checkout
+    severity: 1
+    primary_service: payments-api
+    affected:
+      - {service: payments-api, impact: primary}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-04-22T10:12:00Z"
+    detected_at: "2026-04-22T10:19:00Z"
+    mitigated_at: "2026-04-22T11:05:00Z"
+    resolved_at: "2026-04-22T11:40:00Z"
+    cause_category: deployment
+    trigger: DPL-010
+    ruled_out: [DPL-009]
+    resolved_by: [DPL-011]
+    follow_up: [DPL-017]
+    summary: Customers could not complete purchases because payment requests timed out on the final checkout step.
+    impact: Roughly 38% of card payment attempts failed for 53 minutes. Shoppers saw "Your payment could not be processed" on the last step of checkout and many abandoned their carts.
+    detection: The CheckoutPaymentErrorRate alert fired at 10:19 and support reported a surge of customers unable to pay.
+    preliminary: The cart-service v1.12.0 release (cart merge on login) went out at 09:40, shortly before errors began, and is the main suspect.
+    root_cause: The configuration refactor in {dpl:DPL-010} read the database pool size from a new PAYMENTS_DB_POOL_MAX variable that was never set in production, so every pod fell back to the default of 10 connections instead of 40. Under normal morning traffic the connection pool was exhausted within minutes; authorization requests queued waiting for a free connection and timed out after five seconds.
+    trigger_text: Errors started seven minutes after {dpl:DPL-010} reached 100% of pods.
+    ruled_out_text: The {svc:cart-service} release deployed at 09:40 was initially suspected because of its timing, but its error rates were flat and it does not touch the payment path. It was ruled out.
+    resolution: The Payments team rolled back to v2.7.3 at 11:02 ({dpl:DPL-011}); pool utilisation fell below 50% and payment success returned to normal by 11:05. The fixed config was re-released two weeks later.
+    action_items: [Fail startup when the pool is smaller than the worker count, Add pool saturation alert for Payments API, Config defaults reviewed by a second engineer]
+    timeline:
+      - {at: "09:40", text: "{dpl:DPL-009} deployed."}
+      - {at: "10:05", text: "{dpl:DPL-010} rollout starts."}
+      - {at: "10:12", text: Payment timeouts begin.}
+      - {at: "10:19", text: CheckoutPaymentErrorRate alert fires; incident declared SEV1.}
+      - {at: "10:35", text: "{svc:cart-service} rollback considered; dashboards show cart is healthy."}
+      - {at: "10:48", text: "DB pool metrics show all 10 connections in use on every {svc:payments-api} pod."}
+      - {at: "11:02", text: Rollback to v2.7.3 completed.}
+      - {at: "11:05", text: Payment success rate back to baseline.}
+
+  - id: INC-105
+    title: Nightly data warehouse load failed
+    severity: 4
+    primary_service: warehouse-loader
+    affected:
+      - {service: warehouse-loader, impact: primary}
+    started_at: "2026-04-28T02:00:00Z"
+    detected_at: "2026-04-28T06:30:00Z"
+    mitigated_at: "2026-04-29T10:10:00Z"
+    resolved_at: "2026-04-29T12:00:00Z"
+    cause_category: deployment
+    trigger: DPL-012
+    resolved_by: [DPL-013]
+    summary: The nightly ETL into the analytics warehouse failed and dashboards showed no orders for April 27.
+    impact: Finance and analytics dashboards were a day stale. No customer impact.
+    detection: Data Platform morning check found the orders_daily table empty for the previous day.
+    preliminary: Possibly a permissions problem on the orders-db read replica.
+    root_cause: The schema migration in {dpl:DPL-012} renamed the column shipping_addr to shipping_address. The {svc:warehouse-loader} export query still selected the old column name and failed every night.
+    resolution: "{dpl:DPL-013} updated the column mapping and the missing day was backfilled."
+    action_items: [Schema change notifications to Data Platform, Contract tests for the export query]
+    timeline:
+      - {at: "02:00", text: Nightly load fails with column does not exist.}
+      - {at: "06:30", text: Missing data noticed.}
+
+  - id: INC-106
+    title: Overselling of out-of-stock items
+    severity: 2
+    primary_service: inventory-service
+    affected:
+      - {service: inventory-service, impact: primary}
+      - {service: warehouse-sync, impact: primary}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-05-04T08:00:00Z"
+    detected_at: "2026-05-04T10:40:00Z"
+    mitigated_at: "2026-05-04T12:30:00Z"
+    resolved_at: "2026-05-05T09:00:00Z"
+    cause_category: deployment
+    trigger: DPL-015
+    resolved_by: [DPL-016]
+    summary: Customers were able to buy items that were already out of stock.
+    impact: 640 orders were accepted for items with no stock and had to be cancelled with an apology voucher.
+    detection: Warehouse staff escalated a large number of pick failures.
+    preliminary: Reservation expiry bug in inventory.
+    root_cause: "{dpl:DPL-015} replaced incremental stock deltas with full snapshots processed in parallel. Snapshots from different warehouses overwrote each other's newer counts with older values, so sold-out items reappeared as in stock."
+    resolution: "{svc:warehouse-sync} was rolled back to v1.9.4 ({dpl:DPL-016}) and a reconciliation script restored correct stock levels overnight."
+    action_items: [Reject snapshots older than current stock version]
+    timeline:
+      - {at: "07:45", text: "{dpl:DPL-015} deployed."}
+      - {at: "10:40", text: Pick failures escalated.}
+      - {at: "12:30", text: Rollback to v1.9.4.}
+      - {at: "2026-05-05 09:00", text: Reconciliation finished.}
+
+  - id: INC-107
+    title: Wrong discounts applied to orders
+    severity: 3
+    primary_service: pricing-service
+    affected:
+      - {service: pricing-service, impact: primary}
+      - {service: cart-service, impact: downstream}
+    started_at: "2026-05-11T08:05:00Z"
+    detected_at: "2026-05-11T09:15:00Z"
+    mitigated_at: "2026-05-11T10:20:00Z"
+    resolved_at: "2026-05-11T10:20:00Z"
+    cause_category: config
+    trigger: DPL-018
+    resolved_by: [DPL-019]
+    summary: Category discounts stacked on top of each other, giving some customers up to 60% off.
+    impact: About 1,900 orders received larger discounts than intended over two hours.
+    detection: Finance noticed an unusual drop in average order value.
+    preliminary: Promotion rule set r42 published this morning.
+    root_cause: Rule set r42 ({dpl:DPL-018}) marked two overlapping category promotions as stackable, so the {svc:pricing-service} applied both.
+    resolution: The rule set was reverted to r41 ({dpl:DPL-019}).
+    action_items: [Preview of effective discount for promotion changes]
+    timeline:
+      - {at: "08:00", text: Rule set r42 published.}
+      - {at: "09:15", text: Finance raises concern.}
+      - {at: "10:20", text: Reverted to r41.}
+
+  - id: INC-108
+    title: Orders database saturation slows checkout and payments
+    severity: 2
+    primary_service: orders-db
+    affected:
+      - {service: orders-db, impact: primary}
+      - {service: order-service, impact: degraded}
+      - {service: payments-api, impact: degraded}
+      - {service: ledger-service, impact: degraded}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-05-19T13:50:00Z"
+    detected_at: "2026-05-19T13:58:00Z"
+    mitigated_at: "2026-05-19T14:40:00Z"
+    resolved_at: "2026-05-19T15:30:00Z"
+    cause_category: config
+    root_cause_in: warehouse-loader
+    resolved_by: [DPL-021]
+    summary: Checkout and payment requests became very slow and some failed while the orders database was overloaded.
+    impact: For 50 minutes p99 checkout latency exceeded 12 seconds and about 7% of payments failed with timeouts.
+    detection: OrdersDbActiveConnectionsHigh fired at 13:58; Payments saw "too many connections" errors.
+    preliminary: Looks like the payments connection pool problem from April again.
+    root_cause: After the read replica was rebuilt on May 18, the {svc:warehouse-loader} export connection string was left pointing at the primary. An ad-hoc full-table export ran against the {svc:orders-db} primary, saturating CPU and I/O and holding hundreds of connections, which starved order, payment and ledger traffic.
+    ruled_out_text: Payments API pool settings were checked and were correct (40 connections); this was not a repeat of INC-104.
+    resolution: The export job was killed at 14:35 and the loader was pinned to the replica endpoint ({dpl:DPL-021}).
+    action_items: [Separate database role for analytics with a connection limit, Alert when analytics queries hit the primary]
+    timeline:
+      - {at: "13:50", text: Export job starts against the primary.}
+      - {at: "13:58", text: Active connections alert.}
+      - {at: "14:20", text: "pg_stat_activity shows the export holding 300+ connections."}
+      - {at: "14:35", text: Export killed.}
+      - {at: "15:30", text: Loader pinned to replica.}
+
+  - id: INC-109
+    title: Elevated 502 errors on older Android app versions
+    severity: 3
+    primary_service: api-gateway
+    affected:
+      - {service: api-gateway, impact: primary}
+    started_at: "2026-05-27T06:05:00Z"
+    detected_at: "2026-05-27T07:20:00Z"
+    mitigated_at: "2026-05-27T09:00:00Z"
+    resolved_at: "2026-05-27T09:00:00Z"
+    cause_category: config
+    trigger: DPL-024
+    resolved_by: []
+    summary: Some mobile users saw connection errors after the TLS certificate rotation.
+    impact: About 4% of mobile sessions, all on app versions older than 5.0, failed to connect for three hours.
+    detection: Mobile crash analytics showed TLS handshake failures.
+    preliminary: A CDN routing issue.
+    root_cause: The certificate rotated in {dpl:DPL-024} was issued by a new intermediate CA that old app versions did not trust because they pin the previous intermediate.
+    resolution: The edge was configured to serve the cross-signed chain, which older clients accept.
+    action_items: [Remove certificate pinning in the next app release]
+    timeline:
+      - {at: "06:00", text: Certificate rotated.}
+      - {at: "07:20", text: Handshake failures noticed.}
+      - {at: "09:00", text: Cross-signed chain deployed.}
+
+  - id: INC-110
+    title: Legitimate payments declined after fraud check change
+    severity: 2
+    primary_service: payments-api
+    affected:
+      - {service: payments-api, impact: primary}
+      - {service: fraud-service, impact: degraded}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-06-01T09:00:00Z"
+    detected_at: "2026-06-01T11:30:00Z"
+    mitigated_at: "2026-06-02T13:15:00Z"
+    resolved_at: "2026-06-02T14:00:00Z"
+    cause_category: deployment
+    trigger: DPL-027
+    resolved_by: [DPL-028]
+    summary: A spike of card declines for genuine customers after fraud scoring moved into the payment flow.
+    impact: Over 28 hours about 3% of legitimate payments were declined, concentrated at peak hours.
+    detection: Customer support reported customers whose cards were declined but worked elsewhere.
+    preliminary: The fraud model may be too aggressive.
+    root_cause: "{dpl:DPL-027} started calling the {svc:fraud-service} with a 200 ms timeout and declined the transaction whenever no score came back. At peak, fraud scoring p95 latency is around 350 ms, so many requests timed out and were declined without any fraud signal."
+    ruled_out_text: The fraud model itself was unchanged; decline reasons showed "score unavailable", not high risk.
+    resolution: "{dpl:DPL-028} raised the timeout to 800 ms and made low-value orders fail open when no score is available."
+    action_items: [Load test new synchronous dependencies at peak traffic]
+    timeline:
+      - {at: "08:30", text: "{dpl:DPL-027} deployed."}
+      - {at: "11:30", text: Support escalates declines.}
+      - {at: "2026-06-02 10:00", text: "Decline reason 'score unavailable' identified."}
+      - {at: "2026-06-02 13:15", text: Hotfix v2.9.1 deployed.}
+
+  - id: INC-111
+    title: Duplicate order confirmation emails
+    severity: 4
+    primary_service: notification-service
+    affected:
+      - {service: notification-service, impact: primary}
+      - {service: email-dispatcher, impact: degraded}
+    started_at: "2026-06-08T14:30:00Z"
+    detected_at: "2026-06-08T19:00:00Z"
+    mitigated_at: "2026-06-09T11:30:00Z"
+    resolved_at: "2026-06-09T11:30:00Z"
+    cause_category: deployment
+    trigger: DPL-029
+    resolved_by: [DPL-030]
+    summary: Customers received the same order confirmation email two or three times.
+    impact: About 8% of confirmations were sent more than once over 21 hours.
+    detection: Customer complaints on social media.
+    preliminary: Mailer double-sending.
+    root_cause: The retry logic added in {dpl:DPL-029} retried sends that had actually succeeded but responded slowly, and the mailer had no way to detect duplicates.
+    resolution: "{dpl:DPL-030} added an idempotency key to every send so the mailer drops duplicates."
+    action_items: []
+    timeline:
+      - {at: "19:00", text: Complaints noticed.}
+      - {at: "2026-06-09 11:30", text: Hotfix deployed.}
+
+  - id: INC-112
+    title: Profile updates failing
+    severity: 3
+    primary_service: accounts-service
+    affected:
+      - {service: accounts-service, impact: primary}
+    started_at: "2026-06-14T03:20:00Z"
+    detected_at: "2026-06-14T07:45:00Z"
+    mitigated_at: "2026-06-14T08:30:00Z"
+    resolved_at: "2026-06-14T09:00:00Z"
+    cause_category: capacity
+    root_cause_in: accounts-service
+    resolved_by: []
+    summary: Customers could not change their address or password; the save button returned an error.
+    impact: About 2,300 failed profile update attempts over five hours. Logins and checkout were unaffected.
+    detection: Error budget burn alert for the accounts write path.
+    preliminary: Database disk might be full.
+    root_cause: The {svc:accounts-service} database volume ran out of disk space because audit log partitions were not being dropped after their 90-day retention.
+    resolution: The volume was expanded and the partition cleanup job was re-enabled.
+    action_items: [Disk usage alert at 80%]
+    timeline:
+      - {at: "07:45", text: Alert.}
+      - {at: "08:30", text: Volume expanded.}
+
+  - id: INC-113
+    title: Card processor outage - payments unavailable
+    severity: 1
+    primary_service: psp-adapter
+    affected:
+      - {service: psp-adapter, impact: primary}
+      - {service: payments-api, impact: downstream}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-06-20T09:05:00Z"
+    detected_at: "2026-06-20T09:08:00Z"
+    mitigated_at: "2026-06-20T09:52:00Z"
+    resolved_at: "2026-06-20T10:30:00Z"
+    cause_category: external
+    root_cause_in: EXT-PAYNOVA
+    ruled_out: [DPL-032]
+    resolved_by: []
+    summary: All card payments failed for 47 minutes because the external card processor was down.
+    impact: Card payments were completely unavailable for 47 minutes; PayPal and gift cards kept working. Around 6,500 checkout attempts failed.
+    detection: PspAuthorizationFailureRate alert fired at 09:08.
+    preliminary: The psp-adapter v1.6.0 release this morning added support for a new PayNova API version and is the prime suspect.
+    root_cause: "{ext:EXT-PAYNOVA} had a regional outage in its EU authorization cluster and returned HTTP 503 for every authorization request. The status page confirmed the outage at 09:20."
+    ruled_out_text: "{dpl:DPL-032} was rolled back on a canary at 09:25 with no change in error rate, and PayNova confirmed the failures on their side. The release was not the cause and was kept."
+    resolution: There was no failover processor, so the team waited for PayNova to recover at 09:52 and then monitored until 10:30.
+    action_items: [Evaluate a secondary card processor, Show a clearer message suggesting alternative payment methods]
+    timeline:
+      - {at: "07:10", text: "{dpl:DPL-032} deployed."}
+      - {at: "09:05", text: Authorization failures begin.}
+      - {at: "09:20", text: PayNova status page reports an outage.}
+      - {at: "09:25", text: Canary rollback shows no improvement.}
+      - {at: "09:52", text: PayNova recovers.}
+
+  - id: INC-114
+    title: Shopping carts emptied after Redis failover
+    severity: 3
+    primary_service: cart-service
+    affected:
+      - {service: cart-service, impact: primary}
+      - {service: shared-redis, impact: primary}
+    started_at: "2026-06-26T21:10:00Z"
+    detected_at: "2026-06-26T21:25:00Z"
+    mitigated_at: "2026-06-26T21:30:00Z"
+    resolved_at: "2026-06-27T09:00:00Z"
+    cause_category: infra
+    root_cause_in: shared-redis
+    resolved_by: [DPL-035]
+    summary: Customers found their shopping carts empty.
+    impact: Roughly 180,000 stored carts were lost. Customers had to re-add items; no orders were affected.
+    detection: Spike in "my cart is empty" contacts.
+    preliminary: Cart TTL change from April expiring carts early.
+    root_cause: A hardware failure triggered a failover of the cart shard in {svc:shared-redis}. Persistence was disabled, so the promoted replica started with an incomplete dataset after a full resync.
+    resolution: AOF persistence was enabled on cart and session shards ({dpl:DPL-035}); the Cart Service later added a database fallback.
+    action_items: [Enable persistence on stateful Redis shards, Fallback storage for logged-in carts]
+    timeline:
+      - {at: "21:10", text: Redis node failure and failover.}
+      - {at: "21:25", text: Complaints spike.}
+      - {at: "2026-06-27 09:00", text: AOF enabled.}
+
+  - id: INC-115
+    title: Checkout errors for customers with saved addresses
+    severity: 2
+    primary_service: checkout-api
+    affected:
+      - {service: checkout-api, impact: primary}
+    started_at: "2026-07-01T09:20:00Z"
+    detected_at: "2026-07-01T09:35:00Z"
+    mitigated_at: "2026-07-02T08:20:00Z"
+    resolved_at: "2026-07-02T08:30:00Z"
+    cause_category: deployment
+    trigger: DPL-037
+    resolved_by: [DPL-038]
+    summary: Returning customers with a saved address got a server error on the shipping step.
+    impact: About 11% of checkout sessions hit an HTTP 500 on the shipping step for almost a day.
+    detection: Checkout5xxRate alert.
+    preliminary: Accounts Service returning malformed addresses.
+    root_cause: "{dpl:DPL-037} pre-filled saved addresses but did not handle addresses with an empty second address line, throwing a NullPointerException."
+    resolution: The release was rolled back to v5.3.2 the next morning ({dpl:DPL-038}) after a forward fix failed review.
+    action_items: [Contract tests against real Accounts Service payloads]
+    timeline:
+      - {at: "09:00", text: "{dpl:DPL-037} deployed."}
+      - {at: "09:35", text: Alert.}
+      - {at: "2026-07-02 08:20", text: Rolled back.}
+
+  - id: INC-116
+    title: Event consumers lagging after broker upgrade
+    severity: 3
+    primary_service: event-bus
+    affected:
+      - {service: event-bus, impact: primary}
+      - {service: warehouse-loader, impact: downstream}
+    started_at: "2026-07-08T06:30:00Z"
+    detected_at: "2026-07-08T07:00:00Z"
+    mitigated_at: "2026-07-08T10:00:00Z"
+    resolved_at: "2026-07-08T12:00:00Z"
+    cause_category: deployment
+    trigger: DPL-040
+    resolved_by: []
+    summary: Consumers of the event bus fell hours behind after the Kafka upgrade.
+    impact: Analytics data was delayed by up to five hours. Order notification webhooks were not affected because notifications still used the Order Service webhook at that time.
+    detection: Consumer lag alert for the warehouse-loader group.
+    preliminary: Broker disk performance.
+    root_cause: The switch to cooperative rebalancing in {dpl:DPL-040} combined with a too-short session timeout caused a rebalance storm; consumers kept losing partition assignments before committing offsets.
+    resolution: Consumer session timeouts were raised from 10 to 45 seconds and lag recovered.
+    action_items: [Staging soak test for broker upgrades]
+    timeline:
+      - {at: "06:00", text: Broker upgrade.}
+      - {at: "07:00", text: Lag alert.}
+      - {at: "10:00", text: Session timeout raised.}
+    record: {association_overrides: {DPL-040: suspected}}
+
+  - id: INC-117
+    title: New products missing from search
+    severity: 4
+    primary_service: catalog-service
+    affected:
+      - {service: catalog-service, impact: primary}
+    started_at: "2026-07-15T14:00:00Z"
+    detected_at: "2026-07-17T10:00:00Z"
+    mitigated_at: "2026-07-17T12:00:00Z"
+    resolved_at: "2026-07-17T12:00:00Z"
+    cause_category: deployment
+    trigger: DPL-042
+    resolved_by: []
+    summary: Products added in the last two days did not appear in site search.
+    impact: About 300 new products were not searchable for two days.
+    detection: Merchandising team report.
+    preliminary: Event bus lag again - catalog may not be receiving product events.
+    root_cause: "{dpl:DPL-042} moved the search index rebuild from cron to the scheduler service, but the scheduler job was created in a disabled state, so the index was never rebuilt."
+    resolution: The scheduler job was enabled and a manual reindex was run.
+    action_items: [Alert on search index age]
+    timeline:
+      - {at: "2026-07-17 10:00", text: Report received.}
+      - {at: "2026-07-17 12:00", text: Reindex complete.}
+    record: {omit_deployment_links: [DPL-042]}
+
+  - id: INC-118
+    title: Refunds double-posted in the ledger
+    severity: 2
+    primary_service: ledger-service
+    affected:
+      - {service: ledger-service, impact: primary}
+      - {service: payments-api, impact: degraded}
+    started_at: "2026-07-17T16:10:00Z"
+    detected_at: "2026-07-18T06:00:00Z"
+    mitigated_at: "2026-07-18T15:00:00Z"
+    resolved_at: "2026-07-19T12:00:00Z"
+    cause_category: deployment
+    trigger: DPL-043
+    resolved_by: [DPL-044]
+    summary: Daily ledger reconciliation found refunds recorded twice.
+    impact: 412 refunds were posted twice in the ledger, overstating refunded amounts by about 31,000 EUR. Customers were not refunded twice; the error was internal bookkeeping only.
+    detection: Nightly reconciliation job reported a mismatch between the PSP settlement file and the ledger.
+    preliminary: Duplicate refund events from Payments API.
+    root_cause: "{dpl:DPL-043} changed how refund postings are de-duplicated. Refund retries for refunds created before the release produced a new-style key that did not match the stored old-style key, so the retry was posted again."
+    resolution: "{dpl:DPL-044} added a fallback to the legacy key format and Finance corrected the duplicated entries."
+    action_items: [Migration plan for idempotency key format changes]
+    timeline:
+      - {at: "2026-07-18 06:00", text: Reconciliation mismatch.}
+      - {at: "2026-07-18 15:00", text: Hotfix deployed.}
+      - {at: "2026-07-19 12:00", text: Ledger corrected.}
+
+  - id: INC-119
+    title: Slow logins and token validation timeouts
+    severity: 3
+    primary_service: auth-service
+    affected:
+      - {service: auth-service, impact: primary}
+      - {service: checkout-api, impact: downstream}
+      - {service: api-gateway, impact: downstream}
+    started_at: "2026-07-24T07:30:00Z"
+    detected_at: "2026-07-24T07:45:00Z"
+    mitigated_at: "2026-07-24T09:40:00Z"
+    resolved_at: "2026-07-24T10:00:00Z"
+    cause_category: deployment
+    trigger: DPL-046
+    resolved_by: [DPL-047]
+    summary: Login and every authenticated request became slow during the morning peak.
+    impact: p95 latency of authenticated requests rose from 180 ms to 2.4 s for two hours; about 1.5% of requests timed out.
+    detection: Latency SLO alert on the gateway.
+    preliminary: Redis latency on session shards.
+    root_cause: "{dpl:DPL-046} fetched the JWKS key set from the identity provider on every token validation instead of caching it. This was fine at night but overloaded the key endpoint at morning peak."
+    resolution: Rolled back to v6.1.4 ({dpl:DPL-047}); a cached implementation shipped later as v6.2.1.
+    action_items: [Load test token validation path]
+    timeline:
+      - {at: "07:45", text: Latency alert.}
+      - {at: "09:40", text: Rollback.}
+
+  - id: INC-120
+    title: Order status page showing stale data
+    severity: 3
+    primary_service: orders-db
+    affected:
+      - {service: orders-db, impact: primary}
+      - {service: order-service, impact: degraded}
+      - {service: warehouse-loader, impact: downstream}
+    started_at: "2026-07-30T11:00:00Z"
+    detected_at: "2026-07-30T12:10:00Z"
+    mitigated_at: "2026-07-30T15:00:00Z"
+    resolved_at: "2026-07-30T16:30:00Z"
+    cause_category: infra
+    root_cause_in: orders-db
+    resolved_by: []
+    summary: Customers saw outdated order statuses because the read replica fell behind.
+    impact: The order tracking page showed statuses up to 40 minutes old for four hours; support handled extra "where is my order" contacts.
+    detection: ReplicaLagHigh alert.
+    preliminary: Network issue between availability zones.
+    root_cause: An aggressive manual VACUUM FULL on a large audit table on the {svc:orders-db} primary generated a burst of WAL that the replica could not apply fast enough.
+    resolution: The vacuum was cancelled and rescheduled for a low-traffic window with throttling; replication caught up by 16:30.
+    action_items: [Runbook rule - no VACUUM FULL on the primary during business hours]
+    timeline:
+      - {at: "12:10", text: Replica lag alert.}
+      - {at: "15:00", text: Vacuum cancelled.}
+
+  - id: INC-121
+    title: Order notifications not sent after event bus migration
+    severity: 2
+    primary_service: notification-service
+    affected:
+      - {service: notification-service, impact: primary}
+      - {service: email-dispatcher, impact: downstream}
+    started_at: "2026-08-05T08:10:00Z"
+    detected_at: "2026-08-05T10:30:00Z"
+    mitigated_at: "2026-08-05T11:45:00Z"
+    resolved_at: "2026-08-05T14:00:00Z"
+    cause_category: deployment
+    trigger: DPL-051
+    resolved_by: [DPL-052]
+    summary: No order confirmation or shipping emails were sent for more than three hours.
+    impact: About 15,000 notifications were not sent between 08:10 and 11:45; all were replayed by 14:00.
+    detection: Email volume anomaly detection flagged near-zero sends.
+    preliminary: Order Service webhook disabled too early.
+    root_cause: "{dpl:DPL-051} switched the {svc:notification-service} from the Order Service webhook to the {svc:event-bus}, but the consumer subscribed to the default topic orders.v1, which no longer receives events. The production topic is order-events."
+    resolution: "{dpl:DPL-052} corrected the topic name and the missed events were replayed."
+    action_items: [Staging check that consumers receive at least one event after deploy]
+    timeline:
+      - {at: "08:00", text: "{dpl:DPL-051} deployed; webhook disabled."}
+      - {at: "10:30", text: Anomaly flagged.}
+      - {at: "11:45", text: Hotfix deployed.}
+      - {at: "14:00", text: Replay complete.}
+
+  - id: INC-122
+    title: Duplicated stock events inflate analytics
+    severity: 4
+    primary_service: inventory-service
+    affected:
+      - {service: inventory-service, impact: primary}
+      - {service: warehouse-loader, impact: downstream}
+    started_at: "2026-08-05T07:00:00Z"
+    detected_at: "2026-08-11T09:00:00Z"
+    mitigated_at: "2026-08-12T10:30:00Z"
+    resolved_at: "2026-08-12T10:30:00Z"
+    cause_category: deployment
+    trigger: DPL-050
+    resolved_by: [DPL-053]
+    summary: Analytics showed stock movements roughly doubled since early August.
+    impact: Inventory analytics were wrong for a week. Actual stock levels were correct.
+    detection: An analyst noticed stock movement counts far above order volume.
+    preliminary: Warehouse loader reading the topic twice.
+    root_cause: The producer introduced in {dpl:DPL-050} retried on timeouts without idempotence, publishing many stock-changed events twice.
+    resolution: "{dpl:DPL-053} added deterministic event ids and idempotent producer retries; analytics were rebuilt."
+    action_items: []
+    timeline:
+      - {at: "2026-08-11 09:00", text: Analyst report.}
+      - {at: "2026-08-12 10:30", text: Hotfix.}
+    record: {omit_deployment_links: [DPL-050]}
+
+  - id: INC-123
+    title: Payments outage caused by orders database overload
+    severity: 1
+    primary_service: payments-api
+    affected:
+      - {service: payments-api, impact: primary}
+      - {service: orders-db, impact: degraded}
+      - {service: ledger-service, impact: degraded}
+      - {service: order-service, impact: degraded}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-08-17T09:00:00Z"
+    detected_at: "2026-08-17T09:04:00Z"
+    mitigated_at: "2026-08-17T10:15:00Z"
+    resolved_at: "2026-08-17T12:40:00Z"
+    cause_category: deployment
+    trigger: DPL-055
+    ruled_out: [DPL-054]
+    resolved_by: [DPL-056]
+    summary: Payments failed and orders could not be placed while the orders database was pegged at 100% CPU.
+    impact: For 75 minutes about 60% of checkouts failed, the largest outage of the quarter. Ledger postings were delayed but none were lost.
+    detection: OrdersDbCpuHigh and PaymentAuthLatency alerts fired within a minute of each other at 09:04.
+    preliminary: The checkout-api v5.6.0 express checkout release at 07:30 could be increasing load on payments.
+    root_cause: The new settlement reconciliation endpoint in {dpl:DPL-055} ran a refund listing query without a supporting index. When the Finance dashboard started polling it at 09:00, each call scanned the full payments table on the {svc:orders-db} primary. CPU saturation slowed every query; payments, ledger and order-service connection pools were depleted and requests timed out.
+    ruled_out_text: "{dpl:DPL-054} was examined first because it shipped the same morning, but its traffic pattern was unchanged and its error rate followed the database, not the other way round. It was ruled out."
+    resolution: The recon_v2 feature flag was turned off at 10:10, which stopped the expensive query, and {dpl:DPL-056} added the missing index at 12:40. No rollback was needed.
+    action_items: [Query plan review for new endpoints on the shared database, Per-service statement timeouts on orders-db, Rate limit for internal dashboard polling]
+    timeline:
+      - {at: "07:30", text: "{dpl:DPL-054} deployed."}
+      - {at: "08:10", text: "{dpl:DPL-055} deployed."}
+      - {at: "09:00", text: Finance dashboard begins polling the reconciliation endpoint.}
+      - {at: "09:04", text: Database CPU and payment latency alerts; SEV1 declared.}
+      - {at: "09:40", text: Top query traced to the reconciliation endpoint.}
+      - {at: "10:10", text: recon_v2 flag disabled; CPU drops.}
+      - {at: "12:40", text: Index added via hotfix.}
+
+  - id: INC-124
+    title: Broken images in transactional emails
+    severity: 4
+    primary_service: email-dispatcher
+    affected:
+      - {service: email-dispatcher, impact: primary}
+    started_at: "2026-08-23T09:05:00Z"
+    detected_at: "2026-08-23T11:00:00Z"
+    mitigated_at: "2026-08-23T15:10:00Z"
+    resolved_at: "2026-08-23T15:10:00Z"
+    cause_category: deployment
+    trigger: DPL-058
+    resolved_by: [DPL-059]
+    summary: Logos and product images were missing from order emails.
+    impact: Emails sent over six hours displayed broken image placeholders. Content was otherwise correct.
+    detection: Internal staff noticed on their own orders.
+    preliminary: Asset bucket permissions.
+    root_cause: The templates in {dpl:DPL-058} referenced images with relative paths that email clients cannot resolve.
+    resolution: "{dpl:DPL-059} switched to absolute image URLs."
+    action_items: []
+    timeline:
+      - {at: "11:00", text: Reported.}
+      - {at: "15:10", text: Fixed.}
+
+  - id: INC-125
+    title: Mobile app users rate-limited
+    severity: 3
+    primary_service: api-gateway
+    affected:
+      - {service: api-gateway, impact: primary}
+    started_at: "2026-08-29T13:02:00Z"
+    detected_at: "2026-08-29T13:20:00Z"
+    mitigated_at: "2026-08-29T14:05:00Z"
+    resolved_at: "2026-08-29T14:05:00Z"
+    cause_category: config
+    trigger: DPL-061
+    resolved_by: [DPL-062]
+    summary: Many mobile users received "Too many requests" errors.
+    impact: About 14% of mobile requests were rejected with HTTP 429 for an hour, mostly from users on carrier networks sharing IP addresses.
+    detection: 429 rate alert at the edge.
+    preliminary: Bot traffic.
+    root_cause: Rate limit policy v7 ({dpl:DPL-061}) keyed limits by client IP. Mobile carriers place thousands of users behind shared NAT addresses, so they shared one bucket.
+    resolution: Reverted to policy v6 ({dpl:DPL-062}).
+    action_items: [Key rate limits by API key and user id]
+    timeline:
+      - {at: "13:00", text: Policy v7 applied.}
+      - {at: "14:05", text: Reverted.}
+
+  - id: INC-126
+    title: Slow checkout during Redis maintenance
+    severity: 2
+    primary_service: checkout-api
+    affected:
+      - {service: checkout-api, impact: primary}
+      - {service: pricing-service, impact: degraded}
+      - {service: catalog-service, impact: degraded}
+      - {service: shared-redis, impact: degraded}
+      - {service: cart-service, impact: degraded}
+    started_at: "2026-09-03T05:10:00Z"
+    detected_at: "2026-09-03T05:20:00Z"
+    mitigated_at: "2026-09-03T06:30:00Z"
+    resolved_at: "2026-09-03T07:15:00Z"
+    cause_category: infra
+    trigger: DPL-063
+    root_cause_in: shared-redis
+    resolved_by: []
+    summary: Checkout became very slow early in the morning while Redis was being patched.
+    impact: For about 80 minutes the median checkout step took 6 seconds instead of 400 ms; conversion in Asia-Pacific markets dropped by a third.
+    detection: CheckoutLatencyHigh alert.
+    preliminary: Checkout API garbage collection pauses.
+    root_cause: The rolling restart during {dpl:DPL-063} emptied the catalog cache in {svc:shared-redis}. Every price calculation in the {svc:pricing-service} then needed fresh product data from the {svc:catalog-service}, which could not keep up with the cache-miss storm, slowing the whole checkout chain.
+    resolution: Catalog cache was pre-warmed from a snapshot and request coalescing was enabled in the Catalog Service.
+    action_items: [Warm caches before returning a restarted shard to service, Schedule Redis maintenance outside APAC peak]
+    timeline:
+      - {at: "05:00", text: Redis rolling restart begins.}
+      - {at: "05:20", text: Latency alert.}
+      - {at: "06:30", text: Cache warmed.}
+
+  - id: INC-127
+    title: Fraud model false positives decline good customers
+    severity: 3
+    primary_service: fraud-service
+    affected:
+      - {service: fraud-service, impact: primary}
+      - {service: payments-api, impact: downstream}
+    started_at: "2026-09-09T09:10:00Z"
+    detected_at: "2026-09-09T13:00:00Z"
+    mitigated_at: "2026-09-09T16:30:00Z"
+    resolved_at: "2026-09-09T16:30:00Z"
+    cause_category: deployment
+    trigger: DPL-065
+    resolved_by: [DPL-066]
+    summary: Fraud declines tripled after the new fraud model went live.
+    impact: About 1.8% of payments were wrongly declined as fraudulent for seven hours.
+    detection: Fraud decline rate dashboard reviewed by the Payments team.
+    preliminary: Model v24 is over-sensitive.
+    root_cause: "{dpl:DPL-065} combined a new model with a lower decline threshold (0.85 instead of 0.92); the combination flagged many legitimate first-time customers."
+    resolution: Rolled back to v2.3.2 ({dpl:DPL-066}); the model was re-released later with the old threshold.
+    action_items: [Shadow-mode evaluation before threshold changes]
+    timeline:
+      - {at: "09:00", text: v2.4.0 deployed.}
+      - {at: "16:30", text: Rolled back.}
+
+  - id: INC-128
+    title: Warehouse stock sync stalled
+    severity: 4
+    primary_service: warehouse-sync
+    affected:
+      - {service: warehouse-sync, impact: primary}
+      - {service: inventory-service, impact: degraded}
+    started_at: "2026-09-15T00:00:00Z"
+    detected_at: "2026-09-15T08:15:00Z"
+    mitigated_at: "2026-09-15T10:00:00Z"
+    resolved_at: "2026-09-15T10:00:00Z"
+    cause_category: external
+    root_cause_in: warehouse-sync
+    resolved_by: []
+    summary: Stock levels from the partner warehouse stopped updating overnight.
+    impact: Stock was up to ten hours stale; 37 orders were accepted for items that had sold out in store.
+    detection: Stock freshness alert.
+    preliminary: Partner WMS outage.
+    root_cause: The partner WMS rotated its API credentials at midnight as announced in an email that went to an unmonitored mailbox, so every sync request was rejected with 401.
+    resolution: New credentials were installed in the {svc:warehouse-sync} secret store.
+    action_items: [Route partner notices to the team alias]
+    timeline:
+      - {at: "08:15", text: Alert.}
+      - {at: "10:00", text: Credentials updated.}
+
+  - id: INC-129
+    title: Login outage after signing key expiry
+    severity: 2
+    primary_service: auth-service
+    affected:
+      - {service: auth-service, impact: primary}
+      - {service: api-gateway, impact: downstream}
+      - {service: checkout-api, impact: downstream}
+      - {service: accounts-service, impact: downstream}
+    started_at: "2026-09-21T00:00:00Z"
+    detected_at: "2026-09-21T00:04:00Z"
+    mitigated_at: "2026-09-21T00:25:00Z"
+    resolved_at: "2026-09-21T01:00:00Z"
+    cause_category: config
+    root_cause_in: auth-service
+    resolved_by: []
+    summary: Nobody could log in for 25 minutes and existing sessions were rejected.
+    impact: All authenticated traffic failed for 25 minutes around midnight UTC.
+    detection: Auth error rate alert.
+    preliminary: JWKS caching from v6.2.1.
+    root_cause: The token signing key expired at midnight because the quarterly manual rotation was missed; newly issued and existing tokens failed validation.
+    ruled_out_text: The JWKS caching in auth-service v6.2.1 was not involved; the cache correctly served the expired key.
+    resolution: An emergency key rotation was performed by the Identity on-call.
+    action_items: [Automate signing key rotation, Expiry alert 14 days ahead]
+    timeline:
+      - {at: "00:04", text: Alert.}
+      - {at: "00:25", text: Key rotated.}
+
+  - id: INC-130
+    title: Order cancellations stuck in pending
+    severity: 3
+    primary_service: order-service
+    affected:
+      - {service: order-service, impact: primary}
+      - {service: payments-api, impact: downstream}
+    started_at: "2026-09-26T17:10:00Z"
+    detected_at: "2026-09-27T08:30:00Z"
+    mitigated_at: "2026-09-27T10:15:00Z"
+    resolved_at: "2026-09-27T12:00:00Z"
+    cause_category: deployment
+    trigger: DPL-070
+    resolved_by: [DPL-071]
+    summary: Customer-requested cancellations stayed in "cancellation pending" and refunds were not triggered.
+    impact: 870 cancellations were stuck overnight; refunds were delayed by up to 18 hours.
+    detection: Support escalation.
+    preliminary: Payments refund API failing.
+    root_cause: The rewritten transition table in {dpl:DPL-070} was missing the transition from cancellation_pending to cancelled when the order had been partially shipped.
+    resolution: Rolled back to v4.4.0 ({dpl:DPL-071}) and stuck orders were reprocessed.
+    action_items: [Property-based tests for state transitions]
+    timeline:
+      - {at: "17:00", text: v4.5.0 deployed.}
+      - {at: "2026-09-27 10:15", text: Rolled back.}
+
+  - id: INC-131
+    title: 3-D Secure failures for EU cards
+    severity: 2
+    primary_service: psp-adapter
+    affected:
+      - {service: psp-adapter, impact: primary}
+      - {service: payments-api, impact: downstream}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-10-01T09:10:00Z"
+    detected_at: "2026-10-01T12:00:00Z"
+    mitigated_at: "2026-10-02T14:30:00Z"
+    resolved_at: "2026-10-02T15:00:00Z"
+    cause_category: deployment
+    trigger: DPL-074
+    resolved_by: [DPL-075]
+    summary: European customers whose bank requires 3-D Secure could not complete card payments.
+    impact: About 9% of EU card payments failed at the 3-D Secure step for 29 hours.
+    detection: Payments team noticed a drop in EU authorization rate.
+    preliminary: A bank-side 3DS issue.
+    root_cause: "{dpl:DPL-074} moved the 3-D Secure return URL to a new path, but the EU acquirer at {ext:EXT-PAYNOVA} still had the old callback URL registered, so customers were returned to a page that no longer existed."
+    resolution: "{dpl:DPL-075} restored the legacy path as an alias and registered the new callback URL with PayNova."
+    action_items: [Checklist for externally registered URLs]
+    timeline:
+      - {at: "09:00", text: v1.8.0 deployed.}
+      - {at: "12:00", text: EU authorization drop noticed.}
+      - {at: "2026-10-02 14:30", text: Hotfix deployed.}
+    record: {primary_service: payments-api}
+
+  - id: INC-132
+    title: Notification service restarting repeatedly
+    severity: 3
+    primary_service: notification-service
+    affected:
+      - {service: notification-service, impact: primary}
+    started_at: "2026-10-06T14:00:00Z"
+    detected_at: "2026-10-06T14:30:00Z"
+    mitigated_at: "2026-10-07T16:00:00Z"
+    resolved_at: "2026-10-07T16:00:00Z"
+    cause_category: deployment
+    trigger: DPL-076
+    resolved_by: [DPL-077]
+    summary: Notification pods were repeatedly killed for running out of memory, delaying emails by minutes.
+    impact: Notifications were delayed by up to 20 minutes during restarts; none were lost.
+    detection: Pod restart alert.
+    preliminary: Memory leak in the event bus client.
+    root_cause: The in-memory template cache added in {dpl:DPL-076} was unbounded and grew with every personalised template variant until pods hit their memory limit.
+    resolution: "{dpl:DPL-077} bounded the cache with LRU eviction."
+    action_items: []
+    timeline:
+      - {at: "14:30", text: Restart alert.}
+      - {at: "2026-10-07 16:00", text: Hotfix.}
+
+  - id: INC-133
+    title: Checkout outage after new checkout release
+    severity: 1
+    primary_service: checkout-api
+    affected:
+      - {service: checkout-api, impact: primary}
+      - {service: inventory-service, impact: degraded}
+      - {service: order-service, impact: downstream}
+    started_at: "2026-10-12T08:20:00Z"
+    detected_at: "2026-10-12T08:24:00Z"
+    mitigated_at: "2026-10-12T09:55:00Z"
+    resolved_at: "2026-10-12T10:30:00Z"
+    cause_category: deployment
+    trigger: DPL-079
+    resolved_by: [DPL-080]
+    summary: Most customers could not get through checkout after the new single-page checkout launched.
+    impact: For 95 minutes about 70% of checkout attempts failed or timed out. Orders that did go through were correct.
+    detection: CheckoutSuccessRate alert at 08:24.
+    preliminary: The Inventory Service is down.
+    root_cause: The new flow in {dpl:DPL-079} performed a live stock check for every cart line on every step, increasing calls to the {svc:inventory-service} roughly twelve-fold. Inventory thread pools saturated and its responses timed out, which failed checkout.
+    resolution: The release was rolled back to v5.7.1 at 09:10 ({dpl:DPL-080}). The rollback alone was only partially effective; inventory pods remained saturated with queued requests until they were restarted at 09:50, after which checkout success returned to normal at 09:55.
+    action_items: [Batch stock checks per cart, Load test with production-like carts, Inventory request shedding when queues grow]
+    timeline:
+      - {at: "08:00", text: "{dpl:DPL-079} deployed."}
+      - {at: "08:24", text: Checkout success alert; SEV1 declared.}
+      - {at: "08:45", text: "Inventory thread pool exhaustion observed."}
+      - {at: "09:10", text: Rollback to v5.7.1 complete; errors drop only slightly.}
+      - {at: "09:50", text: "{svc:inventory-service} pods restarted."}
+      - {at: "09:55", text: Checkout success rate back to normal.}
+
+  - id: INC-134
+    title: Cart and checkout totals disagree by one cent
+    severity: 3
+    primary_service: pricing-service
+    affected:
+      - {service: pricing-service, impact: primary}
+      - {service: cart-service, impact: downstream}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-10-15T10:10:00Z"
+    detected_at: "2026-10-15T15:00:00Z"
+    mitigated_at: "2026-10-16T12:00:00Z"
+    resolved_at: "2026-10-16T12:00:00Z"
+    cause_category: deployment
+    trigger: DPL-081
+    resolved_by: [DPL-082]
+    summary: Some carts showed a total one cent different from the checkout total, and a few payments were rejected for amount mismatch.
+    impact: About 0.4% of checkouts were blocked by an amount mismatch error for 26 hours.
+    detection: Support reports of "total changed" errors.
+    preliminary: Currency conversion rates outdated.
+    root_cause: "{dpl:DPL-081} moved rounding to line level using half-up rounding while the {svc:cart-service} used banker's rounding, producing one-cent differences."
+    resolution: "{dpl:DPL-082} aligned rounding with the Cart Service."
+    action_items: [Shared money library]
+    timeline:
+      - {at: "15:00", text: Reported.}
+      - {at: "2026-10-16 12:00", text: Hotfix.}
+
+  - id: INC-135
+    title: Event bus brokers out of disk
+    severity: 2
+    primary_service: event-bus
+    affected:
+      - {service: event-bus, impact: primary}
+      - {service: notification-service, impact: downstream}
+      - {service: warehouse-loader, impact: downstream}
+      - {service: order-service, impact: degraded}
+      - {service: inventory-service, impact: degraded}
+    started_at: "2026-10-20T11:30:00Z"
+    detected_at: "2026-10-20T11:34:00Z"
+    mitigated_at: "2026-10-20T13:10:00Z"
+    resolved_at: "2026-10-20T15:00:00Z"
+    cause_category: capacity
+    root_cause_in: event-bus
+    resolved_by: [DPL-083]
+    summary: Order and stock events stopped flowing when Kafka brokers ran out of disk, delaying notifications.
+    impact: For about 100 minutes order notifications were not sent and stock events were not published; producers buffered and retried, so no events were lost.
+    detection: BrokerDiskUsage alert.
+    preliminary: Duplicate stock events filling disks again.
+    root_cause: Event volume roughly doubled after the event bus migration, but topic retention stayed at seven days and broker disks were never resized. Disks filled and brokers stopped accepting writes.
+    resolution: Retention on high-volume topics was cut to 48 hours and broker volumes were expanded ({dpl:DPL-083}).
+    action_items: [Capacity review after migrations, Disk alert at 70%]
+    timeline:
+      - {at: "11:34", text: Disk alert.}
+      - {at: "13:10", text: Old segments deleted; writes resume.}
+      - {at: "15:00", text: Retention change and volume expansion completed.}
+
+  - id: INC-136
+    title: Incorrect availability badges on product pages
+    severity: 4
+    primary_service: catalog-service
+    affected:
+      - {service: catalog-service, impact: primary}
+    started_at: "2026-10-24T09:00:00Z"
+    detected_at: "2026-10-24T09:00:00Z"
+    mitigated_at: "2026-10-24T10:30:00Z"
+    resolved_at: "2026-10-24T10:30:00Z"
+    cause_category: unknown
+    resolved_by: []
+    summary: Some product pages showed "in stock" badges for sold-out items.
+    impact: Around 90 products had wrong badges for a short time; checkout still blocked purchase of unavailable items.
+    detection: Customer report.
+    preliminary: Stale stock events from the inventory topic.
+    root_cause: The root cause was not determined. Stock events were verified to be correct, and the problem disappeared after the cache was flushed.
+    resolution: The availability badge cache in the {svc:catalog-service} was flushed.
+    action_items: [Add tracing to the badge cache path]
+    timeline:
+      - {at: "09:00", text: Reported.}
+      - {at: "10:30", text: Cache flushed.}
+
+  - id: INC-137
+    title: Intermittent payment timeouts after HTTP client upgrade
+    severity: 2
+    primary_service: payments-api
+    affected:
+      - {service: payments-api, impact: primary}
+      - {service: psp-adapter, impact: degraded}
+      - {service: checkout-api, impact: downstream}
+    started_at: "2026-10-28T09:25:00Z"
+    detected_at: "2026-10-28T09:31:00Z"
+    mitigated_at: "2026-10-28T10:05:00Z"
+    resolved_at: "2026-10-28T10:30:00Z"
+    cause_category: deployment
+    trigger: DPL-085
+    ruled_out: [DPL-084]
+    resolved_by: [DPL-086]
+    summary: About one in ten payments timed out for 40 minutes.
+    impact: 11% of payment authorizations timed out between 09:25 and 10:05; customers could retry, and about half of them succeeded on retry.
+    detection: PaymentAuthLatency alert at 09:31.
+    preliminary: The fraud-service v2.5.0 release at 08:30 added fields to the score response and may be slowing payments down.
+    root_cause: The HTTP client upgrade in {dpl:DPL-085} changed connection reuse so that idle keep-alive connections to the {svc:psp-adapter} were reused after the adapter had already closed them. Requests sent on those dead sockets hung until the 10 second client timeout.
+    ruled_out_text: "{dpl:DPL-084} was suspected because it shipped 45 minutes earlier, but fraud scoring latency was unchanged and timeouts were only on the PSP Adapter call. It was ruled out."
+    resolution: "{svc:payments-api} was rolled back to v3.3.1 at 10:05 ({dpl:DPL-086}) and timeouts stopped immediately."
+    action_items: [Set idle connection timeout below the adapter's keep-alive timeout, Canary analysis for client library upgrades]
+    timeline:
+      - {at: "08:30", text: "{dpl:DPL-084} deployed."}
+      - {at: "09:15", text: "{dpl:DPL-085} deployed."}
+      - {at: "09:31", text: Latency alert.}
+      - {at: "09:50", text: Timeouts isolated to the PSP Adapter call.}
+      - {at: "10:05", text: Rollback complete.}
+    record: {association_overrides: {DPL-084: suspected}}
+
+  - id: INC-138
+    title: Privacy data exports taking days
+    severity: 3
+    primary_service: accounts-service
+    affected:
+      - {service: accounts-service, impact: primary}
+    started_at: "2026-10-30T08:00:00Z"
+    detected_at: "2026-10-30T08:00:00Z"
+    mitigated_at: "2026-10-31T11:00:00Z"
+    resolved_at: null
+    status: monitoring
+    cause_category: capacity
+    root_cause_in: accounts-service
+    resolved_by: [DPL-087]
+    summary: Customer data export requests were taking several days instead of minutes.
+    impact: About 140 privacy export requests were delayed; the legal response deadline was not breached.
+    detection: Privacy team report.
+    preliminary: Export worker crashed.
+    root_cause: The export queue query in the {svc:accounts-service} had no index on status and requested_at, and the table had grown to 40 million rows.
+    resolution: An index was added in {dpl:DPL-087}; the team is monitoring the backlog before closing the incident.
+    action_items: []
+    timeline:
+      - {at: "08:00", text: Reported.}
+      - {at: "2026-10-31 11:00", text: Index deployed; monitoring.}

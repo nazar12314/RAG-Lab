@@ -1,0 +1,161 @@
+{"canonical_name": "Checkout", "entity_type": "subsystem", "external_ref": null, "key": "SUB-checkout"}
+{"canonical_name": "Payments", "entity_type": "subsystem", "external_ref": null, "key": "SUB-payments"}
+{"canonical_name": "Authentication", "entity_type": "subsystem", "external_ref": null, "key": "SUB-authentication"}
+{"canonical_name": "Inventory", "entity_type": "subsystem", "external_ref": null, "key": "SUB-inventory"}
+{"canonical_name": "Notifications", "entity_type": "subsystem", "external_ref": null, "key": "SUB-notifications"}
+{"canonical_name": "Data Platform", "entity_type": "subsystem", "external_ref": null, "key": "SUB-data-platform"}
+{"canonical_name": "Shared Infrastructure", "entity_type": "subsystem", "external_ref": null, "key": "SUB-shared-infrastructure"}
+{"canonical_name": "Checkout Team", "entity_type": "team", "external_ref": "teams/TEAM-CHECKOUT", "key": "TEAM-CHECKOUT"}
+{"canonical_name": "Payments Team", "entity_type": "team", "external_ref": "teams/TEAM-PAYMENTS", "key": "TEAM-PAYMENTS"}
+{"canonical_name": "Identity Team", "entity_type": "team", "external_ref": "teams/TEAM-IDENTITY", "key": "TEAM-IDENTITY"}
+{"canonical_name": "Inventory Team", "entity_type": "team", "external_ref": "teams/TEAM-INVENTORY", "key": "TEAM-INVENTORY"}
+{"canonical_name": "Customer Comms Team", "entity_type": "team", "external_ref": "teams/TEAM-COMMS", "key": "TEAM-COMMS"}
+{"canonical_name": "Data Platform Team", "entity_type": "team", "external_ref": "teams/TEAM-DATA", "key": "TEAM-DATA"}
+{"canonical_name": "Platform SRE", "entity_type": "team", "external_ref": "teams/TEAM-SRE", "key": "TEAM-SRE"}
+{"canonical_name": "PayNova", "entity_type": "external_system", "external_ref": "external_systems/EXT-PAYNOVA", "key": "EXT-PAYNOVA"}
+{"canonical_name": "MailRelay", "entity_type": "external_system", "external_ref": "external_systems/EXT-MAILRELAY", "key": "EXT-MAILRELAY"}
+{"canonical_name": "Checkout API", "entity_type": "service", "external_ref": "services/SVC-CHECKOUT-API", "key": "SVC-CHECKOUT-API"}
+{"canonical_name": "Cart Service", "entity_type": "service", "external_ref": "services/SVC-CART-SERVICE", "key": "SVC-CART-SERVICE"}
+{"canonical_name": "Pricing Engine", "entity_type": "service", "external_ref": "services/SVC-PRICING-SERVICE", "key": "SVC-PRICING-SERVICE"}
+{"canonical_name": "Order Service", "entity_type": "service", "external_ref": "services/SVC-ORDER-SERVICE", "key": "SVC-ORDER-SERVICE"}
+{"canonical_name": "Payments API", "entity_type": "service", "external_ref": "services/SVC-PAYMENTS-API", "key": "SVC-PAYMENTS-API"}
+{"canonical_name": "Fraud Scoring Service", "entity_type": "service", "external_ref": "services/SVC-FRAUD-SERVICE", "key": "SVC-FRAUD-SERVICE"}
+{"canonical_name": "Ledger Service", "entity_type": "service", "external_ref": "services/SVC-LEDGER-SERVICE", "key": "SVC-LEDGER-SERVICE"}
+{"canonical_name": "PSP Adapter", "entity_type": "service", "external_ref": "services/SVC-PSP-ADAPTER", "key": "SVC-PSP-ADAPTER"}
+{"canonical_name": "Auth Service", "entity_type": "service", "external_ref": "services/SVC-AUTH-SERVICE", "key": "SVC-AUTH-SERVICE"}
+{"canonical_name": "Accounts Service", "entity_type": "service", "external_ref": "services/SVC-ACCOUNTS-SERVICE", "key": "SVC-ACCOUNTS-SERVICE"}
+{"canonical_name": "Inventory Service", "entity_type": "service", "external_ref": "services/SVC-INVENTORY-SERVICE", "key": "SVC-INVENTORY-SERVICE"}
+{"canonical_name": "Catalog Service", "entity_type": "service", "external_ref": "services/SVC-CATALOG-SERVICE", "key": "SVC-CATALOG-SERVICE"}
+{"canonical_name": "Warehouse Sync", "entity_type": "service", "external_ref": "services/SVC-WAREHOUSE-SYNC", "key": "SVC-WAREHOUSE-SYNC"}
+{"canonical_name": "Notification Service", "entity_type": "service", "external_ref": "services/SVC-NOTIFICATION-SERVICE", "key": "SVC-NOTIFICATION-SERVICE"}
+{"canonical_name": "Email Dispatcher", "entity_type": "service", "external_ref": "services/SVC-EMAIL-DISPATCHER", "key": "SVC-EMAIL-DISPATCHER"}
+{"canonical_name": "Event Bus", "entity_type": "service", "external_ref": "services/SVC-EVENT-BUS", "key": "SVC-EVENT-BUS"}
+{"canonical_name": "Warehouse Loader", "entity_type": "service", "external_ref": "services/SVC-WAREHOUSE-LOADER", "key": "SVC-WAREHOUSE-LOADER"}
+{"canonical_name": "API Gateway", "entity_type": "service", "external_ref": "services/SVC-API-GATEWAY", "key": "SVC-API-GATEWAY"}
+{"canonical_name": "Orders DB", "entity_type": "service", "external_ref": "services/SVC-ORDERS-DB", "key": "SVC-ORDERS-DB"}
+{"canonical_name": "Shared Redis", "entity_type": "service", "external_ref": "services/SVC-SHARED-REDIS", "key": "SVC-SHARED-REDIS"}
+{"canonical_name": "Checkout API v5.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-001", "key": "DPL-001"}
+{"canonical_name": "Warehouse Loader v1.3.0", "entity_type": "deployment", "external_ref": "deployments/DPL-002", "key": "DPL-002"}
+{"canonical_name": "Auth Service v6.0.0", "entity_type": "deployment", "external_ref": "deployments/DPL-003", "key": "DPL-003"}
+{"canonical_name": "Catalog Service v2.1.0", "entity_type": "deployment", "external_ref": "deployments/DPL-004", "key": "DPL-004"}
+{"canonical_name": "Shared Redis maxmemory-policy-volatile-lru", "entity_type": "deployment", "external_ref": "deployments/DPL-005", "key": "DPL-005"}
+{"canonical_name": "Order Service v4.1.0", "entity_type": "deployment", "external_ref": "deployments/DPL-006", "key": "DPL-006"}
+{"canonical_name": "Payments API v2.7.3", "entity_type": "deployment", "external_ref": "deployments/DPL-007", "key": "DPL-007"}
+{"canonical_name": "Warehouse Sync v1.9.4", "entity_type": "deployment", "external_ref": "deployments/DPL-008", "key": "DPL-008"}
+{"canonical_name": "Cart Service v1.12.0", "entity_type": "deployment", "external_ref": "deployments/DPL-009", "key": "DPL-009"}
+{"canonical_name": "Payments API v2.8.0", "entity_type": "deployment", "external_ref": "deployments/DPL-010", "key": "DPL-010"}
+{"canonical_name": "Payments API v2.7.3", "entity_type": "deployment", "external_ref": "deployments/DPL-011", "key": "DPL-011"}
+{"canonical_name": "Order Service v4.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-012", "key": "DPL-012"}
+{"canonical_name": "Warehouse Loader v1.3.1", "entity_type": "deployment", "external_ref": "deployments/DPL-013", "key": "DPL-013"}
+{"canonical_name": "Pricing Engine v2.6.0", "entity_type": "deployment", "external_ref": "deployments/DPL-014", "key": "DPL-014"}
+{"canonical_name": "Warehouse Sync v2.0.0", "entity_type": "deployment", "external_ref": "deployments/DPL-015", "key": "DPL-015"}
+{"canonical_name": "Warehouse Sync v1.9.4", "entity_type": "deployment", "external_ref": "deployments/DPL-016", "key": "DPL-016"}
+{"canonical_name": "Payments API v2.8.1", "entity_type": "deployment", "external_ref": "deployments/DPL-017", "key": "DPL-017"}
+{"canonical_name": "Pricing Engine v2.6.0+rules-r42", "entity_type": "deployment", "external_ref": "deployments/DPL-018", "key": "DPL-018"}
+{"canonical_name": "Pricing Engine v2.6.0+rules-r41", "entity_type": "deployment", "external_ref": "deployments/DPL-019", "key": "DPL-019"}
+{"canonical_name": "Ledger Service v1.7.2", "entity_type": "deployment", "external_ref": "deployments/DPL-020", "key": "DPL-020"}
+{"canonical_name": "Warehouse Loader v1.3.1+export-source-replica", "entity_type": "deployment", "external_ref": "deployments/DPL-021", "key": "DPL-021"}
+{"canonical_name": "Inventory Service v3.4.0", "entity_type": "deployment", "external_ref": "deployments/DPL-022", "key": "DPL-022"}
+{"canonical_name": "Warehouse Sync v2.0.1", "entity_type": "deployment", "external_ref": "deployments/DPL-023", "key": "DPL-023"}
+{"canonical_name": "API Gateway edge-cert-2026-05", "entity_type": "deployment", "external_ref": "deployments/DPL-024", "key": "DPL-024"}
+{"canonical_name": "Email Dispatcher v2.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-025", "key": "DPL-025"}
+{"canonical_name": "Checkout API v5.3.0", "entity_type": "deployment", "external_ref": "deployments/DPL-026", "key": "DPL-026"}
+{"canonical_name": "Payments API v2.9.0", "entity_type": "deployment", "external_ref": "deployments/DPL-027", "key": "DPL-027"}
+{"canonical_name": "Payments API v2.9.1", "entity_type": "deployment", "external_ref": "deployments/DPL-028", "key": "DPL-028"}
+{"canonical_name": "Notification Service v3.1.0", "entity_type": "deployment", "external_ref": "deployments/DPL-029", "key": "DPL-029"}
+{"canonical_name": "Notification Service v3.1.1", "entity_type": "deployment", "external_ref": "deployments/DPL-030", "key": "DPL-030"}
+{"canonical_name": "Auth Service v6.1.4", "entity_type": "deployment", "external_ref": "deployments/DPL-031", "key": "DPL-031"}
+{"canonical_name": "PSP Adapter v1.6.0", "entity_type": "deployment", "external_ref": "deployments/DPL-032", "key": "DPL-032"}
+{"canonical_name": "Order Service v4.3.0", "entity_type": "deployment", "external_ref": "deployments/DPL-033", "key": "DPL-033"}
+{"canonical_name": "Checkout API v5.3.2", "entity_type": "deployment", "external_ref": "deployments/DPL-034", "key": "DPL-034"}
+{"canonical_name": "Shared Redis appendonly-yes", "entity_type": "deployment", "external_ref": "deployments/DPL-035", "key": "DPL-035"}
+{"canonical_name": "Cart Service v1.13.0", "entity_type": "deployment", "external_ref": "deployments/DPL-036", "key": "DPL-036"}
+{"canonical_name": "Checkout API v5.4.0", "entity_type": "deployment", "external_ref": "deployments/DPL-037", "key": "DPL-037"}
+{"canonical_name": "Checkout API v5.3.2", "entity_type": "deployment", "external_ref": "deployments/DPL-038", "key": "DPL-038"}
+{"canonical_name": "Inventory Service v3.5.0", "entity_type": "deployment", "external_ref": "deployments/DPL-039", "key": "DPL-039"}
+{"canonical_name": "Event Bus kafka-3.7.1", "entity_type": "deployment", "external_ref": "deployments/DPL-040", "key": "DPL-040"}
+{"canonical_name": "Payments API v3.0.0", "entity_type": "deployment", "external_ref": "deployments/DPL-041", "key": "DPL-041"}
+{"canonical_name": "Catalog Service v2.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-042", "key": "DPL-042"}
+{"canonical_name": "Ledger Service v1.8.0", "entity_type": "deployment", "external_ref": "deployments/DPL-043", "key": "DPL-043"}
+{"canonical_name": "Ledger Service v1.8.1", "entity_type": "deployment", "external_ref": "deployments/DPL-044", "key": "DPL-044"}
+{"canonical_name": "Checkout API v5.5.0", "entity_type": "deployment", "external_ref": "deployments/DPL-045", "key": "DPL-045"}
+{"canonical_name": "Auth Service v6.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-046", "key": "DPL-046"}
+{"canonical_name": "Auth Service v6.1.4", "entity_type": "deployment", "external_ref": "deployments/DPL-047", "key": "DPL-047"}
+{"canonical_name": "Fraud Scoring Service v2.3.2", "entity_type": "deployment", "external_ref": "deployments/DPL-048", "key": "DPL-048"}
+{"canonical_name": "PSP Adapter v1.7.0", "entity_type": "deployment", "external_ref": "deployments/DPL-049", "key": "DPL-049"}
+{"canonical_name": "Inventory Service v3.6.0", "entity_type": "deployment", "external_ref": "deployments/DPL-050", "key": "DPL-050"}
+{"canonical_name": "Notification Service v4.0.0", "entity_type": "deployment", "external_ref": "deployments/DPL-051", "key": "DPL-051"}
+{"canonical_name": "Notification Service v4.0.1", "entity_type": "deployment", "external_ref": "deployments/DPL-052", "key": "DPL-052"}
+{"canonical_name": "Inventory Service v3.6.1", "entity_type": "deployment", "external_ref": "deployments/DPL-053", "key": "DPL-053"}
+{"canonical_name": "Checkout API v5.6.0", "entity_type": "deployment", "external_ref": "deployments/DPL-054", "key": "DPL-054"}
+{"canonical_name": "Payments API v3.1.0", "entity_type": "deployment", "external_ref": "deployments/DPL-055", "key": "DPL-055"}
+{"canonical_name": "Payments API v3.1.1", "entity_type": "deployment", "external_ref": "deployments/DPL-056", "key": "DPL-056"}
+{"canonical_name": "Auth Service v6.2.1", "entity_type": "deployment", "external_ref": "deployments/DPL-057", "key": "DPL-057"}
+{"canonical_name": "Email Dispatcher v2.3.0", "entity_type": "deployment", "external_ref": "deployments/DPL-058", "key": "DPL-058"}
+{"canonical_name": "Email Dispatcher v2.3.1", "entity_type": "deployment", "external_ref": "deployments/DPL-059", "key": "DPL-059"}
+{"canonical_name": "Order Service v4.4.0", "entity_type": "deployment", "external_ref": "deployments/DPL-060", "key": "DPL-060"}
+{"canonical_name": "API Gateway rl-policy-v7", "entity_type": "deployment", "external_ref": "deployments/DPL-061", "key": "DPL-061"}
+{"canonical_name": "API Gateway rl-policy-v6", "entity_type": "deployment", "external_ref": "deployments/DPL-062", "key": "DPL-062"}
+{"canonical_name": "Shared Redis redis-7.2.5", "entity_type": "deployment", "external_ref": "deployments/DPL-063", "key": "DPL-063"}
+{"canonical_name": "Notification Service v4.1.0", "entity_type": "deployment", "external_ref": "deployments/DPL-064", "key": "DPL-064"}
+{"canonical_name": "Fraud Scoring Service v2.4.0", "entity_type": "deployment", "external_ref": "deployments/DPL-065", "key": "DPL-065"}
+{"canonical_name": "Fraud Scoring Service v2.3.2", "entity_type": "deployment", "external_ref": "deployments/DPL-066", "key": "DPL-066"}
+{"canonical_name": "Payments API v3.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-067", "key": "DPL-067"}
+{"canonical_name": "Checkout API v5.7.0", "entity_type": "deployment", "external_ref": "deployments/DPL-068", "key": "DPL-068"}
+{"canonical_name": "Fraud Scoring Service v2.4.1", "entity_type": "deployment", "external_ref": "deployments/DPL-069", "key": "DPL-069"}
+{"canonical_name": "Order Service v4.5.0", "entity_type": "deployment", "external_ref": "deployments/DPL-070", "key": "DPL-070"}
+{"canonical_name": "Order Service v4.4.0", "entity_type": "deployment", "external_ref": "deployments/DPL-071", "key": "DPL-071"}
+{"canonical_name": "Payments API v3.3.0", "entity_type": "deployment", "external_ref": "deployments/DPL-072", "key": "DPL-072"}
+{"canonical_name": "Checkout API v5.7.1", "entity_type": "deployment", "external_ref": "deployments/DPL-073", "key": "DPL-073"}
+{"canonical_name": "PSP Adapter v1.8.0", "entity_type": "deployment", "external_ref": "deployments/DPL-074", "key": "DPL-074"}
+{"canonical_name": "PSP Adapter v1.8.1", "entity_type": "deployment", "external_ref": "deployments/DPL-075", "key": "DPL-075"}
+{"canonical_name": "Notification Service v4.2.0", "entity_type": "deployment", "external_ref": "deployments/DPL-076", "key": "DPL-076"}
+{"canonical_name": "Notification Service v4.2.1", "entity_type": "deployment", "external_ref": "deployments/DPL-077", "key": "DPL-077"}
+{"canonical_name": "Payments API v3.3.1", "entity_type": "deployment", "external_ref": "deployments/DPL-078", "key": "DPL-078"}
+{"canonical_name": "Checkout API v6.0.0", "entity_type": "deployment", "external_ref": "deployments/DPL-079", "key": "DPL-079"}
+{"canonical_name": "Checkout API v5.7.1", "entity_type": "deployment", "external_ref": "deployments/DPL-080", "key": "DPL-080"}
+{"canonical_name": "Pricing Engine v2.7.0", "entity_type": "deployment", "external_ref": "deployments/DPL-081", "key": "DPL-081"}
+{"canonical_name": "Pricing Engine v2.7.1", "entity_type": "deployment", "external_ref": "deployments/DPL-082", "key": "DPL-082"}
+{"canonical_name": "Event Bus retention-48h", "entity_type": "deployment", "external_ref": "deployments/DPL-083", "key": "DPL-083"}
+{"canonical_name": "Fraud Scoring Service v2.5.0", "entity_type": "deployment", "external_ref": "deployments/DPL-084", "key": "DPL-084"}
+{"canonical_name": "Payments API v3.4.0", "entity_type": "deployment", "external_ref": "deployments/DPL-085", "key": "DPL-085"}
+{"canonical_name": "Payments API v3.3.1", "entity_type": "deployment", "external_ref": "deployments/DPL-086", "key": "DPL-086"}
+{"canonical_name": "Accounts Service v1.5.1", "entity_type": "deployment", "external_ref": "deployments/DPL-087", "key": "DPL-087"}
+{"canonical_name": "INC-101", "entity_type": "incident", "external_ref": "incidents/INC-101", "key": "INC-101"}
+{"canonical_name": "INC-102", "entity_type": "incident", "external_ref": "incidents/INC-102", "key": "INC-102"}
+{"canonical_name": "INC-103", "entity_type": "incident", "external_ref": "incidents/INC-103", "key": "INC-103"}
+{"canonical_name": "INC-104", "entity_type": "incident", "external_ref": "incidents/INC-104", "key": "INC-104"}
+{"canonical_name": "INC-105", "entity_type": "incident", "external_ref": "incidents/INC-105", "key": "INC-105"}
+{"canonical_name": "INC-106", "entity_type": "incident", "external_ref": "incidents/INC-106", "key": "INC-106"}
+{"canonical_name": "INC-107", "entity_type": "incident", "external_ref": "incidents/INC-107", "key": "INC-107"}
+{"canonical_name": "INC-108", "entity_type": "incident", "external_ref": "incidents/INC-108", "key": "INC-108"}
+{"canonical_name": "INC-109", "entity_type": "incident", "external_ref": "incidents/INC-109", "key": "INC-109"}
+{"canonical_name": "INC-110", "entity_type": "incident", "external_ref": "incidents/INC-110", "key": "INC-110"}
+{"canonical_name": "INC-111", "entity_type": "incident", "external_ref": "incidents/INC-111", "key": "INC-111"}
+{"canonical_name": "INC-112", "entity_type": "incident", "external_ref": "incidents/INC-112", "key": "INC-112"}
+{"canonical_name": "INC-113", "entity_type": "incident", "external_ref": "incidents/INC-113", "key": "INC-113"}
+{"canonical_name": "INC-114", "entity_type": "incident", "external_ref": "incidents/INC-114", "key": "INC-114"}
+{"canonical_name": "INC-115", "entity_type": "incident", "external_ref": "incidents/INC-115", "key": "INC-115"}
+{"canonical_name": "INC-116", "entity_type": "incident", "external_ref": "incidents/INC-116", "key": "INC-116"}
+{"canonical_name": "INC-117", "entity_type": "incident", "external_ref": "incidents/INC-117", "key": "INC-117"}
+{"canonical_name": "INC-118", "entity_type": "incident", "external_ref": "incidents/INC-118", "key": "INC-118"}
+{"canonical_name": "INC-119", "entity_type": "incident", "external_ref": "incidents/INC-119", "key": "INC-119"}
+{"canonical_name": "INC-120", "entity_type": "incident", "external_ref": "incidents/INC-120", "key": "INC-120"}
+{"canonical_name": "INC-121", "entity_type": "incident", "external_ref": "incidents/INC-121", "key": "INC-121"}
+{"canonical_name": "INC-122", "entity_type": "incident", "external_ref": "incidents/INC-122", "key": "INC-122"}
+{"canonical_name": "INC-123", "entity_type": "incident", "external_ref": "incidents/INC-123", "key": "INC-123"}
+{"canonical_name": "INC-124", "entity_type": "incident", "external_ref": "incidents/INC-124", "key": "INC-124"}
+{"canonical_name": "INC-125", "entity_type": "incident", "external_ref": "incidents/INC-125", "key": "INC-125"}
+{"canonical_name": "INC-126", "entity_type": "incident", "external_ref": "incidents/INC-126", "key": "INC-126"}
+{"canonical_name": "INC-127", "entity_type": "incident", "external_ref": "incidents/INC-127", "key": "INC-127"}
+{"canonical_name": "INC-128", "entity_type": "incident", "external_ref": "incidents/INC-128", "key": "INC-128"}
+{"canonical_name": "INC-129", "entity_type": "incident", "external_ref": "incidents/INC-129", "key": "INC-129"}
+{"canonical_name": "INC-130", "entity_type": "incident", "external_ref": "incidents/INC-130", "key": "INC-130"}
+{"canonical_name": "INC-131", "entity_type": "incident", "external_ref": "incidents/INC-131", "key": "INC-131"}
+{"canonical_name": "INC-132", "entity_type": "incident", "external_ref": "incidents/INC-132", "key": "INC-132"}
+{"canonical_name": "INC-133", "entity_type": "incident", "external_ref": "incidents/INC-133", "key": "INC-133"}
+{"canonical_name": "INC-134", "entity_type": "incident", "external_ref": "incidents/INC-134", "key": "INC-134"}
+{"canonical_name": "INC-135", "entity_type": "incident", "external_ref": "incidents/INC-135", "key": "INC-135"}
+{"canonical_name": "INC-136", "entity_type": "incident", "external_ref": "incidents/INC-136", "key": "INC-136"}
+{"canonical_name": "INC-137", "entity_type": "incident", "external_ref": "incidents/INC-137", "key": "INC-137"}
+{"canonical_name": "INC-138", "entity_type": "incident", "external_ref": "incidents/INC-138", "key": "INC-138"}

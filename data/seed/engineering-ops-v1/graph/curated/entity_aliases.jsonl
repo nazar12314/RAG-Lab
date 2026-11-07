@@ -1,0 +1,557 @@
+{"alias": "Checkout", "entity_key": "SUB-checkout"}
+{"alias": "checkout", "entity_key": "SUB-checkout"}
+{"alias": "Payments", "entity_key": "SUB-payments"}
+{"alias": "payments", "entity_key": "SUB-payments"}
+{"alias": "Authentication", "entity_key": "SUB-authentication"}
+{"alias": "authentication", "entity_key": "SUB-authentication"}
+{"alias": "Inventory", "entity_key": "SUB-inventory"}
+{"alias": "inventory", "entity_key": "SUB-inventory"}
+{"alias": "Notifications", "entity_key": "SUB-notifications"}
+{"alias": "notifications", "entity_key": "SUB-notifications"}
+{"alias": "Data Platform", "entity_key": "SUB-data-platform"}
+{"alias": "data-platform", "entity_key": "SUB-data-platform"}
+{"alias": "Shared Infrastructure", "entity_key": "SUB-shared-infrastructure"}
+{"alias": "shared-infrastructure", "entity_key": "SUB-shared-infrastructure"}
+{"alias": "Checkout Team", "entity_key": "TEAM-CHECKOUT"}
+{"alias": "#team-checkout", "entity_key": "TEAM-CHECKOUT"}
+{"alias": "Payments Team", "entity_key": "TEAM-PAYMENTS"}
+{"alias": "#team-payments", "entity_key": "TEAM-PAYMENTS"}
+{"alias": "Identity Team", "entity_key": "TEAM-IDENTITY"}
+{"alias": "#team-identity", "entity_key": "TEAM-IDENTITY"}
+{"alias": "Inventory Team", "entity_key": "TEAM-INVENTORY"}
+{"alias": "#team-inventory", "entity_key": "TEAM-INVENTORY"}
+{"alias": "Customer Comms Team", "entity_key": "TEAM-COMMS"}
+{"alias": "#team-comms", "entity_key": "TEAM-COMMS"}
+{"alias": "Data Platform Team", "entity_key": "TEAM-DATA"}
+{"alias": "#team-data", "entity_key": "TEAM-DATA"}
+{"alias": "Platform SRE", "entity_key": "TEAM-SRE"}
+{"alias": "#sre", "entity_key": "TEAM-SRE"}
+{"alias": "PayNova", "entity_key": "EXT-PAYNOVA"}
+{"alias": "PayNova gateway", "entity_key": "EXT-PAYNOVA"}
+{"alias": "the card processor", "entity_key": "EXT-PAYNOVA"}
+{"alias": "PSP", "entity_key": "EXT-PAYNOVA"}
+{"alias": "MailRelay", "entity_key": "EXT-MAILRELAY"}
+{"alias": "MailRelay API", "entity_key": "EXT-MAILRELAY"}
+{"alias": "the email provider", "entity_key": "EXT-MAILRELAY"}
+{"alias": "ESP", "entity_key": "EXT-MAILRELAY"}
+{"alias": "Checkout API", "entity_key": "SVC-CHECKOUT-API"}
+{"alias": "checkout-api", "entity_key": "SVC-CHECKOUT-API"}
+{"alias": "checkout", "entity_key": "SVC-CHECKOUT-API"}
+{"alias": "checkout service", "entity_key": "SVC-CHECKOUT-API"}
+{"alias": "co-api", "entity_key": "SVC-CHECKOUT-API"}
+{"alias": "Cart Service", "entity_key": "SVC-CART-SERVICE"}
+{"alias": "cart-service", "entity_key": "SVC-CART-SERVICE"}
+{"alias": "cart", "entity_key": "SVC-CART-SERVICE"}
+{"alias": "basket service", "entity_key": "SVC-CART-SERVICE"}
+{"alias": "basket", "entity_key": "SVC-CART-SERVICE"}
+{"alias": "Pricing Engine", "entity_key": "SVC-PRICING-SERVICE"}
+{"alias": "pricing-service", "entity_key": "SVC-PRICING-SERVICE"}
+{"alias": "pricing", "entity_key": "SVC-PRICING-SERVICE"}
+{"alias": "price-calc", "entity_key": "SVC-PRICING-SERVICE"}
+{"alias": "Order Service", "entity_key": "SVC-ORDER-SERVICE"}
+{"alias": "order-service", "entity_key": "SVC-ORDER-SERVICE"}
+{"alias": "orders", "entity_key": "SVC-ORDER-SERVICE"}
+{"alias": "order management", "entity_key": "SVC-ORDER-SERVICE"}
+{"alias": "OMS", "entity_key": "SVC-ORDER-SERVICE"}
+{"alias": "Payments API", "entity_key": "SVC-PAYMENTS-API"}
+{"alias": "payments-api", "entity_key": "SVC-PAYMENTS-API"}
+{"alias": "payment-service", "entity_key": "SVC-PAYMENTS-API"}
+{"alias": "payments", "entity_key": "SVC-PAYMENTS-API"}
+{"alias": "pay-api", "entity_key": "SVC-PAYMENTS-API"}
+{"alias": "payments backend", "entity_key": "SVC-PAYMENTS-API"}
+{"alias": "Fraud Scoring Service", "entity_key": "SVC-FRAUD-SERVICE"}
+{"alias": "fraud-service", "entity_key": "SVC-FRAUD-SERVICE"}
+{"alias": "fraud", "entity_key": "SVC-FRAUD-SERVICE"}
+{"alias": "risk-scoring", "entity_key": "SVC-FRAUD-SERVICE"}
+{"alias": "risk service", "entity_key": "SVC-FRAUD-SERVICE"}
+{"alias": "Ledger Service", "entity_key": "SVC-LEDGER-SERVICE"}
+{"alias": "ledger-service", "entity_key": "SVC-LEDGER-SERVICE"}
+{"alias": "ledger", "entity_key": "SVC-LEDGER-SERVICE"}
+{"alias": "payments ledger", "entity_key": "SVC-LEDGER-SERVICE"}
+{"alias": "finance ledger", "entity_key": "SVC-LEDGER-SERVICE"}
+{"alias": "PSP Adapter", "entity_key": "SVC-PSP-ADAPTER"}
+{"alias": "psp-adapter", "entity_key": "SVC-PSP-ADAPTER"}
+{"alias": "payment provider adapter", "entity_key": "SVC-PSP-ADAPTER"}
+{"alias": "provider-gateway", "entity_key": "SVC-PSP-ADAPTER"}
+{"alias": "psp gateway", "entity_key": "SVC-PSP-ADAPTER"}
+{"alias": "Auth Service", "entity_key": "SVC-AUTH-SERVICE"}
+{"alias": "auth-service", "entity_key": "SVC-AUTH-SERVICE"}
+{"alias": "identity service", "entity_key": "SVC-AUTH-SERVICE"}
+{"alias": "auth", "entity_key": "SVC-AUTH-SERVICE"}
+{"alias": "login service", "entity_key": "SVC-AUTH-SERVICE"}
+{"alias": "IdP", "entity_key": "SVC-AUTH-SERVICE"}
+{"alias": "Accounts Service", "entity_key": "SVC-ACCOUNTS-SERVICE"}
+{"alias": "accounts-service", "entity_key": "SVC-ACCOUNTS-SERVICE"}
+{"alias": "user profile service", "entity_key": "SVC-ACCOUNTS-SERVICE"}
+{"alias": "accounts", "entity_key": "SVC-ACCOUNTS-SERVICE"}
+{"alias": "profile service", "entity_key": "SVC-ACCOUNTS-SERVICE"}
+{"alias": "Inventory Service", "entity_key": "SVC-INVENTORY-SERVICE"}
+{"alias": "inventory-service", "entity_key": "SVC-INVENTORY-SERVICE"}
+{"alias": "inventory api", "entity_key": "SVC-INVENTORY-SERVICE"}
+{"alias": "stock service", "entity_key": "SVC-INVENTORY-SERVICE"}
+{"alias": "inventory", "entity_key": "SVC-INVENTORY-SERVICE"}
+{"alias": "Catalog Service", "entity_key": "SVC-CATALOG-SERVICE"}
+{"alias": "catalog-service", "entity_key": "SVC-CATALOG-SERVICE"}
+{"alias": "product catalog", "entity_key": "SVC-CATALOG-SERVICE"}
+{"alias": "catalog", "entity_key": "SVC-CATALOG-SERVICE"}
+{"alias": "catalog api", "entity_key": "SVC-CATALOG-SERVICE"}
+{"alias": "Warehouse Sync", "entity_key": "SVC-WAREHOUSE-SYNC"}
+{"alias": "warehouse-sync", "entity_key": "SVC-WAREHOUSE-SYNC"}
+{"alias": "wms sync", "entity_key": "SVC-WAREHOUSE-SYNC"}
+{"alias": "warehouse sync worker", "entity_key": "SVC-WAREHOUSE-SYNC"}
+{"alias": "warehouse integration", "entity_key": "SVC-WAREHOUSE-SYNC"}
+{"alias": "Notification Service", "entity_key": "SVC-NOTIFICATION-SERVICE"}
+{"alias": "notification-service", "entity_key": "SVC-NOTIFICATION-SERVICE"}
+{"alias": "notifier", "entity_key": "SVC-NOTIFICATION-SERVICE"}
+{"alias": "notifications", "entity_key": "SVC-NOTIFICATION-SERVICE"}
+{"alias": "notification svc", "entity_key": "SVC-NOTIFICATION-SERVICE"}
+{"alias": "Email Dispatcher", "entity_key": "SVC-EMAIL-DISPATCHER"}
+{"alias": "email-dispatcher", "entity_key": "SVC-EMAIL-DISPATCHER"}
+{"alias": "mailer", "entity_key": "SVC-EMAIL-DISPATCHER"}
+{"alias": "email worker", "entity_key": "SVC-EMAIL-DISPATCHER"}
+{"alias": "email-sender", "entity_key": "SVC-EMAIL-DISPATCHER"}
+{"alias": "Event Bus", "entity_key": "SVC-EVENT-BUS"}
+{"alias": "event-bus", "entity_key": "SVC-EVENT-BUS"}
+{"alias": "kafka cluster", "entity_key": "SVC-EVENT-BUS"}
+{"alias": "event pipeline", "entity_key": "SVC-EVENT-BUS"}
+{"alias": "events", "entity_key": "SVC-EVENT-BUS"}
+{"alias": "kafka", "entity_key": "SVC-EVENT-BUS"}
+{"alias": "Warehouse Loader", "entity_key": "SVC-WAREHOUSE-LOADER"}
+{"alias": "warehouse-loader", "entity_key": "SVC-WAREHOUSE-LOADER"}
+{"alias": "etl loader", "entity_key": "SVC-WAREHOUSE-LOADER"}
+{"alias": "dw loader", "entity_key": "SVC-WAREHOUSE-LOADER"}
+{"alias": "data warehouse loader", "entity_key": "SVC-WAREHOUSE-LOADER"}
+{"alias": "nightly ETL", "entity_key": "SVC-WAREHOUSE-LOADER"}
+{"alias": "API Gateway", "entity_key": "SVC-API-GATEWAY"}
+{"alias": "api-gateway", "entity_key": "SVC-API-GATEWAY"}
+{"alias": "edge gateway", "entity_key": "SVC-API-GATEWAY"}
+{"alias": "edge", "entity_key": "SVC-API-GATEWAY"}
+{"alias": "ingress", "entity_key": "SVC-API-GATEWAY"}
+{"alias": "Orders DB", "entity_key": "SVC-ORDERS-DB"}
+{"alias": "orders-db", "entity_key": "SVC-ORDERS-DB"}
+{"alias": "pg-orders", "entity_key": "SVC-ORDERS-DB"}
+{"alias": "orders database", "entity_key": "SVC-ORDERS-DB"}
+{"alias": "primary postgres", "entity_key": "SVC-ORDERS-DB"}
+{"alias": "orders-db primary", "entity_key": "SVC-ORDERS-DB"}
+{"alias": "Shared Redis", "entity_key": "SVC-SHARED-REDIS"}
+{"alias": "shared-redis", "entity_key": "SVC-SHARED-REDIS"}
+{"alias": "redis cache", "entity_key": "SVC-SHARED-REDIS"}
+{"alias": "cache cluster", "entity_key": "SVC-SHARED-REDIS"}
+{"alias": "session cache", "entity_key": "SVC-SHARED-REDIS"}
+{"alias": "redis", "entity_key": "SVC-SHARED-REDIS"}
+{"alias": "Checkout API v5.2.0", "entity_key": "DPL-001"}
+{"alias": "checkout-api v5.2.0", "entity_key": "DPL-001"}
+{"alias": "checkout-api 5.2.0", "entity_key": "DPL-001"}
+{"alias": "DPL-001", "entity_key": "DPL-001"}
+{"alias": "Warehouse Loader v1.3.0", "entity_key": "DPL-002"}
+{"alias": "warehouse-loader v1.3.0", "entity_key": "DPL-002"}
+{"alias": "warehouse-loader 1.3.0", "entity_key": "DPL-002"}
+{"alias": "DPL-002", "entity_key": "DPL-002"}
+{"alias": "Auth Service v6.0.0", "entity_key": "DPL-003"}
+{"alias": "auth-service v6.0.0", "entity_key": "DPL-003"}
+{"alias": "auth-service 6.0.0", "entity_key": "DPL-003"}
+{"alias": "DPL-003", "entity_key": "DPL-003"}
+{"alias": "Catalog Service v2.1.0", "entity_key": "DPL-004"}
+{"alias": "catalog-service v2.1.0", "entity_key": "DPL-004"}
+{"alias": "catalog-service 2.1.0", "entity_key": "DPL-004"}
+{"alias": "DPL-004", "entity_key": "DPL-004"}
+{"alias": "Shared Redis maxmemory-policy-volatile-lru", "entity_key": "DPL-005"}
+{"alias": "shared-redis maxmemory-policy-volatile-lru", "entity_key": "DPL-005"}
+{"alias": "DPL-005", "entity_key": "DPL-005"}
+{"alias": "Order Service v4.1.0", "entity_key": "DPL-006"}
+{"alias": "order-service v4.1.0", "entity_key": "DPL-006"}
+{"alias": "order-service 4.1.0", "entity_key": "DPL-006"}
+{"alias": "DPL-006", "entity_key": "DPL-006"}
+{"alias": "Payments API v2.7.3", "entity_key": "DPL-007"}
+{"alias": "payments-api v2.7.3", "entity_key": "DPL-007"}
+{"alias": "payments-api 2.7.3", "entity_key": "DPL-007"}
+{"alias": "DPL-007", "entity_key": "DPL-007"}
+{"alias": "Warehouse Sync v1.9.4", "entity_key": "DPL-008"}
+{"alias": "warehouse-sync v1.9.4", "entity_key": "DPL-008"}
+{"alias": "warehouse-sync 1.9.4", "entity_key": "DPL-008"}
+{"alias": "DPL-008", "entity_key": "DPL-008"}
+{"alias": "Cart Service v1.12.0", "entity_key": "DPL-009"}
+{"alias": "cart-service v1.12.0", "entity_key": "DPL-009"}
+{"alias": "cart-service 1.12.0", "entity_key": "DPL-009"}
+{"alias": "DPL-009", "entity_key": "DPL-009"}
+{"alias": "Payments API v2.8.0", "entity_key": "DPL-010"}
+{"alias": "payments-api v2.8.0", "entity_key": "DPL-010"}
+{"alias": "payments-api 2.8.0", "entity_key": "DPL-010"}
+{"alias": "DPL-010", "entity_key": "DPL-010"}
+{"alias": "Payments API v2.7.3", "entity_key": "DPL-011"}
+{"alias": "payments-api v2.7.3", "entity_key": "DPL-011"}
+{"alias": "payments-api 2.7.3", "entity_key": "DPL-011"}
+{"alias": "DPL-011", "entity_key": "DPL-011"}
+{"alias": "Order Service v4.2.0", "entity_key": "DPL-012"}
+{"alias": "order-service v4.2.0", "entity_key": "DPL-012"}
+{"alias": "order-service 4.2.0", "entity_key": "DPL-012"}
+{"alias": "DPL-012", "entity_key": "DPL-012"}
+{"alias": "Warehouse Loader v1.3.1", "entity_key": "DPL-013"}
+{"alias": "warehouse-loader v1.3.1", "entity_key": "DPL-013"}
+{"alias": "warehouse-loader 1.3.1", "entity_key": "DPL-013"}
+{"alias": "DPL-013", "entity_key": "DPL-013"}
+{"alias": "Pricing Engine v2.6.0", "entity_key": "DPL-014"}
+{"alias": "pricing-service v2.6.0", "entity_key": "DPL-014"}
+{"alias": "pricing-service 2.6.0", "entity_key": "DPL-014"}
+{"alias": "DPL-014", "entity_key": "DPL-014"}
+{"alias": "Warehouse Sync v2.0.0", "entity_key": "DPL-015"}
+{"alias": "warehouse-sync v2.0.0", "entity_key": "DPL-015"}
+{"alias": "warehouse-sync 2.0.0", "entity_key": "DPL-015"}
+{"alias": "DPL-015", "entity_key": "DPL-015"}
+{"alias": "Warehouse Sync v1.9.4", "entity_key": "DPL-016"}
+{"alias": "warehouse-sync v1.9.4", "entity_key": "DPL-016"}
+{"alias": "warehouse-sync 1.9.4", "entity_key": "DPL-016"}
+{"alias": "DPL-016", "entity_key": "DPL-016"}
+{"alias": "Payments API v2.8.1", "entity_key": "DPL-017"}
+{"alias": "payments-api v2.8.1", "entity_key": "DPL-017"}
+{"alias": "payments-api 2.8.1", "entity_key": "DPL-017"}
+{"alias": "DPL-017", "entity_key": "DPL-017"}
+{"alias": "Pricing Engine v2.6.0+rules-r42", "entity_key": "DPL-018"}
+{"alias": "pricing-service v2.6.0+rules-r42", "entity_key": "DPL-018"}
+{"alias": "pricing-service 2.6.0+rules-r42", "entity_key": "DPL-018"}
+{"alias": "DPL-018", "entity_key": "DPL-018"}
+{"alias": "Pricing Engine v2.6.0+rules-r41", "entity_key": "DPL-019"}
+{"alias": "pricing-service v2.6.0+rules-r41", "entity_key": "DPL-019"}
+{"alias": "pricing-service 2.6.0+rules-r41", "entity_key": "DPL-019"}
+{"alias": "DPL-019", "entity_key": "DPL-019"}
+{"alias": "Ledger Service v1.7.2", "entity_key": "DPL-020"}
+{"alias": "ledger-service v1.7.2", "entity_key": "DPL-020"}
+{"alias": "ledger-service 1.7.2", "entity_key": "DPL-020"}
+{"alias": "DPL-020", "entity_key": "DPL-020"}
+{"alias": "Warehouse Loader v1.3.1+export-source-replica", "entity_key": "DPL-021"}
+{"alias": "warehouse-loader v1.3.1+export-source-replica", "entity_key": "DPL-021"}
+{"alias": "warehouse-loader 1.3.1+export-source-replica", "entity_key": "DPL-021"}
+{"alias": "DPL-021", "entity_key": "DPL-021"}
+{"alias": "Inventory Service v3.4.0", "entity_key": "DPL-022"}
+{"alias": "inventory-service v3.4.0", "entity_key": "DPL-022"}
+{"alias": "inventory-service 3.4.0", "entity_key": "DPL-022"}
+{"alias": "DPL-022", "entity_key": "DPL-022"}
+{"alias": "Warehouse Sync v2.0.1", "entity_key": "DPL-023"}
+{"alias": "warehouse-sync v2.0.1", "entity_key": "DPL-023"}
+{"alias": "warehouse-sync 2.0.1", "entity_key": "DPL-023"}
+{"alias": "DPL-023", "entity_key": "DPL-023"}
+{"alias": "API Gateway edge-cert-2026-05", "entity_key": "DPL-024"}
+{"alias": "api-gateway edge-cert-2026-05", "entity_key": "DPL-024"}
+{"alias": "DPL-024", "entity_key": "DPL-024"}
+{"alias": "Email Dispatcher v2.2.0", "entity_key": "DPL-025"}
+{"alias": "email-dispatcher v2.2.0", "entity_key": "DPL-025"}
+{"alias": "email-dispatcher 2.2.0", "entity_key": "DPL-025"}
+{"alias": "DPL-025", "entity_key": "DPL-025"}
+{"alias": "Checkout API v5.3.0", "entity_key": "DPL-026"}
+{"alias": "checkout-api v5.3.0", "entity_key": "DPL-026"}
+{"alias": "checkout-api 5.3.0", "entity_key": "DPL-026"}
+{"alias": "DPL-026", "entity_key": "DPL-026"}
+{"alias": "Payments API v2.9.0", "entity_key": "DPL-027"}
+{"alias": "payments-api v2.9.0", "entity_key": "DPL-027"}
+{"alias": "payments-api 2.9.0", "entity_key": "DPL-027"}
+{"alias": "DPL-027", "entity_key": "DPL-027"}
+{"alias": "Payments API v2.9.1", "entity_key": "DPL-028"}
+{"alias": "payments-api v2.9.1", "entity_key": "DPL-028"}
+{"alias": "payments-api 2.9.1", "entity_key": "DPL-028"}
+{"alias": "DPL-028", "entity_key": "DPL-028"}
+{"alias": "Notification Service v3.1.0", "entity_key": "DPL-029"}
+{"alias": "notification-service v3.1.0", "entity_key": "DPL-029"}
+{"alias": "notification-service 3.1.0", "entity_key": "DPL-029"}
+{"alias": "DPL-029", "entity_key": "DPL-029"}
+{"alias": "Notification Service v3.1.1", "entity_key": "DPL-030"}
+{"alias": "notification-service v3.1.1", "entity_key": "DPL-030"}
+{"alias": "notification-service 3.1.1", "entity_key": "DPL-030"}
+{"alias": "DPL-030", "entity_key": "DPL-030"}
+{"alias": "Auth Service v6.1.4", "entity_key": "DPL-031"}
+{"alias": "auth-service v6.1.4", "entity_key": "DPL-031"}
+{"alias": "auth-service 6.1.4", "entity_key": "DPL-031"}
+{"alias": "DPL-031", "entity_key": "DPL-031"}
+{"alias": "PSP Adapter v1.6.0", "entity_key": "DPL-032"}
+{"alias": "psp-adapter v1.6.0", "entity_key": "DPL-032"}
+{"alias": "psp-adapter 1.6.0", "entity_key": "DPL-032"}
+{"alias": "DPL-032", "entity_key": "DPL-032"}
+{"alias": "Order Service v4.3.0", "entity_key": "DPL-033"}
+{"alias": "order-service v4.3.0", "entity_key": "DPL-033"}
+{"alias": "order-service 4.3.0", "entity_key": "DPL-033"}
+{"alias": "DPL-033", "entity_key": "DPL-033"}
+{"alias": "Checkout API v5.3.2", "entity_key": "DPL-034"}
+{"alias": "checkout-api v5.3.2", "entity_key": "DPL-034"}
+{"alias": "checkout-api 5.3.2", "entity_key": "DPL-034"}
+{"alias": "DPL-034", "entity_key": "DPL-034"}
+{"alias": "Shared Redis appendonly-yes", "entity_key": "DPL-035"}
+{"alias": "shared-redis appendonly-yes", "entity_key": "DPL-035"}
+{"alias": "DPL-035", "entity_key": "DPL-035"}
+{"alias": "Cart Service v1.13.0", "entity_key": "DPL-036"}
+{"alias": "cart-service v1.13.0", "entity_key": "DPL-036"}
+{"alias": "cart-service 1.13.0", "entity_key": "DPL-036"}
+{"alias": "DPL-036", "entity_key": "DPL-036"}
+{"alias": "Checkout API v5.4.0", "entity_key": "DPL-037"}
+{"alias": "checkout-api v5.4.0", "entity_key": "DPL-037"}
+{"alias": "checkout-api 5.4.0", "entity_key": "DPL-037"}
+{"alias": "DPL-037", "entity_key": "DPL-037"}
+{"alias": "Checkout API v5.3.2", "entity_key": "DPL-038"}
+{"alias": "checkout-api v5.3.2", "entity_key": "DPL-038"}
+{"alias": "checkout-api 5.3.2", "entity_key": "DPL-038"}
+{"alias": "DPL-038", "entity_key": "DPL-038"}
+{"alias": "Inventory Service v3.5.0", "entity_key": "DPL-039"}
+{"alias": "inventory-service v3.5.0", "entity_key": "DPL-039"}
+{"alias": "inventory-service 3.5.0", "entity_key": "DPL-039"}
+{"alias": "DPL-039", "entity_key": "DPL-039"}
+{"alias": "Event Bus kafka-3.7.1", "entity_key": "DPL-040"}
+{"alias": "event-bus kafka-3.7.1", "entity_key": "DPL-040"}
+{"alias": "DPL-040", "entity_key": "DPL-040"}
+{"alias": "Payments API v3.0.0", "entity_key": "DPL-041"}
+{"alias": "payments-api v3.0.0", "entity_key": "DPL-041"}
+{"alias": "payments-api 3.0.0", "entity_key": "DPL-041"}
+{"alias": "DPL-041", "entity_key": "DPL-041"}
+{"alias": "Catalog Service v2.2.0", "entity_key": "DPL-042"}
+{"alias": "catalog-service v2.2.0", "entity_key": "DPL-042"}
+{"alias": "catalog-service 2.2.0", "entity_key": "DPL-042"}
+{"alias": "DPL-042", "entity_key": "DPL-042"}
+{"alias": "Ledger Service v1.8.0", "entity_key": "DPL-043"}
+{"alias": "ledger-service v1.8.0", "entity_key": "DPL-043"}
+{"alias": "ledger-service 1.8.0", "entity_key": "DPL-043"}
+{"alias": "DPL-043", "entity_key": "DPL-043"}
+{"alias": "Ledger Service v1.8.1", "entity_key": "DPL-044"}
+{"alias": "ledger-service v1.8.1", "entity_key": "DPL-044"}
+{"alias": "ledger-service 1.8.1", "entity_key": "DPL-044"}
+{"alias": "DPL-044", "entity_key": "DPL-044"}
+{"alias": "Checkout API v5.5.0", "entity_key": "DPL-045"}
+{"alias": "checkout-api v5.5.0", "entity_key": "DPL-045"}
+{"alias": "checkout-api 5.5.0", "entity_key": "DPL-045"}
+{"alias": "DPL-045", "entity_key": "DPL-045"}
+{"alias": "Auth Service v6.2.0", "entity_key": "DPL-046"}
+{"alias": "auth-service v6.2.0", "entity_key": "DPL-046"}
+{"alias": "auth-service 6.2.0", "entity_key": "DPL-046"}
+{"alias": "DPL-046", "entity_key": "DPL-046"}
+{"alias": "Auth Service v6.1.4", "entity_key": "DPL-047"}
+{"alias": "auth-service v6.1.4", "entity_key": "DPL-047"}
+{"alias": "auth-service 6.1.4", "entity_key": "DPL-047"}
+{"alias": "DPL-047", "entity_key": "DPL-047"}
+{"alias": "Fraud Scoring Service v2.3.2", "entity_key": "DPL-048"}
+{"alias": "fraud-service v2.3.2", "entity_key": "DPL-048"}
+{"alias": "fraud-service 2.3.2", "entity_key": "DPL-048"}
+{"alias": "DPL-048", "entity_key": "DPL-048"}
+{"alias": "PSP Adapter v1.7.0", "entity_key": "DPL-049"}
+{"alias": "psp-adapter v1.7.0", "entity_key": "DPL-049"}
+{"alias": "psp-adapter 1.7.0", "entity_key": "DPL-049"}
+{"alias": "DPL-049", "entity_key": "DPL-049"}
+{"alias": "Inventory Service v3.6.0", "entity_key": "DPL-050"}
+{"alias": "inventory-service v3.6.0", "entity_key": "DPL-050"}
+{"alias": "inventory-service 3.6.0", "entity_key": "DPL-050"}
+{"alias": "DPL-050", "entity_key": "DPL-050"}
+{"alias": "Notification Service v4.0.0", "entity_key": "DPL-051"}
+{"alias": "notification-service v4.0.0", "entity_key": "DPL-051"}
+{"alias": "notification-service 4.0.0", "entity_key": "DPL-051"}
+{"alias": "DPL-051", "entity_key": "DPL-051"}
+{"alias": "Notification Service v4.0.1", "entity_key": "DPL-052"}
+{"alias": "notification-service v4.0.1", "entity_key": "DPL-052"}
+{"alias": "notification-service 4.0.1", "entity_key": "DPL-052"}
+{"alias": "DPL-052", "entity_key": "DPL-052"}
+{"alias": "Inventory Service v3.6.1", "entity_key": "DPL-053"}
+{"alias": "inventory-service v3.6.1", "entity_key": "DPL-053"}
+{"alias": "inventory-service 3.6.1", "entity_key": "DPL-053"}
+{"alias": "DPL-053", "entity_key": "DPL-053"}
+{"alias": "Checkout API v5.6.0", "entity_key": "DPL-054"}
+{"alias": "checkout-api v5.6.0", "entity_key": "DPL-054"}
+{"alias": "checkout-api 5.6.0", "entity_key": "DPL-054"}
+{"alias": "DPL-054", "entity_key": "DPL-054"}
+{"alias": "Payments API v3.1.0", "entity_key": "DPL-055"}
+{"alias": "payments-api v3.1.0", "entity_key": "DPL-055"}
+{"alias": "payments-api 3.1.0", "entity_key": "DPL-055"}
+{"alias": "DPL-055", "entity_key": "DPL-055"}
+{"alias": "Payments API v3.1.1", "entity_key": "DPL-056"}
+{"alias": "payments-api v3.1.1", "entity_key": "DPL-056"}
+{"alias": "payments-api 3.1.1", "entity_key": "DPL-056"}
+{"alias": "DPL-056", "entity_key": "DPL-056"}
+{"alias": "Auth Service v6.2.1", "entity_key": "DPL-057"}
+{"alias": "auth-service v6.2.1", "entity_key": "DPL-057"}
+{"alias": "auth-service 6.2.1", "entity_key": "DPL-057"}
+{"alias": "DPL-057", "entity_key": "DPL-057"}
+{"alias": "Email Dispatcher v2.3.0", "entity_key": "DPL-058"}
+{"alias": "email-dispatcher v2.3.0", "entity_key": "DPL-058"}
+{"alias": "email-dispatcher 2.3.0", "entity_key": "DPL-058"}
+{"alias": "DPL-058", "entity_key": "DPL-058"}
+{"alias": "Email Dispatcher v2.3.1", "entity_key": "DPL-059"}
+{"alias": "email-dispatcher v2.3.1", "entity_key": "DPL-059"}
+{"alias": "email-dispatcher 2.3.1", "entity_key": "DPL-059"}
+{"alias": "DPL-059", "entity_key": "DPL-059"}
+{"alias": "Order Service v4.4.0", "entity_key": "DPL-060"}
+{"alias": "order-service v4.4.0", "entity_key": "DPL-060"}
+{"alias": "order-service 4.4.0", "entity_key": "DPL-060"}
+{"alias": "DPL-060", "entity_key": "DPL-060"}
+{"alias": "API Gateway rl-policy-v7", "entity_key": "DPL-061"}
+{"alias": "api-gateway rl-policy-v7", "entity_key": "DPL-061"}
+{"alias": "DPL-061", "entity_key": "DPL-061"}
+{"alias": "API Gateway rl-policy-v6", "entity_key": "DPL-062"}
+{"alias": "api-gateway rl-policy-v6", "entity_key": "DPL-062"}
+{"alias": "DPL-062", "entity_key": "DPL-062"}
+{"alias": "Shared Redis redis-7.2.5", "entity_key": "DPL-063"}
+{"alias": "shared-redis redis-7.2.5", "entity_key": "DPL-063"}
+{"alias": "DPL-063", "entity_key": "DPL-063"}
+{"alias": "Notification Service v4.1.0", "entity_key": "DPL-064"}
+{"alias": "notification-service v4.1.0", "entity_key": "DPL-064"}
+{"alias": "notification-service 4.1.0", "entity_key": "DPL-064"}
+{"alias": "DPL-064", "entity_key": "DPL-064"}
+{"alias": "Fraud Scoring Service v2.4.0", "entity_key": "DPL-065"}
+{"alias": "fraud-service v2.4.0", "entity_key": "DPL-065"}
+{"alias": "fraud-service 2.4.0", "entity_key": "DPL-065"}
+{"alias": "DPL-065", "entity_key": "DPL-065"}
+{"alias": "Fraud Scoring Service v2.3.2", "entity_key": "DPL-066"}
+{"alias": "fraud-service v2.3.2", "entity_key": "DPL-066"}
+{"alias": "fraud-service 2.3.2", "entity_key": "DPL-066"}
+{"alias": "DPL-066", "entity_key": "DPL-066"}
+{"alias": "Payments API v3.2.0", "entity_key": "DPL-067"}
+{"alias": "payments-api v3.2.0", "entity_key": "DPL-067"}
+{"alias": "payments-api 3.2.0", "entity_key": "DPL-067"}
+{"alias": "DPL-067", "entity_key": "DPL-067"}
+{"alias": "Checkout API v5.7.0", "entity_key": "DPL-068"}
+{"alias": "checkout-api v5.7.0", "entity_key": "DPL-068"}
+{"alias": "checkout-api 5.7.0", "entity_key": "DPL-068"}
+{"alias": "DPL-068", "entity_key": "DPL-068"}
+{"alias": "Fraud Scoring Service v2.4.1", "entity_key": "DPL-069"}
+{"alias": "fraud-service v2.4.1", "entity_key": "DPL-069"}
+{"alias": "fraud-service 2.4.1", "entity_key": "DPL-069"}
+{"alias": "DPL-069", "entity_key": "DPL-069"}
+{"alias": "Order Service v4.5.0", "entity_key": "DPL-070"}
+{"alias": "order-service v4.5.0", "entity_key": "DPL-070"}
+{"alias": "order-service 4.5.0", "entity_key": "DPL-070"}
+{"alias": "DPL-070", "entity_key": "DPL-070"}
+{"alias": "Order Service v4.4.0", "entity_key": "DPL-071"}
+{"alias": "order-service v4.4.0", "entity_key": "DPL-071"}
+{"alias": "order-service 4.4.0", "entity_key": "DPL-071"}
+{"alias": "DPL-071", "entity_key": "DPL-071"}
+{"alias": "Payments API v3.3.0", "entity_key": "DPL-072"}
+{"alias": "payments-api v3.3.0", "entity_key": "DPL-072"}
+{"alias": "payments-api 3.3.0", "entity_key": "DPL-072"}
+{"alias": "DPL-072", "entity_key": "DPL-072"}
+{"alias": "Checkout API v5.7.1", "entity_key": "DPL-073"}
+{"alias": "checkout-api v5.7.1", "entity_key": "DPL-073"}
+{"alias": "checkout-api 5.7.1", "entity_key": "DPL-073"}
+{"alias": "DPL-073", "entity_key": "DPL-073"}
+{"alias": "PSP Adapter v1.8.0", "entity_key": "DPL-074"}
+{"alias": "psp-adapter v1.8.0", "entity_key": "DPL-074"}
+{"alias": "psp-adapter 1.8.0", "entity_key": "DPL-074"}
+{"alias": "DPL-074", "entity_key": "DPL-074"}
+{"alias": "PSP Adapter v1.8.1", "entity_key": "DPL-075"}
+{"alias": "psp-adapter v1.8.1", "entity_key": "DPL-075"}
+{"alias": "psp-adapter 1.8.1", "entity_key": "DPL-075"}
+{"alias": "DPL-075", "entity_key": "DPL-075"}
+{"alias": "Notification Service v4.2.0", "entity_key": "DPL-076"}
+{"alias": "notification-service v4.2.0", "entity_key": "DPL-076"}
+{"alias": "notification-service 4.2.0", "entity_key": "DPL-076"}
+{"alias": "DPL-076", "entity_key": "DPL-076"}
+{"alias": "Notification Service v4.2.1", "entity_key": "DPL-077"}
+{"alias": "notification-service v4.2.1", "entity_key": "DPL-077"}
+{"alias": "notification-service 4.2.1", "entity_key": "DPL-077"}
+{"alias": "DPL-077", "entity_key": "DPL-077"}
+{"alias": "Payments API v3.3.1", "entity_key": "DPL-078"}
+{"alias": "payments-api v3.3.1", "entity_key": "DPL-078"}
+{"alias": "payments-api 3.3.1", "entity_key": "DPL-078"}
+{"alias": "DPL-078", "entity_key": "DPL-078"}
+{"alias": "Checkout API v6.0.0", "entity_key": "DPL-079"}
+{"alias": "checkout-api v6.0.0", "entity_key": "DPL-079"}
+{"alias": "checkout-api 6.0.0", "entity_key": "DPL-079"}
+{"alias": "DPL-079", "entity_key": "DPL-079"}
+{"alias": "Checkout API v5.7.1", "entity_key": "DPL-080"}
+{"alias": "checkout-api v5.7.1", "entity_key": "DPL-080"}
+{"alias": "checkout-api 5.7.1", "entity_key": "DPL-080"}
+{"alias": "DPL-080", "entity_key": "DPL-080"}
+{"alias": "Pricing Engine v2.7.0", "entity_key": "DPL-081"}
+{"alias": "pricing-service v2.7.0", "entity_key": "DPL-081"}
+{"alias": "pricing-service 2.7.0", "entity_key": "DPL-081"}
+{"alias": "DPL-081", "entity_key": "DPL-081"}
+{"alias": "Pricing Engine v2.7.1", "entity_key": "DPL-082"}
+{"alias": "pricing-service v2.7.1", "entity_key": "DPL-082"}
+{"alias": "pricing-service 2.7.1", "entity_key": "DPL-082"}
+{"alias": "DPL-082", "entity_key": "DPL-082"}
+{"alias": "Event Bus retention-48h", "entity_key": "DPL-083"}
+{"alias": "event-bus retention-48h", "entity_key": "DPL-083"}
+{"alias": "DPL-083", "entity_key": "DPL-083"}
+{"alias": "Fraud Scoring Service v2.5.0", "entity_key": "DPL-084"}
+{"alias": "fraud-service v2.5.0", "entity_key": "DPL-084"}
+{"alias": "fraud-service 2.5.0", "entity_key": "DPL-084"}
+{"alias": "DPL-084", "entity_key": "DPL-084"}
+{"alias": "Payments API v3.4.0", "entity_key": "DPL-085"}
+{"alias": "payments-api v3.4.0", "entity_key": "DPL-085"}
+{"alias": "payments-api 3.4.0", "entity_key": "DPL-085"}
+{"alias": "DPL-085", "entity_key": "DPL-085"}
+{"alias": "Payments API v3.3.1", "entity_key": "DPL-086"}
+{"alias": "payments-api v3.3.1", "entity_key": "DPL-086"}
+{"alias": "payments-api 3.3.1", "entity_key": "DPL-086"}
+{"alias": "DPL-086", "entity_key": "DPL-086"}
+{"alias": "Accounts Service v1.5.1", "entity_key": "DPL-087"}
+{"alias": "accounts-service v1.5.1", "entity_key": "DPL-087"}
+{"alias": "accounts-service 1.5.1", "entity_key": "DPL-087"}
+{"alias": "DPL-087", "entity_key": "DPL-087"}
+{"alias": "INC-101", "entity_key": "INC-101"}
+{"alias": "Stale product images on product pages", "entity_key": "INC-101"}
+{"alias": "INC-102", "entity_key": "INC-102"}
+{"alias": "Users logged out and unable to sign in", "entity_key": "INC-102"}
+{"alias": "INC-103", "entity_key": "INC-103"}
+{"alias": "Order confirmation emails delayed", "entity_key": "INC-103"}
+{"alias": "INC-104", "entity_key": "INC-104"}
+{"alias": "Card payments failing at checkout", "entity_key": "INC-104"}
+{"alias": "INC-105", "entity_key": "INC-105"}
+{"alias": "Nightly data warehouse load failed", "entity_key": "INC-105"}
+{"alias": "INC-106", "entity_key": "INC-106"}
+{"alias": "Overselling of out-of-stock items", "entity_key": "INC-106"}
+{"alias": "INC-107", "entity_key": "INC-107"}
+{"alias": "Wrong discounts applied to orders", "entity_key": "INC-107"}
+{"alias": "INC-108", "entity_key": "INC-108"}
+{"alias": "Orders database saturation slows checkout and payments", "entity_key": "INC-108"}
+{"alias": "INC-109", "entity_key": "INC-109"}
+{"alias": "Elevated 502 errors on older Android app versions", "entity_key": "INC-109"}
+{"alias": "INC-110", "entity_key": "INC-110"}
+{"alias": "Legitimate payments declined after fraud check change", "entity_key": "INC-110"}
+{"alias": "INC-111", "entity_key": "INC-111"}
+{"alias": "Duplicate order confirmation emails", "entity_key": "INC-111"}
+{"alias": "INC-112", "entity_key": "INC-112"}
+{"alias": "Profile updates failing", "entity_key": "INC-112"}
+{"alias": "INC-113", "entity_key": "INC-113"}
+{"alias": "Card processor outage - payments unavailable", "entity_key": "INC-113"}
+{"alias": "INC-114", "entity_key": "INC-114"}
+{"alias": "Shopping carts emptied after Redis failover", "entity_key": "INC-114"}
+{"alias": "INC-115", "entity_key": "INC-115"}
+{"alias": "Checkout errors for customers with saved addresses", "entity_key": "INC-115"}
+{"alias": "INC-116", "entity_key": "INC-116"}
+{"alias": "Event consumers lagging after broker upgrade", "entity_key": "INC-116"}
+{"alias": "INC-117", "entity_key": "INC-117"}
+{"alias": "New products missing from search", "entity_key": "INC-117"}
+{"alias": "INC-118", "entity_key": "INC-118"}
+{"alias": "Refunds double-posted in the ledger", "entity_key": "INC-118"}
+{"alias": "INC-119", "entity_key": "INC-119"}
+{"alias": "Slow logins and token validation timeouts", "entity_key": "INC-119"}
+{"alias": "INC-120", "entity_key": "INC-120"}
+{"alias": "Order status page showing stale data", "entity_key": "INC-120"}
+{"alias": "INC-121", "entity_key": "INC-121"}
+{"alias": "Order notifications not sent after event bus migration", "entity_key": "INC-121"}
+{"alias": "INC-122", "entity_key": "INC-122"}
+{"alias": "Duplicated stock events inflate analytics", "entity_key": "INC-122"}
+{"alias": "INC-123", "entity_key": "INC-123"}
+{"alias": "Payments outage caused by orders database overload", "entity_key": "INC-123"}
+{"alias": "INC-124", "entity_key": "INC-124"}
+{"alias": "Broken images in transactional emails", "entity_key": "INC-124"}
+{"alias": "INC-125", "entity_key": "INC-125"}
+{"alias": "Mobile app users rate-limited", "entity_key": "INC-125"}
+{"alias": "INC-126", "entity_key": "INC-126"}
+{"alias": "Slow checkout during Redis maintenance", "entity_key": "INC-126"}
+{"alias": "INC-127", "entity_key": "INC-127"}
+{"alias": "Fraud model false positives decline good customers", "entity_key": "INC-127"}
+{"alias": "INC-128", "entity_key": "INC-128"}
+{"alias": "Warehouse stock sync stalled", "entity_key": "INC-128"}
+{"alias": "INC-129", "entity_key": "INC-129"}
+{"alias": "Login outage after signing key expiry", "entity_key": "INC-129"}
+{"alias": "INC-130", "entity_key": "INC-130"}
+{"alias": "Order cancellations stuck in pending", "entity_key": "INC-130"}
+{"alias": "INC-131", "entity_key": "INC-131"}
+{"alias": "3-D Secure failures for EU cards", "entity_key": "INC-131"}
+{"alias": "INC-132", "entity_key": "INC-132"}
+{"alias": "Notification service restarting repeatedly", "entity_key": "INC-132"}
+{"alias": "INC-133", "entity_key": "INC-133"}
+{"alias": "Checkout outage after new checkout release", "entity_key": "INC-133"}
+{"alias": "INC-134", "entity_key": "INC-134"}
+{"alias": "Cart and checkout totals disagree by one cent", "entity_key": "INC-134"}
+{"alias": "INC-135", "entity_key": "INC-135"}
+{"alias": "Event bus brokers out of disk", "entity_key": "INC-135"}
+{"alias": "INC-136", "entity_key": "INC-136"}
+{"alias": "Incorrect availability badges on product pages", "entity_key": "INC-136"}
+{"alias": "INC-137", "entity_key": "INC-137"}
+{"alias": "Intermittent payment timeouts after HTTP client upgrade", "entity_key": "INC-137"}
+{"alias": "INC-138", "entity_key": "INC-138"}
+{"alias": "Privacy data exports taking days", "entity_key": "INC-138"}

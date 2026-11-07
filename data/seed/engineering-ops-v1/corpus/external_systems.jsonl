@@ -1,0 +1,2 @@
+{"description": "Third-party card payment processor used for all card authorizations.", "id": "EXT-PAYNOVA", "kind": "payment_processor", "name": "PayNova"}
+{"description": "Third-party transactional email delivery provider.", "id": "EXT-MAILRELAY", "kind": "email_provider", "name": "MailRelay"}

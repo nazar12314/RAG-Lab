@@ -1,0 +1,58 @@
+{
+  "as_of": "2026-11-01",
+  "company": "Kestrel Commerce",
+  "corpus_hash": "22de32acd7095ca331a89728c9f60981cef59c48bcdf6b7677265d1bf92d0040",
+  "counts": {
+    "benchmark.question_documents": 3,
+    "benchmark.question_evidence": 237,
+    "benchmark.question_paths": 83,
+    "benchmark.question_tools": 143,
+    "benchmark.questions": 80,
+    "deployments": 87,
+    "documents": 138,
+    "external_systems": 2,
+    "facts": 490,
+    "graph_curated.entities": 161,
+    "graph_curated.entity_aliases": 557,
+    "graph_curated.relation_evidence": 750,
+    "graph_curated.relations": 330,
+    "incident_deployments": 55,
+    "incident_services": 90,
+    "incidents": 38,
+    "service_dependencies": 35,
+    "services": 20,
+    "subsystems": 7,
+    "teams": 7
+  },
+  "dataset_version": "engineering-ops-v1",
+  "documents_by_type": {
+    "adr": 2,
+    "architecture": 7,
+    "incident_ticket": 38,
+    "meeting_notes": 1,
+    "ops_review": 16,
+    "policy": 1,
+    "postmortem": 16,
+    "product_brief": 1,
+    "reference": 1,
+    "release_notes": 37,
+    "report": 4,
+    "runbook": 14
+  },
+  "period": {
+    "end": "2026-10-31",
+    "start": "2026-04-01"
+  },
+  "relations_by_type": {
+    "AFFECTED_BY": 90,
+    "DEPENDS_ON": 35,
+    "DEPLOYED_TO": 87,
+    "OWNED_BY": 20,
+    "PART_OF": 20,
+    "RESOLVED_BY": 26,
+    "ROLLS_BACK": 10,
+    "ROOT_CAUSE_IN": 12,
+    "SUSPECTED_TRIGGER": 4,
+    "TRIGGERED_BY": 26
+  }
+}
