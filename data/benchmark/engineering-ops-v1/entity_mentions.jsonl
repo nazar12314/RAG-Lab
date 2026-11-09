@@ -1,0 +1,481 @@
+{"document_id": "DOC-DIGEST-2026-04-01", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 160, "span_start": 145, "surface": "Catalog Service"}
+{"document_id": "DOC-DIGEST-2026-04-01", "entity_key": "DPL-004", "span_end": 307, "span_start": 275, "surface": "version 2.1.0 of Catalog Service"}
+{"document_id": "DOC-DIGEST-2026-04-01", "entity_key": "SVC-AUTH-SERVICE", "span_end": 477, "span_start": 465, "surface": "auth-service"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 162, "span_start": 146, "surface": "Email Dispatcher"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "EXT-MAILRELAY", "span_end": 254, "span_start": 245, "surface": "MailRelay"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 384, "span_start": 368, "surface": "email-dispatcher"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "SVC-PAYMENTS-API", "span_end": 488, "span_start": 476, "surface": "Payments API"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 797, "span_start": 781, "surface": "Warehouse Loader"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "DPL-012", "span_end": 962, "span_start": 932, "surface": "order management release 4.2.0"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 1037, "span_start": 1021, "surface": "warehouse-loader"}
+{"document_id": "DOC-DIGEST-2026-04-15", "entity_key": "SVC-PAYMENTS-API", "span_end": 1195, "span_start": 1188, "surface": "pay-api"}
+{"document_id": "DOC-DIGEST-2026-04-29", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 161, "span_start": 144, "surface": "Inventory Service"}
+{"document_id": "DOC-DIGEST-2026-04-29", "entity_key": "SVC-PRICING-SERVICE", "span_end": 341, "span_start": 326, "surface": "pricing-service"}
+{"document_id": "DOC-DIGEST-2026-04-29", "entity_key": "DPL-018", "span_end": 496, "span_start": 454, "surface": "the pricing config change v2.6.0+rules-r42"}
+{"document_id": "DOC-DIGEST-2026-04-29", "entity_key": "SVC-PRICING-SERVICE", "span_end": 576, "span_start": 562, "surface": "Pricing Engine"}
+{"document_id": "DOC-DIGEST-2026-04-29", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 684, "span_start": 670, "surface": "warehouse-sync"}
+{"document_id": "DOC-DIGEST-2026-04-29", "entity_key": "SVC-PRICING-SERVICE", "span_end": 749, "span_start": 735, "surface": "Pricing Engine"}
+{"document_id": "DOC-DIGEST-2026-05-13", "entity_key": "SVC-ORDERS-DB", "span_end": 151, "span_start": 142, "surface": "orders-db"}
+{"document_id": "DOC-DIGEST-2026-05-27", "entity_key": "SVC-API-GATEWAY", "span_end": 153, "span_start": 142, "surface": "API Gateway"}
+{"document_id": "DOC-DIGEST-2026-05-27", "entity_key": "DPL-024", "span_end": 316, "span_start": 269, "surface": "the API Gateway config change edge-cert-2026-05"}
+{"document_id": "DOC-DIGEST-2026-05-27", "entity_key": "SVC-PAYMENTS-API", "span_end": 470, "span_start": 454, "surface": "payments backend"}
+{"document_id": "DOC-DIGEST-2026-05-27", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 688, "span_start": 668, "surface": "Notification Service"}
+{"document_id": "DOC-DIGEST-2026-05-27", "entity_key": "DPL-029", "span_end": 826, "span_start": 799, "surface": "Notification Service v3.1.0"}
+{"document_id": "DOC-DIGEST-2026-06-10", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 160, "span_start": 144, "surface": "Accounts Service"}
+{"document_id": "DOC-DIGEST-2026-06-10", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 282, "span_start": 266, "surface": "accounts-service"}
+{"document_id": "DOC-DIGEST-2026-06-10", "entity_key": "SVC-PSP-ADAPTER", "span_end": 448, "span_start": 424, "surface": "payment provider adapter"}
+{"document_id": "DOC-DIGEST-2026-06-24", "entity_key": "SVC-CART-SERVICE", "span_end": 155, "span_start": 143, "surface": "Cart Service"}
+{"document_id": "DOC-DIGEST-2026-06-24", "entity_key": "SVC-SHARED-REDIS", "span_end": 286, "span_start": 273, "surface": "session cache"}
+{"document_id": "DOC-DIGEST-2026-06-24", "entity_key": "SVC-CHECKOUT-API", "span_end": 427, "span_start": 415, "surface": "Checkout API"}
+{"document_id": "DOC-DIGEST-2026-06-24", "entity_key": "SVC-CHECKOUT-API", "span_end": 689, "span_start": 677, "surface": "Checkout API"}
+{"document_id": "DOC-DIGEST-2026-07-08", "entity_key": "SVC-EVENT-BUS", "span_end": 152, "span_start": 143, "surface": "event-bus"}
+{"document_id": "DOC-DIGEST-2026-07-08", "entity_key": "DPL-040", "span_end": 306, "span_start": 276, "surface": "the events kafka-3.7.1 upgrade"}
+{"document_id": "DOC-DIGEST-2026-07-08", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 482, "span_start": 467, "surface": "Catalog Service"}
+{"document_id": "DOC-DIGEST-2026-07-08", "entity_key": "DPL-042", "span_end": 591, "span_start": 562, "surface": "catalog-service release 2.2.0"}
+{"document_id": "DOC-DIGEST-2026-07-08", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 781, "span_start": 767, "surface": "ledger-service"}
+{"document_id": "DOC-DIGEST-2026-07-22", "entity_key": "SVC-AUTH-SERVICE", "span_end": 157, "span_start": 145, "surface": "Auth Service"}
+{"document_id": "DOC-DIGEST-2026-07-22", "entity_key": "DPL-046", "span_end": 271, "span_start": 245, "surface": "Auth Service release 6.2.0"}
+{"document_id": "DOC-DIGEST-2026-07-22", "entity_key": "SVC-ORDERS-DB", "span_end": 475, "span_start": 466, "surface": "Orders DB"}
+{"document_id": "DOC-DIGEST-2026-07-22", "entity_key": "SVC-ORDERS-DB", "span_end": 636, "span_start": 627, "surface": "Orders DB"}
+{"document_id": "DOC-DIGEST-2026-07-22", "entity_key": "SVC-AUTH-SERVICE", "span_end": 806, "span_start": 794, "surface": "auth-service"}
+{"document_id": "DOC-DIGEST-2026-08-05", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 164, "span_start": 147, "surface": "inventory-service"}
+{"document_id": "DOC-DIGEST-2026-08-05", "entity_key": "DPL-050", "span_end": 309, "span_start": 273, "surface": "the Inventory Service v3.6.0 release"}
+{"document_id": "DOC-DIGEST-2026-08-05", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 436, "span_start": 416, "surface": "Notification Service"}
+{"document_id": "DOC-DIGEST-2026-08-05", "entity_key": "SVC-PAYMENTS-API", "span_end": 631, "span_start": 619, "surface": "Payments API"}
+{"document_id": "DOC-DIGEST-2026-08-19", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 166, "span_start": 150, "surface": "email-dispatcher"}
+{"document_id": "DOC-DIGEST-2026-08-19", "entity_key": "DPL-058", "span_end": 286, "span_start": 253, "surface": "version 2.3.0 of Email Dispatcher"}
+{"document_id": "DOC-DIGEST-2026-08-19", "entity_key": "SVC-API-GATEWAY", "span_end": 393, "span_start": 381, "surface": "edge gateway"}
+{"document_id": "DOC-DIGEST-2026-08-19", "entity_key": "DPL-061", "span_end": 525, "span_start": 483, "surface": "the API Gateway config change rl-policy-v7"}
+{"document_id": "DOC-DIGEST-2026-08-19", "entity_key": "SVC-API-GATEWAY", "span_end": 741, "span_start": 729, "surface": "edge gateway"}
+{"document_id": "DOC-DIGEST-2026-09-02", "entity_key": "SVC-CHECKOUT-API", "span_end": 165, "span_start": 153, "surface": "checkout-api"}
+{"document_id": "DOC-DIGEST-2026-09-02", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 367, "span_start": 346, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-DIGEST-2026-09-02", "entity_key": "DPL-065", "span_end": 466, "span_start": 440, "surface": "risk-scoring release 2.4.0"}
+{"document_id": "DOC-DIGEST-2026-09-02", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 640, "span_start": 626, "surface": "Warehouse Sync"}
+{"document_id": "DOC-DIGEST-2026-09-02", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 983, "span_start": 962, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-DIGEST-2026-09-16", "entity_key": "SVC-AUTH-SERVICE", "span_end": 166, "span_start": 154, "surface": "auth-service"}
+{"document_id": "DOC-DIGEST-2026-09-16", "entity_key": "SVC-ORDER-SERVICE", "span_end": 330, "span_start": 327, "surface": "OMS"}
+{"document_id": "DOC-DIGEST-2026-09-16", "entity_key": "DPL-070", "span_end": 495, "span_start": 475, "surface": "Order Service v4.5.0"}
+{"document_id": "DOC-DIGEST-2026-09-16", "entity_key": "SVC-ORDER-SERVICE", "span_end": 696, "span_start": 683, "surface": "Order Service"}
+{"document_id": "DOC-DIGEST-2026-09-30", "entity_key": "SVC-PSP-ADAPTER", "span_end": 168, "span_start": 152, "surface": "provider-gateway"}
+{"document_id": "DOC-DIGEST-2026-09-30", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 346, "span_start": 338, "surface": "notifier"}
+{"document_id": "DOC-DIGEST-2026-09-30", "entity_key": "DPL-076", "span_end": 532, "span_start": 493, "surface": "the Notification Service v4.2.0 release"}
+{"document_id": "DOC-DIGEST-2026-09-30", "entity_key": "SVC-CHECKOUT-API", "span_end": 665, "span_start": 653, "surface": "Checkout API"}
+{"document_id": "DOC-DIGEST-2026-09-30", "entity_key": "SVC-CHECKOUT-API", "span_end": 919, "span_start": 907, "surface": "Checkout API"}
+{"document_id": "DOC-DIGEST-2026-10-14", "entity_key": "SVC-PRICING-SERVICE", "span_end": 164, "span_start": 150, "surface": "Pricing Engine"}
+{"document_id": "DOC-DIGEST-2026-10-14", "entity_key": "DPL-081", "span_end": 333, "span_start": 301, "surface": "version 2.7.0 of pricing-service"}
+{"document_id": "DOC-DIGEST-2026-10-14", "entity_key": "SVC-CART-SERVICE", "span_end": 408, "span_start": 396, "surface": "Cart Service"}
+{"document_id": "DOC-DIGEST-2026-10-14", "entity_key": "SVC-EVENT-BUS", "span_end": 495, "span_start": 486, "surface": "event-bus"}
+{"document_id": "DOC-DIGEST-2026-10-14", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 716, "span_start": 701, "surface": "Catalog Service"}
+{"document_id": "DOC-DIGEST-2026-10-28", "entity_key": "SVC-PAYMENTS-API", "span_end": 162, "span_start": 150, "surface": "Payments API"}
+{"document_id": "DOC-DIGEST-2026-10-28", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 404, "span_start": 388, "surface": "accounts-service"}
+{"document_id": "DOC-DIGEST-2026-10-28", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 538, "span_start": 522, "surface": "Accounts Service"}
+{"document_id": "DOC-DIGEST-2026-10-28", "entity_key": "SVC-PAYMENTS-API", "span_end": 714, "span_start": 702, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-AUTH-SERVICE", "span_end": 286, "span_start": 274, "surface": "Auth Service"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-AUTH-SERVICE", "span_end": 703, "span_start": 691, "surface": "Auth Service"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-SHARED-REDIS", "span_end": 727, "span_start": 715, "surface": "Shared Redis"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-CHECKOUT-API", "span_end": 756, "span_start": 740, "surface": "checkout service"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-API-GATEWAY", "span_end": 782, "span_start": 771, "surface": "API Gateway"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-SHARED-REDIS", "span_end": 928, "span_start": 916, "surface": "Shared Redis"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "SVC-SHARED-REDIS", "span_end": 1148, "span_start": 1136, "surface": "shared-redis"}
+{"document_id": "DOC-PM-INC-102", "entity_key": "DPL-005", "span_end": 1731, "span_start": 1671, "surface": "the Shared Redis config change maxmemory-policy-volatile-lru"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "SVC-PAYMENTS-API", "span_end": 279, "span_start": 267, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "SVC-PAYMENTS-API", "span_end": 680, "span_start": 668, "surface": "payments-api"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "SVC-CHECKOUT-API", "span_end": 704, "span_start": 692, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "DPL-009", "span_end": 767, "span_start": 747, "surface": "Cart Service v1.12.0"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "DPL-010", "span_end": 814, "span_start": 788, "surface": "payments-api release 2.8.0"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "SVC-CART-SERVICE", "span_end": 959, "span_start": 947, "surface": "Cart Service"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "SVC-PAYMENTS-API", "span_end": 1088, "span_start": 1080, "surface": "payments"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "DPL-010", "span_end": 1257, "span_start": 1228, "surface": "version 2.8.0 of payments-api"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "DPL-010", "span_end": 1669, "span_start": 1640, "surface": "version 2.8.0 of Payments API"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "SVC-CART-SERVICE", "span_end": 1722, "span_start": 1710, "surface": "Cart Service"}
+{"document_id": "DOC-PM-INC-104", "entity_key": "DPL-011", "span_end": 1987, "span_start": 1949, "surface": "the rollback of payments-api to v2.7.3"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 245, "span_start": 228, "surface": "Inventory Service"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 574, "span_start": 557, "surface": "Inventory Service"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 600, "span_start": 586, "surface": "warehouse-sync"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "SVC-CHECKOUT-API", "span_end": 624, "span_start": 612, "surface": "checkout-api"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "DPL-015", "span_end": 682, "span_start": 667, "surface": "wms sync v2.0.0"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "DPL-015", "span_end": 842, "span_start": 814, "surface": "Warehouse Sync release 2.0.0"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "DPL-015", "span_end": 1095, "span_start": 1062, "surface": "the warehouse-sync v2.0.0 release"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 1126, "span_start": 1112, "surface": "Warehouse Sync"}
+{"document_id": "DOC-PM-INC-106", "entity_key": "DPL-016", "span_end": 1194, "span_start": 1154, "surface": "the rollback of Warehouse Sync to v1.9.4"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-ORDERS-DB", "span_end": 297, "span_start": 288, "surface": "Orders DB"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-ORDERS-DB", "span_end": 622, "span_start": 613, "surface": "orders-db"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-ORDER-SERVICE", "span_end": 647, "span_start": 634, "surface": "Order Service"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-PAYMENTS-API", "span_end": 668, "span_start": 660, "surface": "payments"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 695, "span_start": 681, "surface": "finance ledger"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-CHECKOUT-API", "span_end": 716, "span_start": 708, "surface": "checkout"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 1046, "span_start": 1030, "surface": "Warehouse Loader"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "SVC-ORDERS-DB", "span_end": 1159, "span_start": 1150, "surface": "orders-db"}
+{"document_id": "DOC-PM-INC-108", "entity_key": "DPL-021", "span_end": 1604, "span_start": 1541, "surface": "the Warehouse Loader config change v1.3.1+export-source-replica"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "SVC-PAYMENTS-API", "span_end": 291, "span_start": 279, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "SVC-PAYMENTS-API", "span_end": 608, "span_start": 596, "surface": "payments-api"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 625, "span_start": 620, "surface": "fraud"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "SVC-CHECKOUT-API", "span_end": 650, "span_start": 638, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "DPL-027", "span_end": 712, "span_start": 693, "surface": "Payments API v2.9.0"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "DPL-027", "span_end": 904, "span_start": 879, "surface": "version 2.9.0 of payments"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 930, "span_start": 925, "surface": "fraud"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "DPL-027", "span_end": 1178, "span_start": 1144, "surface": "the payment-service v2.9.0 release"}
+{"document_id": "DOC-PM-INC-110", "entity_key": "DPL-028", "span_end": 1332, "span_start": 1306, "surface": "payments-api release 2.9.1"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "SVC-PSP-ADAPTER", "span_end": 272, "span_start": 261, "surface": "PSP Adapter"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "SVC-PSP-ADAPTER", "span_end": 644, "span_start": 620, "surface": "payment provider adapter"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "SVC-PAYMENTS-API", "span_end": 668, "span_start": 656, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "SVC-CHECKOUT-API", "span_end": 695, "span_start": 683, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "DPL-032", "span_end": 773, "span_start": 738, "surface": "the provider-gateway v1.6.0 release"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "EXT-PAYNOVA", "span_end": 971, "span_start": 964, "surface": "PayNova"}
+{"document_id": "DOC-PM-INC-113", "entity_key": "DPL-032", "span_end": 1211, "span_start": 1181, "surface": "the psp-adapter v1.6.0 release"}
+{"document_id": "DOC-PM-INC-115", "entity_key": "SVC-CHECKOUT-API", "span_end": 274, "span_start": 262, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-115", "entity_key": "SVC-CHECKOUT-API", "span_end": 580, "span_start": 574, "surface": "co-api"}
+{"document_id": "DOC-PM-INC-115", "entity_key": "DPL-037", "span_end": 651, "span_start": 620, "surface": "the checkout-api v5.4.0 release"}
+{"document_id": "DOC-PM-INC-115", "entity_key": "DPL-037", "span_end": 749, "span_start": 723, "surface": "Checkout API release 5.4.0"}
+{"document_id": "DOC-PM-INC-115", "entity_key": "DPL-037", "span_end": 914, "span_start": 883, "surface": "the checkout-api v5.4.0 release"}
+{"document_id": "DOC-PM-INC-115", "entity_key": "DPL-038", "span_end": 1025, "span_start": 987, "surface": "the rollback of checkout-api to v5.3.2"}
+{"document_id": "DOC-PM-INC-118", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 238, "span_start": 224, "surface": "Ledger Service"}
+{"document_id": "DOC-PM-INC-118", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 635, "span_start": 629, "surface": "ledger"}
+{"document_id": "DOC-PM-INC-118", "entity_key": "SVC-PAYMENTS-API", "span_end": 659, "span_start": 647, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-118", "entity_key": "DPL-043", "span_end": 844, "span_start": 813, "surface": "version 1.8.0 of ledger-service"}
+{"document_id": "DOC-PM-INC-118", "entity_key": "DPL-043", "span_end": 1084, "span_start": 1056, "surface": "Ledger Service release 1.8.0"}
+{"document_id": "DOC-PM-INC-118", "entity_key": "DPL-044", "span_end": 1122, "span_start": 1101, "surface": "Ledger Service v1.8.1"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 290, "span_start": 270, "surface": "Notification Service"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 621, "span_start": 601, "surface": "Notification Service"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 639, "span_start": 633, "surface": "mailer"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "DPL-051", "span_end": 721, "span_start": 682, "surface": "the notification-service v4.0.0 release"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "DPL-051", "span_end": 885, "span_start": 846, "surface": "the Notification Service v4.0.0 release"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 919, "span_start": 899, "surface": "notification-service"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "SVC-EVENT-BUS", "span_end": 967, "span_start": 958, "surface": "event-bus"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "DPL-051", "span_end": 1132, "span_start": 1109, "surface": "notification svc v4.0.0"}
+{"document_id": "DOC-PM-INC-121", "entity_key": "DPL-052", "span_end": 1183, "span_start": 1149, "surface": "Notification Service release 4.0.1"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-PAYMENTS-API", "span_end": 292, "span_start": 280, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-PAYMENTS-API", "span_end": 653, "span_start": 641, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-ORDERS-DB", "span_end": 681, "span_start": 665, "surface": "primary postgres"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 709, "span_start": 694, "surface": "payments ledger"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-ORDER-SERVICE", "span_end": 735, "span_start": 722, "surface": "Order Service"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-CHECKOUT-API", "span_end": 760, "span_start": 748, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "DPL-054", "span_end": 832, "span_start": 803, "surface": "version 5.6.0 of Checkout API"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "DPL-055", "span_end": 882, "span_start": 853, "surface": "version 3.1.0 of payments-api"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "DPL-055", "span_end": 1249, "span_start": 1230, "surface": "Payments API v3.1.0"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "SVC-ORDERS-DB", "span_end": 1419, "span_start": 1410, "surface": "Orders DB"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "DPL-055", "span_end": 1594, "span_start": 1563, "surface": "the Payments API v3.1.0 release"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "DPL-054", "span_end": 1636, "span_start": 1610, "surface": "Checkout API release 5.6.0"}
+{"document_id": "DOC-PM-INC-123", "entity_key": "DPL-056", "span_end": 1954, "span_start": 1921, "surface": "version 3.1.1 of payments backend"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-CHECKOUT-API", "span_end": 263, "span_start": 251, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-CHECKOUT-API", "span_end": 632, "span_start": 620, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-PRICING-SERVICE", "span_end": 658, "span_start": 644, "surface": "Pricing Engine"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 686, "span_start": 671, "surface": "Catalog Service"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-SHARED-REDIS", "span_end": 711, "span_start": 699, "surface": "Shared Redis"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-CART-SERVICE", "span_end": 736, "span_start": 724, "surface": "Cart Service"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "DPL-063", "span_end": 934, "span_start": 898, "surface": "the shared-redis redis-7.2.5 upgrade"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-SHARED-REDIS", "span_end": 976, "span_start": 964, "surface": "Shared Redis"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-PRICING-SERVICE", "span_end": 1023, "span_start": 1009, "surface": "Pricing Engine"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 1079, "span_start": 1064, "surface": "Catalog Service"}
+{"document_id": "DOC-PM-INC-126", "entity_key": "DPL-063", "span_end": 1211, "span_start": 1175, "surface": "the Shared Redis redis-7.2.5 upgrade"}
+{"document_id": "DOC-PM-INC-129", "entity_key": "SVC-AUTH-SERVICE", "span_end": 257, "span_start": 245, "surface": "Auth Service"}
+{"document_id": "DOC-PM-INC-129", "entity_key": "SVC-AUTH-SERVICE", "span_end": 562, "span_start": 550, "surface": "Auth Service"}
+{"document_id": "DOC-PM-INC-129", "entity_key": "SVC-API-GATEWAY", "span_end": 585, "span_start": 574, "surface": "API Gateway"}
+{"document_id": "DOC-PM-INC-129", "entity_key": "SVC-CHECKOUT-API", "span_end": 612, "span_start": 600, "surface": "checkout-api"}
+{"document_id": "DOC-PM-INC-129", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 643, "span_start": 627, "surface": "Accounts Service"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "SVC-PSP-ADAPTER", "span_end": 260, "span_start": 249, "surface": "PSP Adapter"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "SVC-PSP-ADAPTER", "span_end": 567, "span_start": 556, "surface": "PSP Adapter"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "SVC-PAYMENTS-API", "span_end": 591, "span_start": 579, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "SVC-CHECKOUT-API", "span_end": 618, "span_start": 606, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "DPL-074", "span_end": 792, "span_start": 767, "surface": "psp-adapter release 1.8.0"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "EXT-PAYNOVA", "span_end": 870, "span_start": 863, "surface": "PayNova"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "DPL-074", "span_end": 1012, "span_start": 984, "surface": "version 1.8.0 of psp-adapter"}
+{"document_id": "DOC-PM-INC-131", "entity_key": "DPL-075", "span_end": 1057, "span_start": 1029, "surface": "version 1.8.1 of PSP Adapter"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "SVC-CHECKOUT-API", "span_end": 279, "span_start": 267, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "SVC-CHECKOUT-API", "span_end": 620, "span_start": 608, "surface": "Checkout API"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 649, "span_start": 632, "surface": "Inventory Service"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "SVC-ORDER-SERVICE", "span_end": 675, "span_start": 662, "surface": "Order Service"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "DPL-079", "span_end": 747, "span_start": 718, "surface": "version 6.0.0 of Checkout API"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 953, "span_start": 936, "surface": "Inventory Service"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "DPL-079", "span_end": 1082, "span_start": 1049, "surface": "version 6.0.0 of checkout service"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 1188, "span_start": 1171, "surface": "Inventory Service"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "DPL-079", "span_end": 1335, "span_start": 1304, "surface": "the checkout-api v6.0.0 release"}
+{"document_id": "DOC-PM-INC-133", "entity_key": "DPL-080", "span_end": 1434, "span_start": 1400, "surface": "the rollback of checkout to v5.7.1"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "SVC-EVENT-BUS", "span_end": 276, "span_start": 267, "surface": "Event Bus"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "SVC-EVENT-BUS", "span_end": 655, "span_start": 646, "surface": "Event Bus"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 687, "span_start": 667, "surface": "notification-service"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 718, "span_start": 702, "surface": "Warehouse Loader"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "SVC-ORDER-SERVICE", "span_end": 739, "span_start": 733, "surface": "orders"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 769, "span_start": 752, "surface": "Inventory Service"}
+{"document_id": "DOC-PM-INC-135", "entity_key": "DPL-083", "span_end": 1313, "span_start": 1272, "surface": "the event-bus config change retention-48h"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "SVC-PAYMENTS-API", "span_end": 253, "span_start": 241, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "SVC-PAYMENTS-API", "span_end": 616, "span_start": 604, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "SVC-PSP-ADAPTER", "span_end": 639, "span_start": 628, "surface": "PSP Adapter"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "SVC-CHECKOUT-API", "span_end": 668, "span_start": 652, "surface": "checkout service"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "DPL-084", "span_end": 735, "span_start": 711, "surface": "the fraud v2.5.0 release"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "DPL-085", "span_end": 787, "span_start": 756, "surface": "the payments-api v3.4.0 release"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "DPL-085", "span_end": 978, "span_start": 947, "surface": "the Payments API v3.4.0 release"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "SVC-PSP-ADAPTER", "span_end": 1058, "span_start": 1047, "surface": "PSP Adapter"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "DPL-085", "span_end": 1229, "span_start": 1200, "surface": "version 3.4.0 of Payments API"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "DPL-084", "span_end": 1283, "span_start": 1245, "surface": "version 2.5.0 of Fraud Scoring Service"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "SVC-PAYMENTS-API", "span_end": 1470, "span_start": 1458, "surface": "Payments API"}
+{"document_id": "DOC-PM-INC-137", "entity_key": "DPL-086", "span_end": 1545, "span_start": 1507, "surface": "the rollback of Payments API to v3.3.1"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-04", "entity_key": "SVC-AUTH-SERVICE", "span_end": 131, "span_start": 119, "surface": "auth-service"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-06", "entity_key": "SVC-AUTH-SERVICE", "span_end": 129, "span_start": 117, "surface": "Auth Service"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-07", "entity_key": "SVC-AUTH-SERVICE", "span_end": 129, "span_start": 117, "surface": "Auth Service"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-07", "entity_key": "SVC-AUTH-SERVICE", "span_end": 337, "span_start": 325, "surface": "auth-service"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-08", "entity_key": "SVC-AUTH-SERVICE", "span_end": 133, "span_start": 121, "surface": "Auth Service"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-10", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 139, "span_start": 123, "surface": "Accounts Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "entity_key": "SVC-CHECKOUT-API", "span_end": 119, "span_start": 107, "surface": "Checkout API"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "entity_key": "SVC-ORDER-SERVICE", "span_end": 279, "span_start": 266, "surface": "Order Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "entity_key": "SVC-CART-SERVICE", "span_end": 421, "span_start": 409, "surface": "Cart Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "entity_key": "SVC-ORDER-SERVICE", "span_end": 569, "span_start": 556, "surface": "Order Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "entity_key": "SVC-PRICING-SERVICE", "span_end": 117, "span_start": 103, "surface": "Pricing Engine"}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "entity_key": "SVC-PRICING-SERVICE", "span_end": 266, "span_start": 259, "surface": "pricing"}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "entity_key": "SVC-PRICING-SERVICE", "span_end": 476, "span_start": 466, "surface": "price-calc"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "entity_key": "SVC-CHECKOUT-API", "span_end": 111, "span_start": 105, "surface": "co-api"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "entity_key": "SVC-ORDER-SERVICE", "span_end": 275, "span_start": 269, "surface": "orders"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "entity_key": "SVC-CHECKOUT-API", "span_end": 409, "span_start": 397, "surface": "checkout-api"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "entity_key": "SVC-CART-SERVICE", "span_end": 535, "span_start": 523, "surface": "Cart Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "entity_key": "SVC-CHECKOUT-API", "span_end": 117, "span_start": 105, "surface": "Checkout API"}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "entity_key": "SVC-CHECKOUT-API", "span_end": 353, "span_start": 341, "surface": "checkout-api"}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "entity_key": "SVC-CHECKOUT-API", "span_end": 457, "span_start": 445, "surface": "checkout-api"}
+{"document_id": "DOC-RN-CHECKOUT-2026-08", "entity_key": "SVC-CHECKOUT-API", "span_end": 121, "span_start": 109, "surface": "Checkout API"}
+{"document_id": "DOC-RN-CHECKOUT-2026-08", "entity_key": "SVC-ORDER-SERVICE", "span_end": 252, "span_start": 239, "surface": "order-service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "entity_key": "SVC-CHECKOUT-API", "span_end": 127, "span_start": 115, "surface": "checkout-api"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "entity_key": "SVC-ORDER-SERVICE", "span_end": 254, "span_start": 241, "surface": "Order Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "entity_key": "SVC-ORDER-SERVICE", "span_end": 465, "span_start": 452, "surface": "Order Service"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "entity_key": "SVC-CHECKOUT-API", "span_end": 567, "span_start": 559, "surface": "checkout"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "entity_key": "SVC-CHECKOUT-API", "span_end": 123, "span_start": 111, "surface": "checkout-api"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "entity_key": "SVC-CHECKOUT-API", "span_end": 351, "span_start": 339, "surface": "Checkout API"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "entity_key": "SVC-PRICING-SERVICE", "span_end": 459, "span_start": 445, "surface": "Pricing Engine"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "entity_key": "SVC-PRICING-SERVICE", "span_end": 618, "span_start": 604, "surface": "Pricing Engine"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-04", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 127, "span_start": 117, "surface": "etl loader"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-04", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 312, "span_start": 303, "surface": "dw loader"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-05", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 137, "span_start": 121, "surface": "warehouse-loader"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-07", "entity_key": "SVC-EVENT-BUS", "span_end": 138, "span_start": 133, "surface": "kafka"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-10", "entity_key": "SVC-EVENT-BUS", "span_end": 138, "span_start": 129, "surface": "Event Bus"}
+{"document_id": "DOC-RN-INVENTORY-2026-04", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 124, "span_start": 109, "surface": "Catalog Service"}
+{"document_id": "DOC-RN-INVENTORY-2026-04", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 301, "span_start": 287, "surface": "Warehouse Sync"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 119, "span_start": 105, "surface": "Warehouse Sync"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 379, "span_start": 365, "surface": "warehouse-sync"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 491, "span_start": 474, "surface": "Inventory Service"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 680, "span_start": 666, "surface": "Warehouse Sync"}
+{"document_id": "DOC-RN-INVENTORY-2026-07", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 124, "span_start": 107, "surface": "Inventory Service"}
+{"document_id": "DOC-RN-INVENTORY-2026-07", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 261, "span_start": 246, "surface": "catalog-service"}
+{"document_id": "DOC-RN-INVENTORY-2026-08", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 128, "span_start": 111, "surface": "Inventory Service"}
+{"document_id": "DOC-RN-INVENTORY-2026-08", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 287, "span_start": 270, "surface": "Inventory Service"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-05", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 129, "span_start": 113, "surface": "email-dispatcher"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-06", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 131, "span_start": 115, "surface": "notification svc"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-06", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 283, "span_start": 263, "surface": "Notification Service"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 139, "span_start": 119, "surface": "Notification Service"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 403, "span_start": 383, "surface": "Notification Service"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 577, "span_start": 565, "surface": "email-sender"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 722, "span_start": 706, "surface": "Email Dispatcher"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-09", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 145, "span_start": 125, "surface": "Notification Service"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-10", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 141, "span_start": 121, "surface": "notification-service"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-10", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 279, "span_start": 259, "surface": "notification-service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "entity_key": "SVC-PAYMENTS-API", "span_end": 114, "span_start": 107, "surface": "pay-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "entity_key": "SVC-PAYMENTS-API", "span_end": 246, "span_start": 234, "surface": "payments-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "entity_key": "SVC-PAYMENTS-API", "span_end": 561, "span_start": 549, "surface": "payments-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-05", "entity_key": "SVC-PAYMENTS-API", "span_end": 115, "span_start": 103, "surface": "Payments API"}
+{"document_id": "DOC-RN-PAYMENTS-2026-05", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 354, "span_start": 340, "surface": "ledger-service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-06", "entity_key": "SVC-PAYMENTS-API", "span_end": 117, "span_start": 105, "surface": "payments-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-06", "entity_key": "SVC-PAYMENTS-API", "span_end": 344, "span_start": 332, "surface": "Payments API"}
+{"document_id": "DOC-RN-PAYMENTS-2026-06", "entity_key": "SVC-PSP-ADAPTER", "span_end": 530, "span_start": 519, "surface": "PSP Adapter"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "entity_key": "SVC-PAYMENTS-API", "span_end": 117, "span_start": 105, "surface": "payments-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 277, "span_start": 263, "surface": "Ledger Service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 460, "span_start": 446, "surface": "ledger-service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 637, "span_start": 616, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-08", "entity_key": "SVC-PSP-ADAPTER", "span_end": 120, "span_start": 109, "surface": "psp-adapter"}
+{"document_id": "DOC-RN-PAYMENTS-2026-08", "entity_key": "SVC-PAYMENTS-API", "span_end": 255, "span_start": 243, "surface": "Payments API"}
+{"document_id": "DOC-RN-PAYMENTS-2026-08", "entity_key": "SVC-PAYMENTS-API", "span_end": 456, "span_start": 448, "surface": "payments"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 136, "span_start": 115, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 380, "span_start": 359, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "entity_key": "SVC-PAYMENTS-API", "span_end": 485, "span_start": 473, "surface": "payments-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 614, "span_start": 593, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "entity_key": "SVC-PAYMENTS-API", "span_end": 746, "span_start": 739, "surface": "pay-api"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "entity_key": "SVC-PSP-ADAPTER", "span_end": 122, "span_start": 111, "surface": "PSP Adapter"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "entity_key": "SVC-PSP-ADAPTER", "span_end": 267, "span_start": 256, "surface": "PSP Adapter"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "entity_key": "SVC-PAYMENTS-API", "span_end": 456, "span_start": 444, "surface": "Payments API"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 588, "span_start": 575, "surface": "fraud-service"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "entity_key": "SVC-PAYMENTS-API", "span_end": 727, "span_start": 715, "surface": "Payments API"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "entity_key": "SVC-PAYMENTS-API", "span_end": 973, "span_start": 961, "surface": "Payments API"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-04", "entity_key": "SVC-SHARED-REDIS", "span_end": 153, "span_start": 141, "surface": "Shared Redis"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-05", "entity_key": "SVC-API-GATEWAY", "span_end": 148, "span_start": 137, "surface": "API Gateway"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-06", "entity_key": "SVC-SHARED-REDIS", "span_end": 152, "span_start": 139, "surface": "session cache"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-08", "entity_key": "SVC-API-GATEWAY", "span_end": 155, "span_start": 143, "surface": "edge gateway"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-08", "entity_key": "SVC-API-GATEWAY", "span_end": 352, "span_start": 340, "surface": "edge gateway"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-09", "entity_key": "SVC-SHARED-REDIS", "span_end": 171, "span_start": 159, "surface": "Shared Redis"}
+{"document_id": "DOC-TKT-INC-101", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 118, "span_start": 103, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-101", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 209, "span_start": 194, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-101", "entity_key": "DPL-004", "span_end": 679, "span_start": 650, "surface": "catalog-service release 2.1.0"}
+{"document_id": "DOC-TKT-INC-102", "entity_key": "SVC-AUTH-SERVICE", "span_end": 116, "span_start": 104, "surface": "Auth Service"}
+{"document_id": "DOC-TKT-INC-102", "entity_key": "SVC-AUTH-SERVICE", "span_end": 204, "span_start": 192, "surface": "auth-service"}
+{"document_id": "DOC-TKT-INC-102", "entity_key": "SVC-SHARED-REDIS", "span_end": 228, "span_start": 216, "surface": "Shared Redis"}
+{"document_id": "DOC-TKT-INC-102", "entity_key": "SVC-CHECKOUT-API", "span_end": 253, "span_start": 241, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-102", "entity_key": "SVC-API-GATEWAY", "span_end": 279, "span_start": 268, "surface": "api-gateway"}
+{"document_id": "DOC-TKT-INC-102", "entity_key": "DPL-005", "span_end": 1039, "span_start": 979, "surface": "the Shared Redis config change maxmemory-policy-volatile-lru"}
+{"document_id": "DOC-TKT-INC-103", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 115, "span_start": 99, "surface": "email-dispatcher"}
+{"document_id": "DOC-TKT-INC-103", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 207, "span_start": 191, "surface": "Email Dispatcher"}
+{"document_id": "DOC-TKT-INC-103", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 239, "span_start": 219, "surface": "Notification Service"}
+{"document_id": "DOC-TKT-INC-103", "entity_key": "EXT-MAILRELAY", "span_end": 650, "span_start": 641, "surface": "MailRelay"}
+{"document_id": "DOC-TKT-INC-103", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 780, "span_start": 764, "surface": "email-dispatcher"}
+{"document_id": "DOC-TKT-INC-104", "entity_key": "SVC-PAYMENTS-API", "span_end": 111, "span_start": 99, "surface": "Payments API"}
+{"document_id": "DOC-TKT-INC-104", "entity_key": "SVC-PAYMENTS-API", "span_end": 199, "span_start": 187, "surface": "Payments API"}
+{"document_id": "DOC-TKT-INC-104", "entity_key": "SVC-CHECKOUT-API", "span_end": 223, "span_start": 211, "surface": "checkout-api"}
+{"document_id": "DOC-TKT-INC-104", "entity_key": "DPL-011", "span_end": 943, "span_start": 901, "surface": "the rollback of payments backend to v2.7.3"}
+{"document_id": "DOC-TKT-INC-105", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 116, "span_start": 100, "surface": "Warehouse Loader"}
+{"document_id": "DOC-TKT-INC-105", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 203, "span_start": 192, "surface": "nightly ETL"}
+{"document_id": "DOC-TKT-INC-105", "entity_key": "DPL-012", "span_end": 698, "span_start": 666, "surface": "the Order Service v4.2.0 release"}
+{"document_id": "DOC-TKT-INC-105", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 773, "span_start": 757, "surface": "warehouse-loader"}
+{"document_id": "DOC-TKT-INC-105", "entity_key": "DPL-013", "span_end": 876, "span_start": 846, "surface": "warehouse-loader release 1.3.1"}
+{"document_id": "DOC-TKT-INC-106", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 116, "span_start": 99, "surface": "inventory-service"}
+{"document_id": "DOC-TKT-INC-106", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 209, "span_start": 192, "surface": "inventory-service"}
+{"document_id": "DOC-TKT-INC-106", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 235, "span_start": 221, "surface": "warehouse-sync"}
+{"document_id": "DOC-TKT-INC-106", "entity_key": "SVC-CHECKOUT-API", "span_end": 259, "span_start": 247, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-106", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 651, "span_start": 637, "surface": "Warehouse Sync"}
+{"document_id": "DOC-TKT-INC-106", "entity_key": "DPL-016", "span_end": 726, "span_start": 679, "surface": "the rollback of warehouse sync worker to v1.9.4"}
+{"document_id": "DOC-TKT-INC-107", "entity_key": "SVC-PRICING-SERVICE", "span_end": 109, "span_start": 99, "surface": "price-calc"}
+{"document_id": "DOC-TKT-INC-107", "entity_key": "SVC-PRICING-SERVICE", "span_end": 200, "span_start": 185, "surface": "pricing-service"}
+{"document_id": "DOC-TKT-INC-107", "entity_key": "SVC-CART-SERVICE", "span_end": 224, "span_start": 212, "surface": "Cart Service"}
+{"document_id": "DOC-TKT-INC-107", "entity_key": "DPL-018", "span_end": 677, "span_start": 628, "surface": "the Pricing Engine config change v2.6.0+rules-r42"}
+{"document_id": "DOC-TKT-INC-107", "entity_key": "SVC-PRICING-SERVICE", "span_end": 757, "span_start": 743, "surface": "Pricing Engine"}
+{"document_id": "DOC-TKT-INC-107", "entity_key": "DPL-019", "span_end": 857, "span_start": 806, "surface": "the rollback of pricing-service to v2.6.0+rules-r41"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "SVC-ORDERS-DB", "span_end": 129, "span_start": 120, "surface": "Orders DB"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "SVC-ORDERS-DB", "span_end": 214, "span_start": 205, "surface": "orders-db"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "SVC-ORDER-SERVICE", "span_end": 239, "span_start": 226, "surface": "order-service"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "SVC-PAYMENTS-API", "span_end": 264, "span_start": 252, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 291, "span_start": 277, "surface": "ledger-service"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "SVC-CHECKOUT-API", "span_end": 316, "span_start": 304, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-108", "entity_key": "DPL-021", "span_end": 948, "span_start": 885, "surface": "the Warehouse Loader config change v1.3.1+export-source-replica"}
+{"document_id": "DOC-TKT-INC-109", "entity_key": "SVC-API-GATEWAY", "span_end": 126, "span_start": 115, "surface": "API Gateway"}
+{"document_id": "DOC-TKT-INC-109", "entity_key": "SVC-API-GATEWAY", "span_end": 213, "span_start": 202, "surface": "api-gateway"}
+{"document_id": "DOC-TKT-INC-109", "entity_key": "DPL-024", "span_end": 661, "span_start": 614, "surface": "the API Gateway config change edge-cert-2026-05"}
+{"document_id": "DOC-TKT-INC-110", "entity_key": "SVC-PAYMENTS-API", "span_end": 131, "span_start": 119, "surface": "Payments API"}
+{"document_id": "DOC-TKT-INC-110", "entity_key": "SVC-PAYMENTS-API", "span_end": 219, "span_start": 207, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-110", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 244, "span_start": 231, "surface": "fraud-service"}
+{"document_id": "DOC-TKT-INC-110", "entity_key": "SVC-CHECKOUT-API", "span_end": 269, "span_start": 257, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-110", "entity_key": "DPL-028", "span_end": 722, "span_start": 696, "surface": "Payments API release 2.9.1"}
+{"document_id": "DOC-TKT-INC-111", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 121, "span_start": 101, "surface": "notification-service"}
+{"document_id": "DOC-TKT-INC-111", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 217, "span_start": 197, "surface": "Notification Service"}
+{"document_id": "DOC-TKT-INC-111", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 245, "span_start": 229, "surface": "email-dispatcher"}
+{"document_id": "DOC-TKT-INC-111", "entity_key": "DPL-029", "span_end": 632, "span_start": 593, "surface": "the Notification Service v3.1.0 release"}
+{"document_id": "DOC-TKT-INC-111", "entity_key": "DPL-030", "span_end": 779, "span_start": 745, "surface": "Notification Service release 3.1.1"}
+{"document_id": "DOC-TKT-INC-112", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 105, "span_start": 89, "surface": "accounts-service"}
+{"document_id": "DOC-TKT-INC-112", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 197, "span_start": 181, "surface": "Accounts Service"}
+{"document_id": "DOC-TKT-INC-112", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 608, "span_start": 592, "surface": "Accounts Service"}
+{"document_id": "DOC-TKT-INC-113", "entity_key": "SVC-PSP-ADAPTER", "span_end": 121, "span_start": 110, "surface": "PSP Adapter"}
+{"document_id": "DOC-TKT-INC-113", "entity_key": "SVC-PSP-ADAPTER", "span_end": 208, "span_start": 197, "surface": "psp-adapter"}
+{"document_id": "DOC-TKT-INC-113", "entity_key": "SVC-PAYMENTS-API", "span_end": 232, "span_start": 220, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-113", "entity_key": "SVC-CHECKOUT-API", "span_end": 259, "span_start": 247, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-114", "entity_key": "SVC-CART-SERVICE", "span_end": 121, "span_start": 109, "surface": "cart-service"}
+{"document_id": "DOC-TKT-INC-114", "entity_key": "SVC-CART-SERVICE", "span_end": 209, "span_start": 197, "surface": "Cart Service"}
+{"document_id": "DOC-TKT-INC-114", "entity_key": "SVC-SHARED-REDIS", "span_end": 233, "span_start": 221, "surface": "Shared Redis"}
+{"document_id": "DOC-TKT-INC-114", "entity_key": "SVC-SHARED-REDIS", "span_end": 656, "span_start": 644, "surface": "shared-redis"}
+{"document_id": "DOC-TKT-INC-114", "entity_key": "DPL-035", "span_end": 865, "span_start": 820, "surface": "the shared-redis config change appendonly-yes"}
+{"document_id": "DOC-TKT-INC-115", "entity_key": "SVC-CHECKOUT-API", "span_end": 128, "span_start": 116, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-115", "entity_key": "SVC-CHECKOUT-API", "span_end": 212, "span_start": 204, "surface": "checkout"}
+{"document_id": "DOC-TKT-INC-115", "entity_key": "DPL-038", "span_end": 661, "span_start": 623, "surface": "the rollback of checkout-api to v5.3.2"}
+{"document_id": "DOC-TKT-INC-116", "entity_key": "SVC-EVENT-BUS", "span_end": 119, "span_start": 110, "surface": "Event Bus"}
+{"document_id": "DOC-TKT-INC-116", "entity_key": "SVC-EVENT-BUS", "span_end": 204, "span_start": 195, "surface": "Event Bus"}
+{"document_id": "DOC-TKT-INC-116", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 232, "span_start": 216, "surface": "Warehouse Loader"}
+{"document_id": "DOC-TKT-INC-116", "entity_key": "DPL-040", "span_end": 745, "span_start": 712, "surface": "the event-bus kafka-3.7.1 upgrade"}
+{"document_id": "DOC-TKT-INC-117", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 113, "span_start": 98, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-117", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 204, "span_start": 189, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-117", "entity_key": "DPL-042", "span_end": 567, "span_start": 545, "surface": "Catalog Service v2.2.0"}
+{"document_id": "DOC-TKT-INC-118", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 115, "span_start": 101, "surface": "finance ledger"}
+{"document_id": "DOC-TKT-INC-118", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 205, "span_start": 191, "surface": "ledger-service"}
+{"document_id": "DOC-TKT-INC-118", "entity_key": "SVC-PAYMENTS-API", "span_end": 225, "span_start": 217, "surface": "payments"}
+{"document_id": "DOC-TKT-INC-118", "entity_key": "DPL-044", "span_end": 740, "span_start": 709, "surface": "version 1.8.1 of ledger-service"}
+{"document_id": "DOC-TKT-INC-119", "entity_key": "SVC-AUTH-SERVICE", "span_end": 119, "span_start": 107, "surface": "Auth Service"}
+{"document_id": "DOC-TKT-INC-119", "entity_key": "SVC-AUTH-SERVICE", "span_end": 207, "span_start": 195, "surface": "auth-service"}
+{"document_id": "DOC-TKT-INC-119", "entity_key": "SVC-CHECKOUT-API", "span_end": 231, "span_start": 219, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-119", "entity_key": "SVC-API-GATEWAY", "span_end": 257, "span_start": 246, "surface": "API Gateway"}
+{"document_id": "DOC-TKT-INC-119", "entity_key": "DPL-046", "span_end": 649, "span_start": 638, "surface": "auth v6.2.0"}
+{"document_id": "DOC-TKT-INC-119", "entity_key": "DPL-047", "span_end": 884, "span_start": 846, "surface": "the rollback of Auth Service to v6.1.4"}
+{"document_id": "DOC-TKT-INC-120", "entity_key": "SVC-ORDERS-DB", "span_end": 118, "span_start": 102, "surface": "primary postgres"}
+{"document_id": "DOC-TKT-INC-120", "entity_key": "SVC-ORDERS-DB", "span_end": 203, "span_start": 194, "surface": "Orders DB"}
+{"document_id": "DOC-TKT-INC-120", "entity_key": "SVC-ORDER-SERVICE", "span_end": 228, "span_start": 215, "surface": "Order Service"}
+{"document_id": "DOC-TKT-INC-120", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 257, "span_start": 241, "surface": "warehouse-loader"}
+{"document_id": "DOC-TKT-INC-120", "entity_key": "SVC-ORDERS-DB", "span_end": 724, "span_start": 715, "surface": "orders-db"}
+{"document_id": "DOC-TKT-INC-121", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 140, "span_start": 120, "surface": "notification-service"}
+{"document_id": "DOC-TKT-INC-121", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 236, "span_start": 216, "surface": "Notification Service"}
+{"document_id": "DOC-TKT-INC-121", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 264, "span_start": 248, "surface": "Email Dispatcher"}
+{"document_id": "DOC-TKT-INC-121", "entity_key": "DPL-052", "span_end": 680, "span_start": 653, "surface": "notification-service v4.0.1"}
+{"document_id": "DOC-TKT-INC-122", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 124, "span_start": 107, "surface": "Inventory Service"}
+{"document_id": "DOC-TKT-INC-122", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 217, "span_start": 200, "surface": "Inventory Service"}
+{"document_id": "DOC-TKT-INC-122", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 245, "span_start": 229, "surface": "warehouse-loader"}
+{"document_id": "DOC-TKT-INC-122", "entity_key": "DPL-050", "span_end": 687, "span_start": 651, "surface": "the Inventory Service v3.6.0 release"}
+{"document_id": "DOC-TKT-INC-122", "entity_key": "DPL-053", "span_end": 797, "span_start": 773, "surface": "inventory-service v3.6.1"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "SVC-PAYMENTS-API", "span_end": 128, "span_start": 116, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "SVC-PAYMENTS-API", "span_end": 216, "span_start": 204, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "SVC-ORDERS-DB", "span_end": 237, "span_start": 228, "surface": "orders-db"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "SVC-LEDGER-SERVICE", "span_end": 264, "span_start": 250, "surface": "Ledger Service"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "SVC-ORDER-SERVICE", "span_end": 290, "span_start": 277, "surface": "Order Service"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "SVC-CHECKOUT-API", "span_end": 315, "span_start": 303, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-123", "entity_key": "DPL-056", "span_end": 965, "span_start": 939, "surface": "Payments API release 3.1.1"}
+{"document_id": "DOC-TKT-INC-124", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 119, "span_start": 103, "surface": "Email Dispatcher"}
+{"document_id": "DOC-TKT-INC-124", "entity_key": "SVC-EMAIL-DISPATCHER", "span_end": 207, "span_start": 195, "surface": "email worker"}
+{"document_id": "DOC-TKT-INC-124", "entity_key": "DPL-058", "span_end": 599, "span_start": 569, "surface": "email-dispatcher release 2.3.0"}
+{"document_id": "DOC-TKT-INC-124", "entity_key": "DPL-059", "span_end": 706, "span_start": 673, "surface": "version 2.3.1 of email-dispatcher"}
+{"document_id": "DOC-TKT-INC-125", "entity_key": "SVC-API-GATEWAY", "span_end": 106, "span_start": 95, "surface": "API Gateway"}
+{"document_id": "DOC-TKT-INC-125", "entity_key": "SVC-API-GATEWAY", "span_end": 186, "span_start": 182, "surface": "edge"}
+{"document_id": "DOC-TKT-INC-125", "entity_key": "DPL-061", "span_end": 599, "span_start": 557, "surface": "the API Gateway config change rl-policy-v7"}
+{"document_id": "DOC-TKT-INC-125", "entity_key": "DPL-062", "span_end": 791, "span_start": 748, "surface": "the rollback of API Gateway to rl-policy-v6"}
+{"document_id": "DOC-TKT-INC-126", "entity_key": "SVC-CHECKOUT-API", "span_end": 116, "span_start": 104, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-126", "entity_key": "SVC-CHECKOUT-API", "span_end": 204, "span_start": 192, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-126", "entity_key": "SVC-PRICING-SERVICE", "span_end": 231, "span_start": 216, "surface": "pricing-service"}
+{"document_id": "DOC-TKT-INC-126", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 255, "span_start": 244, "surface": "catalog api"}
+{"document_id": "DOC-TKT-INC-126", "entity_key": "SVC-SHARED-REDIS", "span_end": 280, "span_start": 268, "surface": "shared-redis"}
+{"document_id": "DOC-TKT-INC-126", "entity_key": "SVC-CART-SERVICE", "span_end": 305, "span_start": 293, "surface": "Cart Service"}
+{"document_id": "DOC-TKT-INC-127", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 137, "span_start": 116, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-TKT-INC-127", "entity_key": "SVC-FRAUD-SERVICE", "span_end": 234, "span_start": 213, "surface": "Fraud Scoring Service"}
+{"document_id": "DOC-TKT-INC-127", "entity_key": "SVC-PAYMENTS-API", "span_end": 258, "span_start": 246, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-127", "entity_key": "DPL-065", "span_end": 636, "span_start": 609, "surface": "fraud-service release 2.4.0"}
+{"document_id": "DOC-TKT-INC-127", "entity_key": "DPL-066", "span_end": 845, "span_start": 798, "surface": "the rollback of Fraud Scoring Service to v2.3.2"}
+{"document_id": "DOC-TKT-INC-128", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 108, "span_start": 94, "surface": "Warehouse Sync"}
+{"document_id": "DOC-TKT-INC-128", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 198, "span_start": 184, "surface": "Warehouse Sync"}
+{"document_id": "DOC-TKT-INC-128", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 227, "span_start": 210, "surface": "Inventory Service"}
+{"document_id": "DOC-TKT-INC-128", "entity_key": "SVC-WAREHOUSE-SYNC", "span_end": 779, "span_start": 758, "surface": "warehouse sync worker"}
+{"document_id": "DOC-TKT-INC-129", "entity_key": "SVC-AUTH-SERVICE", "span_end": 107, "span_start": 103, "surface": "auth"}
+{"document_id": "DOC-TKT-INC-129", "entity_key": "SVC-AUTH-SERVICE", "span_end": 195, "span_start": 183, "surface": "auth-service"}
+{"document_id": "DOC-TKT-INC-129", "entity_key": "SVC-API-GATEWAY", "span_end": 218, "span_start": 207, "surface": "api-gateway"}
+{"document_id": "DOC-TKT-INC-129", "entity_key": "SVC-CHECKOUT-API", "span_end": 239, "span_start": 233, "surface": "co-api"}
+{"document_id": "DOC-TKT-INC-129", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 270, "span_start": 254, "surface": "Accounts Service"}
+{"document_id": "DOC-TKT-INC-130", "entity_key": "SVC-ORDER-SERVICE", "span_end": 105, "span_start": 102, "surface": "OMS"}
+{"document_id": "DOC-TKT-INC-130", "entity_key": "SVC-ORDER-SERVICE", "span_end": 194, "span_start": 181, "surface": "Order Service"}
+{"document_id": "DOC-TKT-INC-130", "entity_key": "SVC-PAYMENTS-API", "span_end": 218, "span_start": 206, "surface": "Payments API"}
+{"document_id": "DOC-TKT-INC-130", "entity_key": "DPL-070", "span_end": 625, "span_start": 605, "surface": "order-service v4.5.0"}
+{"document_id": "DOC-TKT-INC-130", "entity_key": "DPL-071", "span_end": 797, "span_start": 758, "surface": "the rollback of order-service to v4.4.0"}
+{"document_id": "DOC-TKT-INC-131", "entity_key": "SVC-PSP-ADAPTER", "span_end": 109, "span_start": 98, "surface": "PSP Adapter"}
+{"document_id": "DOC-TKT-INC-131", "entity_key": "SVC-PSP-ADAPTER", "span_end": 196, "span_start": 185, "surface": "PSP Adapter"}
+{"document_id": "DOC-TKT-INC-131", "entity_key": "SVC-PAYMENTS-API", "span_end": 220, "span_start": 208, "surface": "Payments API"}
+{"document_id": "DOC-TKT-INC-131", "entity_key": "SVC-CHECKOUT-API", "span_end": 247, "span_start": 235, "surface": "checkout-api"}
+{"document_id": "DOC-TKT-INC-131", "entity_key": "DPL-075", "span_end": 636, "span_start": 601, "surface": "the provider-gateway v1.8.1 release"}
+{"document_id": "DOC-TKT-INC-132", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 121, "span_start": 108, "surface": "notifications"}
+{"document_id": "DOC-TKT-INC-132", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 217, "span_start": 197, "surface": "Notification Service"}
+{"document_id": "DOC-TKT-INC-132", "entity_key": "DPL-076", "span_end": 640, "span_start": 610, "surface": "version 4.2.0 of notifications"}
+{"document_id": "DOC-TKT-INC-132", "entity_key": "DPL-077", "span_end": 767, "span_start": 740, "surface": "notification-service v4.2.1"}
+{"document_id": "DOC-TKT-INC-133", "entity_key": "SVC-CHECKOUT-API", "span_end": 120, "span_start": 108, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-133", "entity_key": "SVC-CHECKOUT-API", "span_end": 208, "span_start": 196, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-133", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 237, "span_start": 220, "surface": "Inventory Service"}
+{"document_id": "DOC-TKT-INC-133", "entity_key": "SVC-ORDER-SERVICE", "span_end": 263, "span_start": 250, "surface": "Order Service"}
+{"document_id": "DOC-TKT-INC-133", "entity_key": "DPL-080", "span_end": 734, "span_start": 696, "surface": "the rollback of Checkout API to v5.7.1"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "SVC-PRICING-SERVICE", "span_end": 125, "span_start": 111, "surface": "Pricing Engine"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "SVC-PRICING-SERVICE", "span_end": 216, "span_start": 201, "surface": "pricing-service"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "SVC-CART-SERVICE", "span_end": 240, "span_start": 228, "surface": "Cart Service"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "SVC-CHECKOUT-API", "span_end": 271, "span_start": 255, "surface": "checkout service"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "DPL-081", "span_end": 708, "span_start": 679, "surface": "pricing-service release 2.7.0"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "SVC-CART-SERVICE", "span_end": 783, "span_start": 771, "surface": "Cart Service"}
+{"document_id": "DOC-TKT-INC-134", "entity_key": "DPL-082", "span_end": 864, "span_start": 840, "surface": "version 2.7.1 of pricing"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "SVC-EVENT-BUS", "span_end": 104, "span_start": 95, "surface": "Event Bus"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "SVC-EVENT-BUS", "span_end": 189, "span_start": 180, "surface": "Event Bus"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "SVC-NOTIFICATION-SERVICE", "span_end": 221, "span_start": 201, "surface": "Notification Service"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "SVC-WAREHOUSE-LOADER", "span_end": 252, "span_start": 236, "surface": "Warehouse Loader"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "SVC-ORDER-SERVICE", "span_end": 280, "span_start": 267, "surface": "Order Service"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "SVC-INVENTORY-SERVICE", "span_end": 310, "span_start": 293, "surface": "Inventory Service"}
+{"document_id": "DOC-TKT-INC-135", "entity_key": "DPL-083", "span_end": 869, "span_start": 828, "surface": "the event-bus config change retention-48h"}
+{"document_id": "DOC-TKT-INC-136", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 127, "span_start": 112, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-136", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 218, "span_start": 203, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-136", "entity_key": "SVC-CATALOG-SERVICE", "span_end": 760, "span_start": 745, "surface": "Catalog Service"}
+{"document_id": "DOC-TKT-INC-137", "entity_key": "SVC-PAYMENTS-API", "span_end": 133, "span_start": 121, "surface": "Payments API"}
+{"document_id": "DOC-TKT-INC-137", "entity_key": "SVC-PAYMENTS-API", "span_end": 225, "span_start": 209, "surface": "payments backend"}
+{"document_id": "DOC-TKT-INC-137", "entity_key": "SVC-PSP-ADAPTER", "span_end": 248, "span_start": 237, "surface": "psp-adapter"}
+{"document_id": "DOC-TKT-INC-137", "entity_key": "SVC-CHECKOUT-API", "span_end": 273, "span_start": 261, "surface": "Checkout API"}
+{"document_id": "DOC-TKT-INC-137", "entity_key": "SVC-PAYMENTS-API", "span_end": 733, "span_start": 721, "surface": "payments-api"}
+{"document_id": "DOC-TKT-INC-137", "entity_key": "DPL-086", "span_end": 808, "span_start": 770, "surface": "the rollback of Payments API to v3.3.1"}
+{"document_id": "DOC-TKT-INC-138", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 116, "span_start": 100, "surface": "Accounts Service"}
+{"document_id": "DOC-TKT-INC-138", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 208, "span_start": 192, "surface": "accounts-service"}
+{"document_id": "DOC-TKT-INC-138", "entity_key": "SVC-ACCOUNTS-SERVICE", "span_end": 582, "span_start": 574, "surface": "accounts"}
+{"document_id": "DOC-TKT-INC-138", "entity_key": "DPL-087", "span_end": 720, "span_start": 690, "surface": "Accounts Service release 1.5.1"}

@@ -1,0 +1,7 @@
+{"id": "checkout", "name": "Checkout"}
+{"id": "payments", "name": "Payments"}
+{"id": "authentication", "name": "Authentication"}
+{"id": "inventory", "name": "Inventory"}
+{"id": "notifications", "name": "Notifications"}
+{"id": "data-platform", "name": "Data Platform"}
+{"id": "shared-infrastructure", "name": "Shared Infrastructure"}

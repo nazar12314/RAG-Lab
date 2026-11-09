@@ -26,7 +26,9 @@ backend/app/
   agent/           # LangChain tools and runner
   generation/      # answer generation
   evaluation/      # benchmark runner and metrics
-frontend/          # Streamlit app
+  analysis/        # data analysis: snapshot, filters, charts, record details
+  dataset/         # dataset generator, validator and seed loader
+frontend/          # Streamlit app (screens/ + analysis/ UI components)
 data/seed/         # synthetic company data
 data/benchmark/    # benchmark questions and labels
 migrations/        # Alembic migrations
@@ -60,6 +62,7 @@ Host ports are configurable via `POSTGRES_PORT`, `BACKEND_PORT`, `FRONTEND_PORT`
 ```bash
 make db                   # only PostgreSQL in Docker
 make migrate
+make seed                 # load the engineering-ops-v1 dataset
 make backend              # in one terminal
 make frontend             # in another
 ```
@@ -72,4 +75,20 @@ make test-integration     # tests against running PostgreSQL
 make lint                 # ruff check + format check
 make format               # auto-format
 make revision m="message" # new Alembic migration
+make dataset              # regenerate seed data + gold labels from data/seed/*/canonical
+make dataset-check        # fail if committed dataset files are stale
 ```
+
+## Dataset
+
+The lab ships a synthetic engineering-operations corpus (20 services, 38 incidents,
+87 deployments, 138 documents, a curated graph and 80 labeled benchmark questions).
+See [docs/data_model.md](docs/data_model.md) for its structure, the database schemas and
+the gold-label boundary.
+
+## Data Analysis
+
+The **Data Analysis** page explores that corpus before any retriever runs: distributions with
+click-to-filter charts, a record browser, record details with their supporting passages, a
+document inspector with evidence highlights, and a Graph Explorer for bounded neighborhood
+traversal, shortest paths and edge provenance. See [docs/data_analysis.md](docs/data_analysis.md).

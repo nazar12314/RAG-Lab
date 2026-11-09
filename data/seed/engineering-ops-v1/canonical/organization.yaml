@@ -1,0 +1,220 @@
+# Canonical source of truth for the fictional company. Gold-side: retrievers never read this file.
+dataset_version: engineering-ops-v1
+company: Kestrel Commerce
+as_of: "2026-11-01"
+period: {start: "2026-04-01", end: "2026-10-31"}
+
+subsystems:
+  - {id: checkout, name: Checkout}
+  - {id: payments, name: Payments}
+  - {id: authentication, name: Authentication}
+  - {id: inventory, name: Inventory}
+  - {id: notifications, name: Notifications}
+  - {id: data-platform, name: Data Platform}
+  - {id: shared-infrastructure, name: Shared Infrastructure}
+
+teams:
+  - {id: TEAM-CHECKOUT, name: Checkout Team, channel: "#team-checkout", lead: Priya Raman}
+  - {id: TEAM-PAYMENTS, name: Payments Team, channel: "#team-payments", lead: Tomasz Wierzbicki}
+  - {id: TEAM-IDENTITY, name: Identity Team, channel: "#team-identity", lead: Amara Okafor}
+  - {id: TEAM-INVENTORY, name: Inventory Team, channel: "#team-inventory", lead: Jonas Lindqvist}
+  - {id: TEAM-COMMS, name: Customer Comms Team, channel: "#team-comms", lead: Sofia Marquez}
+  - {id: TEAM-DATA, name: Data Platform Team, channel: "#team-data", lead: Kenji Watanabe}
+  - {id: TEAM-SRE, name: Platform SRE, channel: "#sre", lead: Hannah Becker}
+
+external_systems:
+  - id: EXT-PAYNOVA
+    name: PayNova
+    kind: payment_processor
+    aliases: [PayNova gateway, the card processor, PSP]
+    description: Third-party card payment processor used for all card authorizations.
+  - id: EXT-MAILRELAY
+    name: MailRelay
+    kind: email_provider
+    aliases: [MailRelay API, the email provider, ESP]
+    description: Third-party transactional email delivery provider.
+
+# Aliases deliberately overlap in places ("warehouse", "payments", "cache") to make entity
+# resolution non-trivial. `legacy` aliases are older names still found in documents.
+services:
+  - id: SVC-CHECKOUT-API
+    slug: checkout-api
+    name: Checkout API
+    subsystem: checkout
+    team: TEAM-CHECKOUT
+    tier: 1
+    runtime: Kotlin / Spring Boot
+    aliases: [checkout, checkout service, co-api]
+    description: Orchestrates the checkout flow - cart validation, pricing, stock checks, payment and order creation.
+  - id: SVC-CART-SERVICE
+    slug: cart-service
+    name: Cart Service
+    subsystem: checkout
+    team: TEAM-CHECKOUT
+    tier: 2
+    runtime: Go
+    aliases: [cart, basket service, basket]
+    description: Stores shopping carts and recalculates cart totals.
+  - id: SVC-PRICING-SERVICE
+    slug: pricing-service
+    name: Pricing Engine
+    subsystem: checkout
+    team: TEAM-CHECKOUT
+    tier: 2
+    runtime: Python
+    aliases: [pricing-service, pricing, price-calc]
+    description: Computes item prices, promotions, discounts and currency rounding.
+  - id: SVC-ORDER-SERVICE
+    slug: order-service
+    name: Order Service
+    subsystem: checkout
+    team: TEAM-CHECKOUT
+    tier: 1
+    runtime: Kotlin / Spring Boot
+    aliases: [orders, order management, OMS]
+    description: Persists orders, drives the order state machine and emits order events.
+  - id: SVC-PAYMENTS-API
+    slug: payments-api
+    name: Payments API
+    subsystem: payments
+    team: TEAM-PAYMENTS
+    tier: 1
+    runtime: Python / FastAPI
+    aliases: [payment-service, payments, pay-api, payments backend]
+    legacy_aliases: [payment-service]
+    description: Authorizes and captures payments, handles refunds and calls fraud scoring, the PSP adapter and the ledger.
+  - id: SVC-FRAUD-SERVICE
+    slug: fraud-service
+    name: Fraud Scoring Service
+    subsystem: payments
+    team: TEAM-PAYMENTS
+    tier: 2
+    runtime: Python
+    aliases: [fraud-service, fraud, risk-scoring, risk service]
+    description: Scores transactions for fraud risk using an ML model.
+  - id: SVC-LEDGER-SERVICE
+    slug: ledger-service
+    name: Ledger Service
+    subsystem: payments
+    team: TEAM-PAYMENTS
+    tier: 2
+    runtime: Java
+    aliases: [ledger, payments ledger, finance ledger]
+    description: Double-entry ledger of captures, refunds and payouts.
+  - id: SVC-PSP-ADAPTER
+    slug: psp-adapter
+    name: PSP Adapter
+    subsystem: payments
+    team: TEAM-PAYMENTS
+    tier: 1
+    runtime: Go
+    aliases: [payment provider adapter, provider-gateway, psp gateway]
+    description: Translates internal payment calls to the PayNova processor API, including 3-D Secure flows.
+  - id: SVC-AUTH-SERVICE
+    slug: auth-service
+    name: Auth Service
+    subsystem: authentication
+    team: TEAM-IDENTITY
+    tier: 1
+    runtime: Go
+    aliases: [identity service, auth, login service, IdP]
+    description: Issues and validates session tokens and JWTs.
+  - id: SVC-ACCOUNTS-SERVICE
+    slug: accounts-service
+    name: Accounts Service
+    subsystem: authentication
+    team: TEAM-IDENTITY
+    tier: 2
+    runtime: Python
+    aliases: [user profile service, accounts, profile service]
+    description: Customer accounts, profiles, saved addresses and privacy exports.
+  - id: SVC-INVENTORY-SERVICE
+    slug: inventory-service
+    name: Inventory Service
+    subsystem: inventory
+    team: TEAM-INVENTORY
+    tier: 1
+    runtime: Java
+    aliases: [inventory api, stock service, inventory]
+    description: Source of truth for stock levels and reservations.
+  - id: SVC-CATALOG-SERVICE
+    slug: catalog-service
+    name: Catalog Service
+    subsystem: inventory
+    team: TEAM-INVENTORY
+    tier: 2
+    runtime: Node.js
+    aliases: [product catalog, catalog, catalog api]
+    description: Product data, images, search index and availability badges.
+  - id: SVC-WAREHOUSE-SYNC
+    slug: warehouse-sync
+    name: Warehouse Sync
+    subsystem: inventory
+    team: TEAM-INVENTORY
+    tier: 3
+    runtime: Python
+    aliases: [wms sync, warehouse sync worker, warehouse integration]
+    description: Pulls stock deltas from the partner warehouse management system (WMS) into the Inventory Service.
+  - id: SVC-NOTIFICATION-SERVICE
+    slug: notification-service
+    name: Notification Service
+    subsystem: notifications
+    team: TEAM-COMMS
+    tier: 2
+    runtime: Node.js
+    aliases: [notifier, notifications, notification svc]
+    description: Decides which customer notifications to send for order lifecycle events.
+  - id: SVC-EMAIL-DISPATCHER
+    slug: email-dispatcher
+    name: Email Dispatcher
+    subsystem: notifications
+    team: TEAM-COMMS
+    tier: 3
+    runtime: Node.js
+    aliases: [mailer, email worker, email-sender]
+    description: Renders email templates and hands messages to MailRelay.
+  - id: SVC-EVENT-BUS
+    slug: event-bus
+    name: Event Bus
+    subsystem: data-platform
+    team: TEAM-DATA
+    tier: 1
+    runtime: Kafka
+    aliases: [kafka cluster, event pipeline, events, kafka]
+    description: Shared Kafka cluster carrying order, stock and profile events.
+  - id: SVC-WAREHOUSE-LOADER
+    slug: warehouse-loader
+    name: Warehouse Loader
+    subsystem: data-platform
+    team: TEAM-DATA
+    tier: 3
+    runtime: Python / Airflow
+    aliases: [etl loader, dw loader, data warehouse loader, nightly ETL]
+    description: Loads order and stock data into the analytics data warehouse.
+  - id: SVC-API-GATEWAY
+    slug: api-gateway
+    name: API Gateway
+    subsystem: shared-infrastructure
+    team: TEAM-SRE
+    tier: 1
+    runtime: Envoy
+    aliases: [edge gateway, edge, ingress]
+    description: Public edge - TLS termination, routing and rate limiting for web and mobile clients.
+  - id: SVC-ORDERS-DB
+    slug: orders-db
+    name: Orders DB
+    subsystem: shared-infrastructure
+    team: TEAM-SRE
+    tier: 1
+    runtime: PostgreSQL 16
+    aliases: [pg-orders, orders database, primary postgres, orders-db primary]
+    description: Shared PostgreSQL cluster (primary + read replica) holding order, payment and ledger tables.
+  - id: SVC-SHARED-REDIS
+    slug: shared-redis
+    name: Shared Redis
+    subsystem: shared-infrastructure
+    team: TEAM-SRE
+    tier: 1
+    runtime: Redis 7
+    aliases: [redis cache, cache cluster, session cache, redis]
+    description: Shared Redis cluster used for sessions, carts and caches.

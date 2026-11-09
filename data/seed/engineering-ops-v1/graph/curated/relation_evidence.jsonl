@@ -1,0 +1,750 @@
+{"evidence_kind": "record", "record_id": "SVC-CHECKOUT-API", "record_table": "services", "relation_id": "REL-0001"}
+{"evidence_kind": "record", "record_id": "SVC-CHECKOUT-API", "record_table": "services", "relation_id": "REL-0002"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0002", "span_end": 419, "span_start": 372}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0002", "span_end": 292, "span_start": 245}
+{"evidence_kind": "record", "record_id": "SVC-CART-SERVICE", "record_table": "services", "relation_id": "REL-0003"}
+{"evidence_kind": "record", "record_id": "SVC-CART-SERVICE", "record_table": "services", "relation_id": "REL-0004"}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0004", "span_end": 346, "span_start": 301}
+{"evidence_kind": "record", "record_id": "SVC-PRICING-SERVICE", "record_table": "services", "relation_id": "REL-0005"}
+{"evidence_kind": "record", "record_id": "SVC-PRICING-SERVICE", "record_table": "services", "relation_id": "REL-0006"}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0006", "span_end": 415, "span_start": 355}
+{"evidence_kind": "record", "record_id": "SVC-ORDER-SERVICE", "record_table": "services", "relation_id": "REL-0007"}
+{"evidence_kind": "record", "record_id": "SVC-ORDER-SERVICE", "record_table": "services", "relation_id": "REL-0008"}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0008", "span_end": 477, "span_start": 424}
+{"evidence_kind": "record", "record_id": "SVC-PAYMENTS-API", "record_table": "services", "relation_id": "REL-0009"}
+{"evidence_kind": "record", "record_id": "SVC-PAYMENTS-API", "record_table": "services", "relation_id": "REL-0010"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0010", "span_end": 457, "span_start": 411}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0010", "span_end": 550, "span_start": 486}
+{"evidence_kind": "record", "record_id": "SVC-FRAUD-SERVICE", "record_table": "services", "relation_id": "REL-0011"}
+{"evidence_kind": "record", "record_id": "SVC-FRAUD-SERVICE", "record_table": "services", "relation_id": "REL-0012"}
+{"document_id": "DOC-RB-FRAUD-SERVICE", "evidence_kind": "document", "relation_id": "REL-0012", "span_end": 105, "span_start": 49}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0012", "span_end": 626, "span_start": 559}
+{"evidence_kind": "record", "record_id": "SVC-LEDGER-SERVICE", "record_table": "services", "relation_id": "REL-0013"}
+{"evidence_kind": "record", "record_id": "SVC-LEDGER-SERVICE", "record_table": "services", "relation_id": "REL-0014"}
+{"document_id": "DOC-RB-LEDGER-SERVICE", "evidence_kind": "document", "relation_id": "REL-0014", "span_end": 79, "span_start": 27}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0014", "span_end": 683, "span_start": 635}
+{"evidence_kind": "record", "record_id": "SVC-PSP-ADAPTER", "record_table": "services", "relation_id": "REL-0015"}
+{"evidence_kind": "record", "record_id": "SVC-PSP-ADAPTER", "record_table": "services", "relation_id": "REL-0016"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0016", "span_end": 480, "span_start": 459}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0016", "span_end": 751, "span_start": 692}
+{"evidence_kind": "record", "record_id": "SVC-AUTH-SERVICE", "record_table": "services", "relation_id": "REL-0017"}
+{"evidence_kind": "record", "record_id": "SVC-AUTH-SERVICE", "record_table": "services", "relation_id": "REL-0018"}
+{"document_id": "DOC-ARCH-IDENTITY", "evidence_kind": "document", "relation_id": "REL-0018", "span_end": 123, "span_start": 69}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0018", "span_end": 827, "span_start": 760}
+{"evidence_kind": "record", "record_id": "SVC-ACCOUNTS-SERVICE", "record_table": "services", "relation_id": "REL-0019"}
+{"evidence_kind": "record", "record_id": "SVC-ACCOUNTS-SERVICE", "record_table": "services", "relation_id": "REL-0020"}
+{"document_id": "DOC-ARCH-IDENTITY", "evidence_kind": "document", "relation_id": "REL-0020", "span_end": 161, "span_start": 125}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0020", "span_end": 891, "span_start": 836}
+{"evidence_kind": "record", "record_id": "SVC-INVENTORY-SERVICE", "record_table": "services", "relation_id": "REL-0021"}
+{"evidence_kind": "record", "record_id": "SVC-INVENTORY-SERVICE", "record_table": "services", "relation_id": "REL-0022"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0022", "span_end": 162, "span_start": 110}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0022", "span_end": 965, "span_start": 900}
+{"evidence_kind": "record", "record_id": "SVC-CATALOG-SERVICE", "record_table": "services", "relation_id": "REL-0023"}
+{"evidence_kind": "record", "record_id": "SVC-CATALOG-SERVICE", "record_table": "services", "relation_id": "REL-0024"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0024", "span_end": 197, "span_start": 164}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0024", "span_end": 1024, "span_start": 974}
+{"evidence_kind": "record", "record_id": "SVC-WAREHOUSE-SYNC", "record_table": "services", "relation_id": "REL-0025"}
+{"evidence_kind": "record", "record_id": "SVC-WAREHOUSE-SYNC", "record_table": "services", "relation_id": "REL-0026"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0026", "span_end": 227, "span_start": 198}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0026", "span_end": 1075, "span_start": 1033}
+{"evidence_kind": "record", "record_id": "SVC-NOTIFICATION-SERVICE", "record_table": "services", "relation_id": "REL-0027"}
+{"evidence_kind": "record", "record_id": "SVC-NOTIFICATION-SERVICE", "record_table": "services", "relation_id": "REL-0028"}
+{"document_id": "DOC-ARCH-NOTIFICATIONS", "evidence_kind": "document", "relation_id": "REL-0028", "span_end": 156, "span_start": 94}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0028", "span_end": 1137, "span_start": 1084}
+{"evidence_kind": "record", "record_id": "SVC-EMAIL-DISPATCHER", "record_table": "services", "relation_id": "REL-0029"}
+{"evidence_kind": "record", "record_id": "SVC-EMAIL-DISPATCHER", "record_table": "services", "relation_id": "REL-0030"}
+{"document_id": "DOC-ARCH-NOTIFICATIONS", "evidence_kind": "document", "relation_id": "REL-0030", "span_end": 184, "span_start": 158}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0030", "span_end": 1207, "span_start": 1146}
+{"evidence_kind": "record", "record_id": "SVC-EVENT-BUS", "record_table": "services", "relation_id": "REL-0031"}
+{"evidence_kind": "record", "record_id": "SVC-EVENT-BUS", "record_table": "services", "relation_id": "REL-0032"}
+{"document_id": "DOC-ARCH-DATA-PLATFORM", "evidence_kind": "document", "relation_id": "REL-0032", "span_end": 127, "span_start": 56}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0032", "span_end": 1278, "span_start": 1216}
+{"evidence_kind": "record", "record_id": "SVC-WAREHOUSE-LOADER", "record_table": "services", "relation_id": "REL-0033"}
+{"evidence_kind": "record", "record_id": "SVC-WAREHOUSE-LOADER", "record_table": "services", "relation_id": "REL-0034"}
+{"document_id": "DOC-ARCH-DATA-PLATFORM", "evidence_kind": "document", "relation_id": "REL-0034", "span_end": 165, "span_start": 129}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0034", "span_end": 1349, "span_start": 1287}
+{"evidence_kind": "record", "record_id": "SVC-API-GATEWAY", "record_table": "services", "relation_id": "REL-0035"}
+{"evidence_kind": "record", "record_id": "SVC-API-GATEWAY", "record_table": "services", "relation_id": "REL-0036"}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0036", "span_end": 91, "span_start": 58}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0036", "span_end": 1405, "span_start": 1358}
+{"evidence_kind": "record", "record_id": "SVC-ORDERS-DB", "record_table": "services", "relation_id": "REL-0037"}
+{"evidence_kind": "record", "record_id": "SVC-ORDERS-DB", "record_table": "services", "relation_id": "REL-0038"}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0038", "span_end": 114, "span_start": 93}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0038", "span_end": 1468, "span_start": 1414}
+{"evidence_kind": "record", "record_id": "SVC-SHARED-REDIS", "record_table": "services", "relation_id": "REL-0039"}
+{"evidence_kind": "record", "record_id": "SVC-SHARED-REDIS", "record_table": "services", "relation_id": "REL-0040"}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0040", "span_end": 131, "span_start": 115}
+{"document_id": "DOC-SERVICE-CATALOG", "evidence_kind": "document", "relation_id": "REL-0040", "span_end": 1533, "span_start": 1477}
+{"evidence_kind": "record", "record_id": "LINK-01", "record_table": "service_dependencies", "relation_id": "REL-0041"}
+{"document_id": "DOC-ARCH-IDENTITY", "evidence_kind": "document", "relation_id": "REL-0041", "span_end": 544, "span_start": 457}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0041", "span_end": 348, "span_start": 286}
+{"document_id": "DOC-RB-API-GATEWAY", "evidence_kind": "document", "relation_id": "REL-0041", "span_end": 664, "span_start": 615}
+{"evidence_kind": "record", "record_id": "LINK-02", "record_table": "service_dependencies", "relation_id": "REL-0042"}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0042", "span_end": 260, "span_start": 244}
+{"evidence_kind": "record", "record_id": "LINK-03", "record_table": "service_dependencies", "relation_id": "REL-0043"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0043", "span_end": 1040, "span_start": 982}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0043", "span_end": 284, "span_start": 265}
+{"evidence_kind": "record", "record_id": "LINK-04", "record_table": "service_dependencies", "relation_id": "REL-0044"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0044", "span_end": 552, "span_start": 510}
+{"evidence_kind": "record", "record_id": "LINK-05", "record_table": "service_dependencies", "relation_id": "REL-0045"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0045", "span_end": 730, "span_start": 655}
+{"evidence_kind": "record", "record_id": "LINK-06", "record_table": "service_dependencies", "relation_id": "REL-0046"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0046", "span_end": 1067, "span_start": 963}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0046", "span_end": 575, "span_start": 506}
+{"document_id": "DOC-RB-CHECKOUT-API", "evidence_kind": "document", "relation_id": "REL-0046", "span_end": 711, "span_start": 643}
+{"evidence_kind": "record", "record_id": "LINK-07", "record_table": "service_dependencies", "relation_id": "REL-0047"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0047", "span_end": 847, "span_start": 787}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0047", "span_end": 601, "span_start": 564}
+{"document_id": "DOC-RB-CHECKOUT-API", "evidence_kind": "document", "relation_id": "REL-0047", "span_end": 796, "span_start": 745}
+{"evidence_kind": "record", "record_id": "LINK-08", "record_table": "service_dependencies", "relation_id": "REL-0048"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0048", "span_end": 1122, "span_start": 1071}
+{"evidence_kind": "record", "record_id": "LINK-09", "record_table": "service_dependencies", "relation_id": "REL-0049"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0049", "span_end": 506, "span_start": 424}
+{"document_id": "DOC-ARCH-IDENTITY", "evidence_kind": "document", "relation_id": "REL-0049", "span_end": 611, "span_start": 547}
+{"evidence_kind": "record", "record_id": "LINK-10", "record_table": "service_dependencies", "relation_id": "REL-0050"}
+{"document_id": "DOC-ADR-FRAUD-SCORING-OWNERSHIP", "evidence_kind": "document", "relation_id": "REL-0050", "span_end": 222, "span_start": 116}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0050", "span_end": 959, "span_start": 851}
+{"evidence_kind": "record", "record_id": "LINK-11", "record_table": "service_dependencies", "relation_id": "REL-0051"}
+{"document_id": "DOC-ADR-FRAUD-SCORING-OWNERSHIP", "evidence_kind": "document", "relation_id": "REL-0051", "span_end": 469, "span_start": 372}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0051", "span_end": 670, "span_start": 595}
+{"document_id": "DOC-RB-FRAUD-SERVICE", "evidence_kind": "document", "relation_id": "REL-0051", "span_end": 195, "span_start": 119}
+{"evidence_kind": "record", "record_id": "LINK-12", "record_table": "service_dependencies", "relation_id": "REL-0052"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0052", "span_end": 785, "span_start": 727}
+{"document_id": "DOC-RB-PAYMENTS-API", "evidence_kind": "document", "relation_id": "REL-0052", "span_end": 1244, "span_start": 1196}
+{"evidence_kind": "record", "record_id": "LINK-13", "record_table": "service_dependencies", "relation_id": "REL-0053"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0053", "span_end": 1202, "span_start": 1120}
+{"document_id": "DOC-RB-LEDGER-SERVICE", "evidence_kind": "document", "relation_id": "REL-0053", "span_end": 510, "span_start": 455}
+{"evidence_kind": "record", "record_id": "LINK-14", "record_table": "service_dependencies", "relation_id": "REL-0054"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0054", "span_end": 959, "span_start": 879}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0054", "span_end": 549, "span_start": 537}
+{"document_id": "DOC-RB-ORDERS-DB", "evidence_kind": "document", "relation_id": "REL-0054", "span_end": 1305, "span_start": 1293}
+{"document_id": "DOC-RB-PAYMENTS-API", "evidence_kind": "document", "relation_id": "REL-0054", "span_end": 740, "span_start": 693}
+{"evidence_kind": "record", "record_id": "LINK-15", "record_table": "service_dependencies", "relation_id": "REL-0055"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0055", "span_end": 814, "span_start": 787}
+{"document_id": "DOC-RB-PSP-ADAPTER", "evidence_kind": "document", "relation_id": "REL-0055", "span_end": 149, "span_start": 83}
+{"evidence_kind": "record", "record_id": "LINK-16", "record_table": "service_dependencies", "relation_id": "REL-0056"}
+{"document_id": "DOC-ARCH-PAYMENTS", "evidence_kind": "document", "relation_id": "REL-0056", "span_end": 1298, "span_start": 1246}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0056", "span_end": 565, "span_start": 551}
+{"document_id": "DOC-RB-LEDGER-SERVICE", "evidence_kind": "document", "relation_id": "REL-0056", "span_end": 604, "span_start": 570}
+{"document_id": "DOC-RB-ORDERS-DB", "evidence_kind": "document", "relation_id": "REL-0056", "span_end": 1324, "span_start": 1310}
+{"evidence_kind": "record", "record_id": "LINK-17", "record_table": "service_dependencies", "relation_id": "REL-0057"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0057", "span_end": 1153, "span_start": 1124}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0057", "span_end": 535, "span_start": 522}
+{"document_id": "DOC-RB-ORDERS-DB", "evidence_kind": "document", "relation_id": "REL-0057", "span_end": 1291, "span_start": 1278}
+{"evidence_kind": "record", "record_id": "LINK-18", "record_table": "service_dependencies", "relation_id": "REL-0058"}
+{"document_id": "DOC-ARCH-DATA-PLATFORM", "evidence_kind": "document", "relation_id": "REL-0058", "span_end": 331, "span_start": 254}
+{"document_id": "DOC-RB-EVENT-BUS", "evidence_kind": "document", "relation_id": "REL-0058", "span_end": 919, "span_start": 906}
+{"evidence_kind": "record", "record_id": "LINK-19", "record_table": "service_dependencies", "relation_id": "REL-0059"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0059", "span_end": 650, "span_start": 622}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0059", "span_end": 778, "span_start": 760}
+{"evidence_kind": "record", "record_id": "LINK-20", "record_table": "service_dependencies", "relation_id": "REL-0060"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0060", "span_end": 616, "span_start": 553}
+{"evidence_kind": "record", "record_id": "LINK-21", "record_table": "service_dependencies", "relation_id": "REL-0061"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0061", "span_end": 783, "span_start": 731}
+{"evidence_kind": "record", "record_id": "LINK-22", "record_table": "service_dependencies", "relation_id": "REL-0062"}
+{"document_id": "DOC-ARCH-IDENTITY", "evidence_kind": "document", "relation_id": "REL-0062", "span_end": 321, "span_start": 260}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0062", "span_end": 758, "span_start": 737}
+{"document_id": "DOC-RB-AUTH-SERVICE", "evidence_kind": "document", "relation_id": "REL-0062", "span_end": 349, "span_start": 300}
+{"evidence_kind": "record", "record_id": "LINK-23", "record_table": "service_dependencies", "relation_id": "REL-0063"}
+{"document_id": "DOC-ARCH-IDENTITY", "evidence_kind": "document", "relation_id": "REL-0063", "span_end": 701, "span_start": 630}
+{"evidence_kind": "record", "record_id": "LINK-24", "record_table": "service_dependencies", "relation_id": "REL-0064"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0064", "span_end": 563, "span_start": 465}
+{"document_id": "DOC-RB-INVENTORY-SERVICE", "evidence_kind": "document", "relation_id": "REL-0064", "span_end": 679, "span_start": 640}
+{"evidence_kind": "record", "record_id": "LINK-25", "record_table": "service_dependencies", "relation_id": "REL-0065"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0065", "span_end": 895, "span_start": 851}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0065", "span_end": 804, "span_start": 783}
+{"document_id": "DOC-RB-CATALOG-SERVICE", "evidence_kind": "document", "relation_id": "REL-0065", "span_end": 355, "span_start": 302}
+{"evidence_kind": "record", "record_id": "LINK-26", "record_table": "service_dependencies", "relation_id": "REL-0066"}
+{"document_id": "DOC-ADR-EVENT-BUS-MIGRATION", "evidence_kind": "document", "relation_id": "REL-0066", "span_end": 220, "span_start": 135}
+{"document_id": "DOC-ARCH-NOTIFICATIONS", "evidence_kind": "document", "relation_id": "REL-0066", "span_end": 404, "span_start": 308}
+{"evidence_kind": "record", "record_id": "LINK-27", "record_table": "service_dependencies", "relation_id": "REL-0067"}
+{"document_id": "DOC-ADR-EVENT-BUS-MIGRATION", "evidence_kind": "document", "relation_id": "REL-0067", "span_end": 445, "span_start": 352}
+{"document_id": "DOC-ARCH-NOTIFICATIONS", "evidence_kind": "document", "relation_id": "REL-0067", "span_end": 307, "span_start": 204}
+{"document_id": "DOC-RB-EVENT-BUS", "evidence_kind": "document", "relation_id": "REL-0067", "span_end": 879, "span_start": 859}
+{"document_id": "DOC-RB-NOTIFICATION-SERVICE", "evidence_kind": "document", "relation_id": "REL-0067", "span_end": 396, "span_start": 332}
+{"evidence_kind": "record", "record_id": "LINK-28", "record_table": "service_dependencies", "relation_id": "REL-0068"}
+{"document_id": "DOC-ARCH-NOTIFICATIONS", "evidence_kind": "document", "relation_id": "REL-0068", "span_end": 561, "span_start": 473}
+{"document_id": "DOC-RB-NOTIFICATION-SERVICE", "evidence_kind": "document", "relation_id": "REL-0068", "span_end": 649, "span_start": 599}
+{"evidence_kind": "record", "record_id": "LINK-29", "record_table": "service_dependencies", "relation_id": "REL-0069"}
+{"document_id": "DOC-ARCH-NOTIFICATIONS", "evidence_kind": "document", "relation_id": "REL-0069", "span_end": 629, "span_start": 563}
+{"evidence_kind": "record", "record_id": "LINK-30", "record_table": "service_dependencies", "relation_id": "REL-0070"}
+{"document_id": "DOC-ARCH-DATA-PLATFORM", "evidence_kind": "document", "relation_id": "REL-0070", "span_end": 673, "span_start": 609}
+{"document_id": "DOC-RB-EVENT-BUS", "evidence_kind": "document", "relation_id": "REL-0070", "span_end": 835, "span_start": 819}
+{"document_id": "DOC-RB-WAREHOUSE-LOADER", "evidence_kind": "document", "relation_id": "REL-0070", "span_end": 724, "span_start": 675}
+{"evidence_kind": "record", "record_id": "LINK-31", "record_table": "service_dependencies", "relation_id": "REL-0071"}
+{"document_id": "DOC-ARCH-DATA-PLATFORM", "evidence_kind": "document", "relation_id": "REL-0071", "span_end": 730, "span_start": 676}
+{"document_id": "DOC-ARCH-SHARED-INFRA", "evidence_kind": "document", "relation_id": "REL-0071", "span_end": 601, "span_start": 570}
+{"document_id": "DOC-RB-ORDERS-DB", "evidence_kind": "document", "relation_id": "REL-0071", "span_end": 862, "span_start": 800}
+{"document_id": "DOC-RB-WAREHOUSE-LOADER", "evidence_kind": "document", "relation_id": "REL-0071", "span_end": 474, "span_start": 431}
+{"evidence_kind": "record", "record_id": "LINK-32", "record_table": "service_dependencies", "relation_id": "REL-0072"}
+{"document_id": "DOC-ADR-EVENT-BUS-MIGRATION", "evidence_kind": "document", "relation_id": "REL-0072", "span_end": 573, "span_start": 491}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0072", "span_end": 767, "span_start": 693}
+{"document_id": "DOC-RB-EVENT-BUS", "evidence_kind": "document", "relation_id": "REL-0072", "span_end": 941, "span_start": 924}
+{"evidence_kind": "record", "record_id": "LINK-33", "record_table": "service_dependencies", "relation_id": "REL-0073"}
+{"document_id": "DOC-ADR-FRAUD-SCORING-OWNERSHIP", "evidence_kind": "document", "relation_id": "REL-0073", "span_end": 843, "span_start": 771}
+{"document_id": "DOC-RB-FRAUD-SERVICE", "evidence_kind": "document", "relation_id": "REL-0073", "span_end": 609, "span_start": 547}
+{"evidence_kind": "record", "record_id": "LINK-34", "record_table": "service_dependencies", "relation_id": "REL-0074"}
+{"document_id": "DOC-ARCH-CHECKOUT", "evidence_kind": "document", "relation_id": "REL-0074", "span_end": 1204, "span_start": 1154}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0074", "span_end": 671, "span_start": 602}
+{"evidence_kind": "record", "record_id": "LINK-35", "record_table": "service_dependencies", "relation_id": "REL-0075"}
+{"document_id": "DOC-ARCH-INVENTORY", "evidence_kind": "document", "relation_id": "REL-0075", "span_end": 980, "span_start": 900}
+{"evidence_kind": "record", "record_id": "DPL-001", "record_table": "deployments", "relation_id": "REL-0076"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "evidence_kind": "document", "relation_id": "REL-0076", "span_end": 260, "span_start": 103}
+{"evidence_kind": "record", "record_id": "DPL-002", "record_table": "deployments", "relation_id": "REL-0077"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-04", "evidence_kind": "document", "relation_id": "REL-0077", "span_end": 297, "span_start": 113}
+{"evidence_kind": "record", "record_id": "DPL-003", "record_table": "deployments", "relation_id": "REL-0078"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-04", "evidence_kind": "document", "relation_id": "REL-0078", "span_end": 303, "span_start": 115}
+{"evidence_kind": "record", "record_id": "DPL-004", "record_table": "deployments", "relation_id": "REL-0079"}
+{"document_id": "DOC-RN-INVENTORY-2026-04", "evidence_kind": "document", "relation_id": "REL-0079", "span_end": 281, "span_start": 105}
+{"evidence_kind": "record", "record_id": "DPL-005", "record_table": "deployments", "relation_id": "REL-0080"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-04", "evidence_kind": "document", "relation_id": "REL-0080", "span_end": 341, "span_start": 129}
+{"evidence_kind": "record", "record_id": "DPL-006", "record_table": "deployments", "relation_id": "REL-0081"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "evidence_kind": "document", "relation_id": "REL-0081", "span_end": 403, "span_start": 262}
+{"evidence_kind": "record", "record_id": "DPL-007", "record_table": "deployments", "relation_id": "REL-0082"}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "evidence_kind": "document", "relation_id": "REL-0082", "span_end": 228, "span_start": 103}
+{"evidence_kind": "record", "record_id": "DPL-008", "record_table": "deployments", "relation_id": "REL-0083"}
+{"document_id": "DOC-RN-INVENTORY-2026-04", "evidence_kind": "document", "relation_id": "REL-0083", "span_end": 412, "span_start": 283}
+{"evidence_kind": "record", "record_id": "DPL-009", "record_table": "deployments", "relation_id": "REL-0084"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "evidence_kind": "document", "relation_id": "REL-0084", "span_end": 550, "span_start": 405}
+{"evidence_kind": "record", "record_id": "DPL-010", "record_table": "deployments", "relation_id": "REL-0085"}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "evidence_kind": "document", "relation_id": "REL-0085", "span_end": 533, "span_start": 230}
+{"evidence_kind": "record", "record_id": "DPL-011", "record_table": "deployments", "relation_id": "REL-0086"}
+{"document_id": "DOC-DIGEST-2026-04-15", "evidence_kind": "document", "relation_id": "REL-0086", "span_end": 1246, "span_start": 1186}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "evidence_kind": "document", "relation_id": "REL-0086", "span_end": 648, "span_start": 535}
+{"evidence_kind": "record", "record_id": "DPL-011", "record_table": "deployments", "relation_id": "REL-0087"}
+{"document_id": "DOC-DIGEST-2026-04-15", "evidence_kind": "document", "relation_id": "REL-0087", "span_end": 1246, "span_start": 1186}
+{"document_id": "DOC-RN-PAYMENTS-2026-04", "evidence_kind": "document", "relation_id": "REL-0087", "span_end": 648, "span_start": 535}
+{"evidence_kind": "record", "record_id": "DPL-012", "record_table": "deployments", "relation_id": "REL-0088"}
+{"document_id": "DOC-RN-CHECKOUT-2026-04", "evidence_kind": "document", "relation_id": "REL-0088", "span_end": 759, "span_start": 552}
+{"evidence_kind": "record", "record_id": "DPL-013", "record_table": "deployments", "relation_id": "REL-0089"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-04", "evidence_kind": "document", "relation_id": "REL-0089", "span_end": 478, "span_start": 299}
+{"evidence_kind": "record", "record_id": "DPL-014", "record_table": "deployments", "relation_id": "REL-0090"}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "evidence_kind": "document", "relation_id": "REL-0090", "span_end": 245, "span_start": 99}
+{"evidence_kind": "record", "record_id": "DPL-015", "record_table": "deployments", "relation_id": "REL-0091"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "evidence_kind": "document", "relation_id": "REL-0091", "span_end": 349, "span_start": 101}
+{"evidence_kind": "record", "record_id": "DPL-016", "record_table": "deployments", "relation_id": "REL-0092"}
+{"document_id": "DOC-DIGEST-2026-04-29", "evidence_kind": "document", "relation_id": "REL-0092", "span_end": 732, "span_start": 668}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "evidence_kind": "document", "relation_id": "REL-0092", "span_end": 468, "span_start": 351}
+{"evidence_kind": "record", "record_id": "DPL-016", "record_table": "deployments", "relation_id": "REL-0093"}
+{"document_id": "DOC-DIGEST-2026-04-29", "evidence_kind": "document", "relation_id": "REL-0093", "span_end": 732, "span_start": 668}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "evidence_kind": "document", "relation_id": "REL-0093", "span_end": 468, "span_start": 351}
+{"evidence_kind": "record", "record_id": "DPL-017", "record_table": "deployments", "relation_id": "REL-0094"}
+{"document_id": "DOC-RN-PAYMENTS-2026-05", "evidence_kind": "document", "relation_id": "REL-0094", "span_end": 334, "span_start": 99}
+{"evidence_kind": "record", "record_id": "DPL-018", "record_table": "deployments", "relation_id": "REL-0095"}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "evidence_kind": "document", "relation_id": "REL-0095", "span_end": 450, "span_start": 247}
+{"evidence_kind": "record", "record_id": "DPL-019", "record_table": "deployments", "relation_id": "REL-0096"}
+{"document_id": "DOC-DIGEST-2026-04-29", "evidence_kind": "document", "relation_id": "REL-0096", "span_end": 818, "span_start": 733}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "evidence_kind": "document", "relation_id": "REL-0096", "span_end": 579, "span_start": 452}
+{"evidence_kind": "record", "record_id": "DPL-019", "record_table": "deployments", "relation_id": "REL-0097"}
+{"document_id": "DOC-DIGEST-2026-04-29", "evidence_kind": "document", "relation_id": "REL-0097", "span_end": 818, "span_start": 733}
+{"document_id": "DOC-RN-CHECKOUT-2026-05", "evidence_kind": "document", "relation_id": "REL-0097", "span_end": 579, "span_start": 452}
+{"evidence_kind": "record", "record_id": "DPL-020", "record_table": "deployments", "relation_id": "REL-0098"}
+{"document_id": "DOC-RN-PAYMENTS-2026-05", "evidence_kind": "document", "relation_id": "REL-0098", "span_end": 459, "span_start": 336}
+{"evidence_kind": "record", "record_id": "DPL-021", "record_table": "deployments", "relation_id": "REL-0099"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-05", "evidence_kind": "document", "relation_id": "REL-0099", "span_end": 277, "span_start": 109}
+{"evidence_kind": "record", "record_id": "DPL-022", "record_table": "deployments", "relation_id": "REL-0100"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "evidence_kind": "document", "relation_id": "REL-0100", "span_end": 660, "span_start": 470}
+{"evidence_kind": "record", "record_id": "DPL-023", "record_table": "deployments", "relation_id": "REL-0101"}
+{"document_id": "DOC-RN-INVENTORY-2026-05", "evidence_kind": "document", "relation_id": "REL-0101", "span_end": 822, "span_start": 662}
+{"evidence_kind": "record", "record_id": "DPL-024", "record_table": "deployments", "relation_id": "REL-0102"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-05", "evidence_kind": "document", "relation_id": "REL-0102", "span_end": 274, "span_start": 125}
+{"evidence_kind": "record", "record_id": "DPL-025", "record_table": "deployments", "relation_id": "REL-0103"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-05", "evidence_kind": "document", "relation_id": "REL-0103", "span_end": 231, "span_start": 109}
+{"evidence_kind": "record", "record_id": "DPL-026", "record_table": "deployments", "relation_id": "REL-0104"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "evidence_kind": "document", "relation_id": "REL-0104", "span_end": 263, "span_start": 101}
+{"evidence_kind": "record", "record_id": "DPL-027", "record_table": "deployments", "relation_id": "REL-0105"}
+{"document_id": "DOC-RN-PAYMENTS-2026-06", "evidence_kind": "document", "relation_id": "REL-0105", "span_end": 326, "span_start": 101}
+{"evidence_kind": "record", "record_id": "DPL-028", "record_table": "deployments", "relation_id": "REL-0106"}
+{"document_id": "DOC-RN-PAYMENTS-2026-06", "evidence_kind": "document", "relation_id": "REL-0106", "span_end": 513, "span_start": 328}
+{"evidence_kind": "record", "record_id": "DPL-029", "record_table": "deployments", "relation_id": "REL-0107"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-06", "evidence_kind": "document", "relation_id": "REL-0107", "span_end": 257, "span_start": 111}
+{"evidence_kind": "record", "record_id": "DPL-030", "record_table": "deployments", "relation_id": "REL-0108"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-06", "evidence_kind": "document", "relation_id": "REL-0108", "span_end": 419, "span_start": 259}
+{"evidence_kind": "record", "record_id": "DPL-031", "record_table": "deployments", "relation_id": "REL-0109"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-06", "evidence_kind": "document", "relation_id": "REL-0109", "span_end": 257, "span_start": 113}
+{"evidence_kind": "record", "record_id": "DPL-032", "record_table": "deployments", "relation_id": "REL-0110"}
+{"document_id": "DOC-RN-PAYMENTS-2026-06", "evidence_kind": "document", "relation_id": "REL-0110", "span_end": 698, "span_start": 515}
+{"evidence_kind": "record", "record_id": "DPL-033", "record_table": "deployments", "relation_id": "REL-0111"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "evidence_kind": "document", "relation_id": "REL-0111", "span_end": 391, "span_start": 265}
+{"evidence_kind": "record", "record_id": "DPL-034", "record_table": "deployments", "relation_id": "REL-0112"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "evidence_kind": "document", "relation_id": "REL-0112", "span_end": 517, "span_start": 393}
+{"evidence_kind": "record", "record_id": "DPL-035", "record_table": "deployments", "relation_id": "REL-0113"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-06", "evidence_kind": "document", "relation_id": "REL-0113", "span_end": 291, "span_start": 127}
+{"evidence_kind": "record", "record_id": "DPL-036", "record_table": "deployments", "relation_id": "REL-0114"}
+{"document_id": "DOC-RN-CHECKOUT-2026-06", "evidence_kind": "document", "relation_id": "REL-0114", "span_end": 685, "span_start": 519}
+{"evidence_kind": "record", "record_id": "DPL-037", "record_table": "deployments", "relation_id": "REL-0115"}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "evidence_kind": "document", "relation_id": "REL-0115", "span_end": 325, "span_start": 101}
+{"evidence_kind": "record", "record_id": "DPL-038", "record_table": "deployments", "relation_id": "REL-0116"}
+{"document_id": "DOC-DIGEST-2026-06-24", "evidence_kind": "document", "relation_id": "REL-0116", "span_end": 738, "span_start": 675}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "evidence_kind": "document", "relation_id": "REL-0116", "span_end": 439, "span_start": 327}
+{"evidence_kind": "record", "record_id": "DPL-038", "record_table": "deployments", "relation_id": "REL-0117"}
+{"document_id": "DOC-DIGEST-2026-06-24", "evidence_kind": "document", "relation_id": "REL-0117", "span_end": 738, "span_start": 675}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "evidence_kind": "document", "relation_id": "REL-0117", "span_end": 439, "span_start": 327}
+{"evidence_kind": "record", "record_id": "DPL-039", "record_table": "deployments", "relation_id": "REL-0118"}
+{"document_id": "DOC-RN-INVENTORY-2026-07", "evidence_kind": "document", "relation_id": "REL-0118", "span_end": 240, "span_start": 103}
+{"evidence_kind": "record", "record_id": "DPL-040", "record_table": "deployments", "relation_id": "REL-0119"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-07", "evidence_kind": "document", "relation_id": "REL-0119", "span_end": 309, "span_start": 111}
+{"evidence_kind": "record", "record_id": "DPL-041", "record_table": "deployments", "relation_id": "REL-0120"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "evidence_kind": "document", "relation_id": "REL-0120", "span_end": 257, "span_start": 101}
+{"evidence_kind": "record", "record_id": "DPL-042", "record_table": "deployments", "relation_id": "REL-0121"}
+{"document_id": "DOC-RN-INVENTORY-2026-07", "evidence_kind": "document", "relation_id": "REL-0121", "span_end": 393, "span_start": 242}
+{"evidence_kind": "record", "record_id": "DPL-043", "record_table": "deployments", "relation_id": "REL-0122"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "evidence_kind": "document", "relation_id": "REL-0122", "span_end": 440, "span_start": 259}
+{"evidence_kind": "record", "record_id": "DPL-044", "record_table": "deployments", "relation_id": "REL-0123"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "evidence_kind": "document", "relation_id": "REL-0123", "span_end": 610, "span_start": 442}
+{"evidence_kind": "record", "record_id": "DPL-045", "record_table": "deployments", "relation_id": "REL-0124"}
+{"document_id": "DOC-RN-CHECKOUT-2026-07", "evidence_kind": "document", "relation_id": "REL-0124", "span_end": 581, "span_start": 441}
+{"evidence_kind": "record", "record_id": "DPL-046", "record_table": "deployments", "relation_id": "REL-0125"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-07", "evidence_kind": "document", "relation_id": "REL-0125", "span_end": 309, "span_start": 113}
+{"evidence_kind": "record", "record_id": "DPL-047", "record_table": "deployments", "relation_id": "REL-0126"}
+{"document_id": "DOC-DIGEST-2026-07-22", "evidence_kind": "document", "relation_id": "REL-0126", "span_end": 856, "span_start": 792}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-07", "evidence_kind": "document", "relation_id": "REL-0126", "span_end": 424, "span_start": 311}
+{"evidence_kind": "record", "record_id": "DPL-047", "record_table": "deployments", "relation_id": "REL-0127"}
+{"document_id": "DOC-DIGEST-2026-07-22", "evidence_kind": "document", "relation_id": "REL-0127", "span_end": 856, "span_start": 792}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-07", "evidence_kind": "document", "relation_id": "REL-0127", "span_end": 424, "span_start": 311}
+{"evidence_kind": "record", "record_id": "DPL-048", "record_table": "deployments", "relation_id": "REL-0128"}
+{"document_id": "DOC-RN-PAYMENTS-2026-07", "evidence_kind": "document", "relation_id": "REL-0128", "span_end": 733, "span_start": 612}
+{"evidence_kind": "record", "record_id": "DPL-049", "record_table": "deployments", "relation_id": "REL-0129"}
+{"document_id": "DOC-RN-PAYMENTS-2026-08", "evidence_kind": "document", "relation_id": "REL-0129", "span_end": 237, "span_start": 105}
+{"evidence_kind": "record", "record_id": "DPL-050", "record_table": "deployments", "relation_id": "REL-0130"}
+{"document_id": "DOC-RN-INVENTORY-2026-08", "evidence_kind": "document", "relation_id": "REL-0130", "span_end": 264, "span_start": 107}
+{"evidence_kind": "record", "record_id": "DPL-051", "record_table": "deployments", "relation_id": "REL-0131"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "evidence_kind": "document", "relation_id": "REL-0131", "span_end": 377, "span_start": 115}
+{"evidence_kind": "record", "record_id": "DPL-052", "record_table": "deployments", "relation_id": "REL-0132"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "evidence_kind": "document", "relation_id": "REL-0132", "span_end": 559, "span_start": 379}
+{"evidence_kind": "record", "record_id": "DPL-053", "record_table": "deployments", "relation_id": "REL-0133"}
+{"document_id": "DOC-RN-INVENTORY-2026-08", "evidence_kind": "document", "relation_id": "REL-0133", "span_end": 467, "span_start": 266}
+{"evidence_kind": "record", "record_id": "DPL-054", "record_table": "deployments", "relation_id": "REL-0134"}
+{"document_id": "DOC-RN-CHECKOUT-2026-08", "evidence_kind": "document", "relation_id": "REL-0134", "span_end": 233, "span_start": 105}
+{"evidence_kind": "record", "record_id": "DPL-055", "record_table": "deployments", "relation_id": "REL-0135"}
+{"document_id": "DOC-RN-PAYMENTS-2026-08", "evidence_kind": "document", "relation_id": "REL-0135", "span_end": 442, "span_start": 239}
+{"evidence_kind": "record", "record_id": "DPL-056", "record_table": "deployments", "relation_id": "REL-0136"}
+{"document_id": "DOC-RN-PAYMENTS-2026-08", "evidence_kind": "document", "relation_id": "REL-0136", "span_end": 635, "span_start": 444}
+{"evidence_kind": "record", "record_id": "DPL-057", "record_table": "deployments", "relation_id": "REL-0137"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-08", "evidence_kind": "document", "relation_id": "REL-0137", "span_end": 256, "span_start": 117}
+{"evidence_kind": "record", "record_id": "DPL-058", "record_table": "deployments", "relation_id": "REL-0138"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "evidence_kind": "document", "relation_id": "REL-0138", "span_end": 700, "span_start": 561}
+{"evidence_kind": "record", "record_id": "DPL-059", "record_table": "deployments", "relation_id": "REL-0139"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-08", "evidence_kind": "document", "relation_id": "REL-0139", "span_end": 822, "span_start": 702}
+{"evidence_kind": "record", "record_id": "DPL-060", "record_table": "deployments", "relation_id": "REL-0140"}
+{"document_id": "DOC-RN-CHECKOUT-2026-08", "evidence_kind": "document", "relation_id": "REL-0140", "span_end": 363, "span_start": 235}
+{"evidence_kind": "record", "record_id": "DPL-061", "record_table": "deployments", "relation_id": "REL-0141"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-08", "evidence_kind": "document", "relation_id": "REL-0141", "span_end": 324, "span_start": 131}
+{"evidence_kind": "record", "record_id": "DPL-062", "record_table": "deployments", "relation_id": "REL-0142"}
+{"document_id": "DOC-DIGEST-2026-08-19", "evidence_kind": "document", "relation_id": "REL-0142", "span_end": 805, "span_start": 727}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-08", "evidence_kind": "document", "relation_id": "REL-0142", "span_end": 451, "span_start": 326}
+{"evidence_kind": "record", "record_id": "DPL-062", "record_table": "deployments", "relation_id": "REL-0143"}
+{"document_id": "DOC-DIGEST-2026-08-19", "evidence_kind": "document", "relation_id": "REL-0143", "span_end": 805, "span_start": 727}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-08", "evidence_kind": "document", "relation_id": "REL-0143", "span_end": 451, "span_start": 326}
+{"evidence_kind": "record", "record_id": "DPL-063", "record_table": "deployments", "relation_id": "REL-0144"}
+{"document_id": "DOC-RN-SHARED-INFRASTRUCTURE-2026-09", "evidence_kind": "document", "relation_id": "REL-0144", "span_end": 306, "span_start": 137}
+{"evidence_kind": "record", "record_id": "DPL-064", "record_table": "deployments", "relation_id": "REL-0145"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-09", "evidence_kind": "document", "relation_id": "REL-0145", "span_end": 240, "span_start": 121}
+{"evidence_kind": "record", "record_id": "DPL-065", "record_table": "deployments", "relation_id": "REL-0146"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "evidence_kind": "document", "relation_id": "REL-0146", "span_end": 343, "span_start": 111}
+{"evidence_kind": "record", "record_id": "DPL-066", "record_table": "deployments", "relation_id": "REL-0147"}
+{"document_id": "DOC-DIGEST-2026-09-02", "evidence_kind": "document", "relation_id": "REL-0147", "span_end": 1037, "span_start": 960}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "evidence_kind": "document", "relation_id": "REL-0147", "span_end": 467, "span_start": 345}
+{"evidence_kind": "record", "record_id": "DPL-066", "record_table": "deployments", "relation_id": "REL-0148"}
+{"document_id": "DOC-DIGEST-2026-09-02", "evidence_kind": "document", "relation_id": "REL-0148", "span_end": 1037, "span_start": 960}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "evidence_kind": "document", "relation_id": "REL-0148", "span_end": 467, "span_start": 345}
+{"evidence_kind": "record", "record_id": "DPL-067", "record_table": "deployments", "relation_id": "REL-0149"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "evidence_kind": "document", "relation_id": "REL-0149", "span_end": 587, "span_start": 469}
+{"evidence_kind": "record", "record_id": "DPL-068", "record_table": "deployments", "relation_id": "REL-0150"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "evidence_kind": "document", "relation_id": "REL-0150", "span_end": 235, "span_start": 111}
+{"evidence_kind": "record", "record_id": "DPL-069", "record_table": "deployments", "relation_id": "REL-0151"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "evidence_kind": "document", "relation_id": "REL-0151", "span_end": 733, "span_start": 589}
+{"evidence_kind": "record", "record_id": "DPL-070", "record_table": "deployments", "relation_id": "REL-0152"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "evidence_kind": "document", "relation_id": "REL-0152", "span_end": 436, "span_start": 237}
+{"evidence_kind": "record", "record_id": "DPL-071", "record_table": "deployments", "relation_id": "REL-0153"}
+{"document_id": "DOC-DIGEST-2026-09-16", "evidence_kind": "document", "relation_id": "REL-0153", "span_end": 751, "span_start": 681}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "evidence_kind": "document", "relation_id": "REL-0153", "span_end": 553, "span_start": 438}
+{"evidence_kind": "record", "record_id": "DPL-071", "record_table": "deployments", "relation_id": "REL-0154"}
+{"document_id": "DOC-DIGEST-2026-09-16", "evidence_kind": "document", "relation_id": "REL-0154", "span_end": 751, "span_start": 681}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "evidence_kind": "document", "relation_id": "REL-0154", "span_end": 553, "span_start": 438}
+{"evidence_kind": "record", "record_id": "DPL-072", "record_table": "deployments", "relation_id": "REL-0155"}
+{"document_id": "DOC-RN-PAYMENTS-2026-09", "evidence_kind": "document", "relation_id": "REL-0155", "span_end": 859, "span_start": 735}
+{"evidence_kind": "record", "record_id": "DPL-073", "record_table": "deployments", "relation_id": "REL-0156"}
+{"document_id": "DOC-RN-CHECKOUT-2026-09", "evidence_kind": "document", "relation_id": "REL-0156", "span_end": 674, "span_start": 555}
+{"evidence_kind": "record", "record_id": "DPL-074", "record_table": "deployments", "relation_id": "REL-0157"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0157", "span_end": 250, "span_start": 107}
+{"evidence_kind": "record", "record_id": "DPL-075", "record_table": "deployments", "relation_id": "REL-0158"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0158", "span_end": 438, "span_start": 252}
+{"evidence_kind": "record", "record_id": "DPL-076", "record_table": "deployments", "relation_id": "REL-0159"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-10", "evidence_kind": "document", "relation_id": "REL-0159", "span_end": 253, "span_start": 117}
+{"evidence_kind": "record", "record_id": "DPL-077", "record_table": "deployments", "relation_id": "REL-0160"}
+{"document_id": "DOC-RN-NOTIFICATIONS-2026-10", "evidence_kind": "document", "relation_id": "REL-0160", "span_end": 400, "span_start": 255}
+{"evidence_kind": "record", "record_id": "DPL-078", "record_table": "deployments", "relation_id": "REL-0161"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0161", "span_end": 569, "span_start": 440}
+{"evidence_kind": "record", "record_id": "DPL-079", "record_table": "deployments", "relation_id": "REL-0162"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "evidence_kind": "document", "relation_id": "REL-0162", "span_end": 323, "span_start": 107}
+{"evidence_kind": "record", "record_id": "DPL-080", "record_table": "deployments", "relation_id": "REL-0163"}
+{"document_id": "DOC-DIGEST-2026-09-30", "evidence_kind": "document", "relation_id": "REL-0163", "span_end": 972, "span_start": 905}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "evidence_kind": "document", "relation_id": "REL-0163", "span_end": 439, "span_start": 325}
+{"evidence_kind": "record", "record_id": "DPL-080", "record_table": "deployments", "relation_id": "REL-0164"}
+{"document_id": "DOC-DIGEST-2026-09-30", "evidence_kind": "document", "relation_id": "REL-0164", "span_end": 972, "span_start": 905}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "evidence_kind": "document", "relation_id": "REL-0164", "span_end": 439, "span_start": 325}
+{"evidence_kind": "record", "record_id": "DPL-081", "record_table": "deployments", "relation_id": "REL-0165"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "evidence_kind": "document", "relation_id": "REL-0165", "span_end": 598, "span_start": 441}
+{"evidence_kind": "record", "record_id": "DPL-082", "record_table": "deployments", "relation_id": "REL-0166"}
+{"document_id": "DOC-RN-CHECKOUT-2026-10", "evidence_kind": "document", "relation_id": "REL-0166", "span_end": 751, "span_start": 600}
+{"evidence_kind": "record", "record_id": "DPL-083", "record_table": "deployments", "relation_id": "REL-0167"}
+{"document_id": "DOC-RN-DATA-PLATFORM-2026-10", "evidence_kind": "document", "relation_id": "REL-0167", "span_end": 306, "span_start": 117}
+{"evidence_kind": "record", "record_id": "DPL-084", "record_table": "deployments", "relation_id": "REL-0168"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0168", "span_end": 709, "span_start": 571}
+{"evidence_kind": "record", "record_id": "DPL-085", "record_table": "deployments", "relation_id": "REL-0169"}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0169", "span_end": 945, "span_start": 711}
+{"evidence_kind": "record", "record_id": "DPL-086", "record_table": "deployments", "relation_id": "REL-0170"}
+{"document_id": "DOC-DIGEST-2026-10-28", "evidence_kind": "document", "relation_id": "REL-0170", "span_end": 767, "span_start": 700}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0170", "span_end": 1060, "span_start": 947}
+{"evidence_kind": "record", "record_id": "DPL-086", "record_table": "deployments", "relation_id": "REL-0171"}
+{"document_id": "DOC-DIGEST-2026-10-28", "evidence_kind": "document", "relation_id": "REL-0171", "span_end": 767, "span_start": 700}
+{"document_id": "DOC-RN-PAYMENTS-2026-10", "evidence_kind": "document", "relation_id": "REL-0171", "span_end": 1060, "span_start": 947}
+{"evidence_kind": "record", "record_id": "DPL-087", "record_table": "deployments", "relation_id": "REL-0172"}
+{"document_id": "DOC-RN-AUTHENTICATION-2026-10", "evidence_kind": "document", "relation_id": "REL-0172", "span_end": 259, "span_start": 119}
+{"evidence_kind": "record", "record_id": "INC-101/SVC-CATALOG-SERVICE", "record_table": "incident_services", "relation_id": "REL-0173"}
+{"document_id": "DOC-TKT-INC-101", "evidence_kind": "document", "relation_id": "REL-0173", "span_end": 219, "span_start": 194}
+{"document_id": "DOC-DIGEST-2026-04-01", "evidence_kind": "document", "relation_id": "REL-0174", "span_end": 443, "span_start": 240}
+{"document_id": "DOC-TKT-INC-101", "evidence_kind": "document", "relation_id": "REL-0174", "span_end": 815, "span_start": 617}
+{"evidence_kind": "record", "record_id": "INC-102/SVC-AUTH-SERVICE", "record_table": "incident_services", "relation_id": "REL-0175"}
+{"document_id": "DOC-PM-INC-102", "evidence_kind": "document", "relation_id": "REL-0175", "span_end": 713, "span_start": 691}
+{"document_id": "DOC-TKT-INC-102", "evidence_kind": "document", "relation_id": "REL-0175", "span_end": 214, "span_start": 192}
+{"evidence_kind": "record", "record_id": "INC-102/SVC-SHARED-REDIS", "record_table": "incident_services", "relation_id": "REL-0176"}
+{"document_id": "DOC-PM-INC-102", "evidence_kind": "document", "relation_id": "REL-0176", "span_end": 738, "span_start": 715}
+{"document_id": "DOC-TKT-INC-102", "evidence_kind": "document", "relation_id": "REL-0176", "span_end": 239, "span_start": 216}
+{"evidence_kind": "record", "record_id": "INC-102/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0177"}
+{"document_id": "DOC-PM-INC-102", "evidence_kind": "document", "relation_id": "REL-0177", "span_end": 769, "span_start": 740}
+{"document_id": "DOC-TKT-INC-102", "evidence_kind": "document", "relation_id": "REL-0177", "span_end": 266, "span_start": 241}
+{"evidence_kind": "record", "record_id": "INC-102/SVC-API-GATEWAY", "record_table": "incident_services", "relation_id": "REL-0178"}
+{"document_id": "DOC-PM-INC-102", "evidence_kind": "document", "relation_id": "REL-0178", "span_end": 795, "span_start": 771}
+{"document_id": "DOC-TKT-INC-102", "evidence_kind": "document", "relation_id": "REL-0178", "span_end": 292, "span_start": 268}
+{"document_id": "DOC-PM-INC-102", "evidence_kind": "document", "relation_id": "REL-0179", "span_end": 1377, "span_start": 1132}
+{"document_id": "DOC-PM-INC-102", "evidence_kind": "document", "relation_id": "REL-0180", "span_end": 1784, "span_start": 1571}
+{"document_id": "DOC-TKT-INC-102", "evidence_kind": "document", "relation_id": "REL-0180", "span_end": 1092, "span_start": 879}
+{"evidence_kind": "record", "record_id": "INC-103/SVC-EMAIL-DISPATCHER", "record_table": "incident_services", "relation_id": "REL-0181"}
+{"document_id": "DOC-TKT-INC-103", "evidence_kind": "document", "relation_id": "REL-0181", "span_end": 217, "span_start": 191}
+{"evidence_kind": "record", "record_id": "INC-103/SVC-NOTIFICATION-SERVICE", "record_table": "incident_services", "relation_id": "REL-0182"}
+{"document_id": "DOC-TKT-INC-103", "evidence_kind": "document", "relation_id": "REL-0182", "span_end": 250, "span_start": 219}
+{"document_id": "DOC-DIGEST-2026-04-15", "evidence_kind": "document", "relation_id": "REL-0183", "span_end": 454, "span_start": 236}
+{"document_id": "DOC-TKT-INC-103", "evidence_kind": "document", "relation_id": "REL-0183", "span_end": 850, "span_start": 634}
+{"evidence_kind": "record", "record_id": "INC-104/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0184"}
+{"document_id": "DOC-PM-INC-104", "evidence_kind": "document", "relation_id": "REL-0184", "span_end": 690, "span_start": 668}
+{"document_id": "DOC-TKT-INC-104", "evidence_kind": "document", "relation_id": "REL-0184", "span_end": 209, "span_start": 187}
+{"evidence_kind": "record", "record_id": "INC-104/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0185"}
+{"document_id": "DOC-PM-INC-104", "evidence_kind": "document", "relation_id": "REL-0185", "span_end": 717, "span_start": 692}
+{"document_id": "DOC-TKT-INC-104", "evidence_kind": "document", "relation_id": "REL-0185", "span_end": 236, "span_start": 211}
+{"document_id": "DOC-PM-INC-104", "evidence_kind": "document", "relation_id": "REL-0186", "span_end": 1604, "span_start": 1198}
+{"document_id": "DOC-PM-INC-104", "evidence_kind": "document", "relation_id": "REL-0186", "span_end": 1691, "span_start": 1605}
+{"document_id": "DOC-PM-INC-104", "evidence_kind": "document", "relation_id": "REL-0187", "span_end": 2120, "span_start": 1899}
+{"document_id": "DOC-TKT-INC-104", "evidence_kind": "document", "relation_id": "REL-0187", "span_end": 1076, "span_start": 851}
+{"document_id": "DOC-PM-INC-104", "evidence_kind": "document", "relation_id": "REL-0188", "span_end": 1883, "span_start": 1706}
+{"evidence_kind": "record", "record_id": "INC-105/SVC-WAREHOUSE-LOADER", "record_table": "incident_services", "relation_id": "REL-0189"}
+{"document_id": "DOC-TKT-INC-105", "evidence_kind": "document", "relation_id": "REL-0189", "span_end": 213, "span_start": 192}
+{"document_id": "DOC-DIGEST-2026-04-15", "evidence_kind": "document", "relation_id": "REL-0190", "span_end": 1109, "span_start": 899}
+{"document_id": "DOC-TKT-INC-105", "evidence_kind": "document", "relation_id": "REL-0190", "span_end": 845, "span_start": 635}
+{"document_id": "DOC-TKT-INC-105", "evidence_kind": "document", "relation_id": "REL-0191", "span_end": 939, "span_start": 846}
+{"evidence_kind": "record", "record_id": "INC-106/SVC-INVENTORY-SERVICE", "record_table": "incident_services", "relation_id": "REL-0192"}
+{"document_id": "DOC-PM-INC-106", "evidence_kind": "document", "relation_id": "REL-0192", "span_end": 584, "span_start": 557}
+{"document_id": "DOC-TKT-INC-106", "evidence_kind": "document", "relation_id": "REL-0192", "span_end": 219, "span_start": 192}
+{"evidence_kind": "record", "record_id": "INC-106/SVC-WAREHOUSE-SYNC", "record_table": "incident_services", "relation_id": "REL-0193"}
+{"document_id": "DOC-PM-INC-106", "evidence_kind": "document", "relation_id": "REL-0193", "span_end": 610, "span_start": 586}
+{"document_id": "DOC-TKT-INC-106", "evidence_kind": "document", "relation_id": "REL-0193", "span_end": 245, "span_start": 221}
+{"evidence_kind": "record", "record_id": "INC-106/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0194"}
+{"document_id": "DOC-PM-INC-106", "evidence_kind": "document", "relation_id": "REL-0194", "span_end": 637, "span_start": 612}
+{"document_id": "DOC-TKT-INC-106", "evidence_kind": "document", "relation_id": "REL-0194", "span_end": 272, "span_start": 247}
+{"document_id": "DOC-PM-INC-106", "evidence_kind": "document", "relation_id": "REL-0195", "span_end": 1052, "span_start": 814}
+{"document_id": "DOC-PM-INC-106", "evidence_kind": "document", "relation_id": "REL-0195", "span_end": 1096, "span_start": 1053}
+{"document_id": "DOC-PM-INC-106", "evidence_kind": "document", "relation_id": "REL-0196", "span_end": 1264, "span_start": 1112}
+{"document_id": "DOC-TKT-INC-106", "evidence_kind": "document", "relation_id": "REL-0196", "span_end": 796, "span_start": 637}
+{"evidence_kind": "record", "record_id": "INC-107/SVC-PRICING-SERVICE", "record_table": "incident_services", "relation_id": "REL-0197"}
+{"document_id": "DOC-TKT-INC-107", "evidence_kind": "document", "relation_id": "REL-0197", "span_end": 210, "span_start": 185}
+{"evidence_kind": "record", "record_id": "INC-107/SVC-CART-SERVICE", "record_table": "incident_services", "relation_id": "REL-0198"}
+{"document_id": "DOC-TKT-INC-107", "evidence_kind": "document", "relation_id": "REL-0198", "span_end": 237, "span_start": 212}
+{"document_id": "DOC-DIGEST-2026-04-29", "evidence_kind": "document", "relation_id": "REL-0199", "span_end": 590, "span_start": 431}
+{"document_id": "DOC-TKT-INC-107", "evidence_kind": "document", "relation_id": "REL-0199", "span_end": 771, "span_start": 607}
+{"document_id": "DOC-TKT-INC-107", "evidence_kind": "document", "relation_id": "REL-0200", "span_end": 859, "span_start": 772}
+{"evidence_kind": "record", "record_id": "INC-108/SVC-ORDERS-DB", "record_table": "incident_services", "relation_id": "REL-0201"}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0201", "span_end": 632, "span_start": 613}
+{"document_id": "DOC-TKT-INC-108", "evidence_kind": "document", "relation_id": "REL-0201", "span_end": 224, "span_start": 205}
+{"evidence_kind": "record", "record_id": "INC-108/SVC-ORDER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0202"}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0202", "span_end": 658, "span_start": 634}
+{"document_id": "DOC-TKT-INC-108", "evidence_kind": "document", "relation_id": "REL-0202", "span_end": 250, "span_start": 226}
+{"evidence_kind": "record", "record_id": "INC-108/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0203"}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0203", "span_end": 679, "span_start": 660}
+{"document_id": "DOC-TKT-INC-108", "evidence_kind": "document", "relation_id": "REL-0203", "span_end": 275, "span_start": 252}
+{"evidence_kind": "record", "record_id": "INC-108/SVC-LEDGER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0204"}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0204", "span_end": 706, "span_start": 681}
+{"document_id": "DOC-TKT-INC-108", "evidence_kind": "document", "relation_id": "REL-0204", "span_end": 302, "span_start": 277}
+{"evidence_kind": "record", "record_id": "INC-108/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0205"}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0205", "span_end": 729, "span_start": 708}
+{"document_id": "DOC-TKT-INC-108", "evidence_kind": "document", "relation_id": "REL-0205", "span_end": 329, "span_start": 304}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0206", "span_end": 1277, "span_start": 980}
+{"document_id": "DOC-PM-INC-108", "evidence_kind": "document", "relation_id": "REL-0207", "span_end": 1606, "span_start": 1455}
+{"document_id": "DOC-TKT-INC-108", "evidence_kind": "document", "relation_id": "REL-0207", "span_end": 950, "span_start": 799}
+{"evidence_kind": "record", "record_id": "INC-109/SVC-API-GATEWAY", "record_table": "incident_services", "relation_id": "REL-0208"}
+{"document_id": "DOC-TKT-INC-109", "evidence_kind": "document", "relation_id": "REL-0208", "span_end": 223, "span_start": 202}
+{"document_id": "DOC-DIGEST-2026-05-27", "evidence_kind": "document", "relation_id": "REL-0209", "span_end": 432, "span_start": 233}
+{"document_id": "DOC-TKT-INC-109", "evidence_kind": "document", "relation_id": "REL-0209", "span_end": 777, "span_start": 580}
+{"evidence_kind": "record", "record_id": "INC-110/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0210"}
+{"document_id": "DOC-PM-INC-110", "evidence_kind": "document", "relation_id": "REL-0210", "span_end": 618, "span_start": 596}
+{"document_id": "DOC-TKT-INC-110", "evidence_kind": "document", "relation_id": "REL-0210", "span_end": 229, "span_start": 207}
+{"evidence_kind": "record", "record_id": "INC-110/SVC-FRAUD-SERVICE", "record_table": "incident_services", "relation_id": "REL-0211"}
+{"document_id": "DOC-PM-INC-110", "evidence_kind": "document", "relation_id": "REL-0211", "span_end": 636, "span_start": 620}
+{"document_id": "DOC-TKT-INC-110", "evidence_kind": "document", "relation_id": "REL-0211", "span_end": 255, "span_start": 231}
+{"evidence_kind": "record", "record_id": "INC-110/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0212"}
+{"document_id": "DOC-PM-INC-110", "evidence_kind": "document", "relation_id": "REL-0212", "span_end": 663, "span_start": 638}
+{"document_id": "DOC-TKT-INC-110", "evidence_kind": "document", "relation_id": "REL-0212", "span_end": 282, "span_start": 257}
+{"document_id": "DOC-PM-INC-110", "evidence_kind": "document", "relation_id": "REL-0213", "span_end": 1134, "span_start": 879}
+{"document_id": "DOC-PM-INC-110", "evidence_kind": "document", "relation_id": "REL-0213", "span_end": 1179, "span_start": 1135}
+{"document_id": "DOC-PM-INC-110", "evidence_kind": "document", "relation_id": "REL-0214", "span_end": 1425, "span_start": 1306}
+{"document_id": "DOC-TKT-INC-110", "evidence_kind": "document", "relation_id": "REL-0214", "span_end": 815, "span_start": 696}
+{"evidence_kind": "record", "record_id": "INC-111/SVC-NOTIFICATION-SERVICE", "record_table": "incident_services", "relation_id": "REL-0215"}
+{"document_id": "DOC-TKT-INC-111", "evidence_kind": "document", "relation_id": "REL-0215", "span_end": 227, "span_start": 197}
+{"evidence_kind": "record", "record_id": "INC-111/SVC-EMAIL-DISPATCHER", "record_table": "incident_services", "relation_id": "REL-0216"}
+{"document_id": "DOC-TKT-INC-111", "evidence_kind": "document", "relation_id": "REL-0216", "span_end": 256, "span_start": 229}
+{"document_id": "DOC-DIGEST-2026-05-27", "evidence_kind": "document", "relation_id": "REL-0217", "span_end": 938, "span_start": 765}
+{"document_id": "DOC-TKT-INC-111", "evidence_kind": "document", "relation_id": "REL-0217", "span_end": 744, "span_start": 561}
+{"document_id": "DOC-TKT-INC-111", "evidence_kind": "document", "relation_id": "REL-0218", "span_end": 850, "span_start": 745}
+{"evidence_kind": "record", "record_id": "INC-112/SVC-ACCOUNTS-SERVICE", "record_table": "incident_services", "relation_id": "REL-0219"}
+{"document_id": "DOC-TKT-INC-112", "evidence_kind": "document", "relation_id": "REL-0219", "span_end": 207, "span_start": 181}
+{"document_id": "DOC-DIGEST-2026-06-10", "evidence_kind": "document", "relation_id": "REL-0220", "span_end": 402, "span_start": 253}
+{"document_id": "DOC-TKT-INC-112", "evidence_kind": "document", "relation_id": "REL-0220", "span_end": 728, "span_start": 581}
+{"evidence_kind": "record", "record_id": "INC-113/SVC-PSP-ADAPTER", "record_table": "incident_services", "relation_id": "REL-0221"}
+{"document_id": "DOC-PM-INC-113", "evidence_kind": "document", "relation_id": "REL-0221", "span_end": 654, "span_start": 620}
+{"document_id": "DOC-TKT-INC-113", "evidence_kind": "document", "relation_id": "REL-0221", "span_end": 218, "span_start": 197}
+{"evidence_kind": "record", "record_id": "INC-113/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0222"}
+{"document_id": "DOC-PM-INC-113", "evidence_kind": "document", "relation_id": "REL-0222", "span_end": 681, "span_start": 656}
+{"document_id": "DOC-TKT-INC-113", "evidence_kind": "document", "relation_id": "REL-0222", "span_end": 245, "span_start": 220}
+{"evidence_kind": "record", "record_id": "INC-113/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0223"}
+{"document_id": "DOC-PM-INC-113", "evidence_kind": "document", "relation_id": "REL-0223", "span_end": 708, "span_start": 683}
+{"document_id": "DOC-TKT-INC-113", "evidence_kind": "document", "relation_id": "REL-0223", "span_end": 272, "span_start": 247}
+{"document_id": "DOC-PM-INC-113", "evidence_kind": "document", "relation_id": "REL-0224", "span_end": 1127, "span_start": 964}
+{"document_id": "DOC-PM-INC-113", "evidence_kind": "document", "relation_id": "REL-0225", "span_end": 1372, "span_start": 1181}
+{"evidence_kind": "record", "record_id": "INC-114/SVC-CART-SERVICE", "record_table": "incident_services", "relation_id": "REL-0226"}
+{"document_id": "DOC-TKT-INC-114", "evidence_kind": "document", "relation_id": "REL-0226", "span_end": 219, "span_start": 197}
+{"evidence_kind": "record", "record_id": "INC-114/SVC-SHARED-REDIS", "record_table": "incident_services", "relation_id": "REL-0227"}
+{"document_id": "DOC-TKT-INC-114", "evidence_kind": "document", "relation_id": "REL-0227", "span_end": 243, "span_start": 221}
+{"document_id": "DOC-DIGEST-2026-06-24", "evidence_kind": "document", "relation_id": "REL-0228", "span_end": 393, "span_start": 203}
+{"document_id": "DOC-TKT-INC-114", "evidence_kind": "document", "relation_id": "REL-0228", "span_end": 763, "span_start": 576}
+{"document_id": "DOC-TKT-INC-114", "evidence_kind": "document", "relation_id": "REL-0229", "span_end": 917, "span_start": 764}
+{"evidence_kind": "record", "record_id": "INC-115/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0230"}
+{"document_id": "DOC-PM-INC-115", "evidence_kind": "document", "relation_id": "REL-0230", "span_end": 590, "span_start": 574}
+{"document_id": "DOC-TKT-INC-115", "evidence_kind": "document", "relation_id": "REL-0230", "span_end": 222, "span_start": 204}
+{"document_id": "DOC-PM-INC-115", "evidence_kind": "document", "relation_id": "REL-0231", "span_end": 873, "span_start": 723}
+{"document_id": "DOC-PM-INC-115", "evidence_kind": "document", "relation_id": "REL-0231", "span_end": 915, "span_start": 874}
+{"document_id": "DOC-PM-INC-115", "evidence_kind": "document", "relation_id": "REL-0232", "span_end": 1061, "span_start": 931}
+{"document_id": "DOC-TKT-INC-115", "evidence_kind": "document", "relation_id": "REL-0232", "span_end": 697, "span_start": 567}
+{"evidence_kind": "record", "record_id": "INC-116/SVC-EVENT-BUS", "record_table": "incident_services", "relation_id": "REL-0233"}
+{"document_id": "DOC-TKT-INC-116", "evidence_kind": "document", "relation_id": "REL-0233", "span_end": 214, "span_start": 195}
+{"evidence_kind": "record", "record_id": "INC-116/SVC-WAREHOUSE-LOADER", "record_table": "incident_services", "relation_id": "REL-0234"}
+{"document_id": "DOC-TKT-INC-116", "evidence_kind": "document", "relation_id": "REL-0234", "span_end": 245, "span_start": 216}
+{"document_id": "DOC-DIGEST-2026-07-08", "evidence_kind": "document", "relation_id": "REL-0235", "span_end": 445, "span_start": 226}
+{"document_id": "DOC-TKT-INC-116", "evidence_kind": "document", "relation_id": "REL-0235", "span_end": 884, "span_start": 664}
+{"evidence_kind": "record", "record_id": "INC-117/SVC-CATALOG-SERVICE", "record_table": "incident_services", "relation_id": "REL-0236"}
+{"document_id": "DOC-TKT-INC-117", "evidence_kind": "document", "relation_id": "REL-0236", "span_end": 214, "span_start": 189}
+{"document_id": "DOC-DIGEST-2026-07-08", "evidence_kind": "document", "relation_id": "REL-0237", "span_end": 745, "span_start": 553}
+{"document_id": "DOC-TKT-INC-117", "evidence_kind": "document", "relation_id": "REL-0237", "span_end": 721, "span_start": 538}
+{"evidence_kind": "record", "record_id": "INC-118/SVC-LEDGER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0238"}
+{"document_id": "DOC-PM-INC-118", "evidence_kind": "document", "relation_id": "REL-0238", "span_end": 645, "span_start": 629}
+{"document_id": "DOC-TKT-INC-118", "evidence_kind": "document", "relation_id": "REL-0238", "span_end": 215, "span_start": 191}
+{"evidence_kind": "record", "record_id": "INC-118/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0239"}
+{"document_id": "DOC-PM-INC-118", "evidence_kind": "document", "relation_id": "REL-0239", "span_end": 670, "span_start": 647}
+{"document_id": "DOC-TKT-INC-118", "evidence_kind": "document", "relation_id": "REL-0239", "span_end": 236, "span_start": 217}
+{"document_id": "DOC-PM-INC-118", "evidence_kind": "document", "relation_id": "REL-0240", "span_end": 1046, "span_start": 813}
+{"document_id": "DOC-PM-INC-118", "evidence_kind": "document", "relation_id": "REL-0240", "span_end": 1085, "span_start": 1047}
+{"document_id": "DOC-PM-INC-118", "evidence_kind": "document", "relation_id": "REL-0241", "span_end": 1210, "span_start": 1101}
+{"document_id": "DOC-TKT-INC-118", "evidence_kind": "document", "relation_id": "REL-0241", "span_end": 828, "span_start": 709}
+{"evidence_kind": "record", "record_id": "INC-119/SVC-AUTH-SERVICE", "record_table": "incident_services", "relation_id": "REL-0242"}
+{"document_id": "DOC-TKT-INC-119", "evidence_kind": "document", "relation_id": "REL-0242", "span_end": 217, "span_start": 195}
+{"evidence_kind": "record", "record_id": "INC-119/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0243"}
+{"document_id": "DOC-TKT-INC-119", "evidence_kind": "document", "relation_id": "REL-0243", "span_end": 244, "span_start": 219}
+{"evidence_kind": "record", "record_id": "INC-119/SVC-API-GATEWAY", "record_table": "incident_services", "relation_id": "REL-0244"}
+{"document_id": "DOC-TKT-INC-119", "evidence_kind": "document", "relation_id": "REL-0244", "span_end": 270, "span_start": 246}
+{"document_id": "DOC-DIGEST-2026-07-22", "evidence_kind": "document", "relation_id": "REL-0245", "span_end": 444, "span_start": 236}
+{"document_id": "DOC-TKT-INC-119", "evidence_kind": "document", "relation_id": "REL-0245", "span_end": 822, "span_start": 631}
+{"document_id": "DOC-TKT-INC-119", "evidence_kind": "document", "relation_id": "REL-0246", "span_end": 935, "span_start": 823}
+{"evidence_kind": "record", "record_id": "INC-120/SVC-ORDERS-DB", "record_table": "incident_services", "relation_id": "REL-0247"}
+{"document_id": "DOC-TKT-INC-120", "evidence_kind": "document", "relation_id": "REL-0247", "span_end": 213, "span_start": 194}
+{"evidence_kind": "record", "record_id": "INC-120/SVC-ORDER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0248"}
+{"document_id": "DOC-TKT-INC-120", "evidence_kind": "document", "relation_id": "REL-0248", "span_end": 239, "span_start": 215}
+{"evidence_kind": "record", "record_id": "INC-120/SVC-WAREHOUSE-LOADER", "record_table": "incident_services", "relation_id": "REL-0249"}
+{"document_id": "DOC-TKT-INC-120", "evidence_kind": "document", "relation_id": "REL-0249", "span_end": 270, "span_start": 241}
+{"document_id": "DOC-DIGEST-2026-07-22", "evidence_kind": "document", "relation_id": "REL-0250", "span_end": 715, "span_start": 555}
+{"document_id": "DOC-TKT-INC-120", "evidence_kind": "document", "relation_id": "REL-0250", "span_end": 803, "span_start": 645}
+{"evidence_kind": "record", "record_id": "INC-121/SVC-NOTIFICATION-SERVICE", "record_table": "incident_services", "relation_id": "REL-0251"}
+{"document_id": "DOC-PM-INC-121", "evidence_kind": "document", "relation_id": "REL-0251", "span_end": 631, "span_start": 601}
+{"document_id": "DOC-TKT-INC-121", "evidence_kind": "document", "relation_id": "REL-0251", "span_end": 246, "span_start": 216}
+{"evidence_kind": "record", "record_id": "INC-121/SVC-EMAIL-DISPATCHER", "record_table": "incident_services", "relation_id": "REL-0252"}
+{"document_id": "DOC-PM-INC-121", "evidence_kind": "document", "relation_id": "REL-0252", "span_end": 652, "span_start": 633}
+{"document_id": "DOC-TKT-INC-121", "evidence_kind": "document", "relation_id": "REL-0252", "span_end": 277, "span_start": 248}
+{"document_id": "DOC-PM-INC-121", "evidence_kind": "document", "relation_id": "REL-0253", "span_end": 1099, "span_start": 846}
+{"document_id": "DOC-PM-INC-121", "evidence_kind": "document", "relation_id": "REL-0253", "span_end": 1133, "span_start": 1100}
+{"document_id": "DOC-PM-INC-121", "evidence_kind": "document", "relation_id": "REL-0254", "span_end": 1245, "span_start": 1149}
+{"document_id": "DOC-TKT-INC-121", "evidence_kind": "document", "relation_id": "REL-0254", "span_end": 742, "span_start": 653}
+{"evidence_kind": "record", "record_id": "INC-122/SVC-INVENTORY-SERVICE", "record_table": "incident_services", "relation_id": "REL-0255"}
+{"document_id": "DOC-TKT-INC-122", "evidence_kind": "document", "relation_id": "REL-0255", "span_end": 227, "span_start": 200}
+{"evidence_kind": "record", "record_id": "INC-122/SVC-WAREHOUSE-LOADER", "record_table": "incident_services", "relation_id": "REL-0256"}
+{"document_id": "DOC-TKT-INC-122", "evidence_kind": "document", "relation_id": "REL-0256", "span_end": 258, "span_start": 229}
+{"document_id": "DOC-DIGEST-2026-08-05", "evidence_kind": "document", "relation_id": "REL-0257", "span_end": 394, "span_start": 237}
+{"document_id": "DOC-TKT-INC-122", "evidence_kind": "document", "relation_id": "REL-0257", "span_end": 772, "span_start": 617}
+{"document_id": "DOC-TKT-INC-122", "evidence_kind": "document", "relation_id": "REL-0258", "span_end": 884, "span_start": 773}
+{"evidence_kind": "record", "record_id": "INC-123/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0259"}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0259", "span_end": 663, "span_start": 641}
+{"document_id": "DOC-TKT-INC-123", "evidence_kind": "document", "relation_id": "REL-0259", "span_end": 226, "span_start": 204}
+{"evidence_kind": "record", "record_id": "INC-123/SVC-ORDERS-DB", "record_table": "incident_services", "relation_id": "REL-0260"}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0260", "span_end": 692, "span_start": 665}
+{"document_id": "DOC-TKT-INC-123", "evidence_kind": "document", "relation_id": "REL-0260", "span_end": 248, "span_start": 228}
+{"evidence_kind": "record", "record_id": "INC-123/SVC-LEDGER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0261"}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0261", "span_end": 720, "span_start": 694}
+{"document_id": "DOC-TKT-INC-123", "evidence_kind": "document", "relation_id": "REL-0261", "span_end": 275, "span_start": 250}
+{"evidence_kind": "record", "record_id": "INC-123/SVC-ORDER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0262"}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0262", "span_end": 746, "span_start": 722}
+{"document_id": "DOC-TKT-INC-123", "evidence_kind": "document", "relation_id": "REL-0262", "span_end": 301, "span_start": 277}
+{"evidence_kind": "record", "record_id": "INC-123/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0263"}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0263", "span_end": 773, "span_start": 748}
+{"document_id": "DOC-TKT-INC-123", "evidence_kind": "document", "relation_id": "REL-0263", "span_end": 328, "span_start": 303}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0264", "span_end": 1553, "span_start": 1184}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0264", "span_end": 1595, "span_start": 1554}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0265", "span_end": 2012, "span_start": 1831}
+{"document_id": "DOC-TKT-INC-123", "evidence_kind": "document", "relation_id": "REL-0265", "span_end": 1023, "span_start": 849}
+{"document_id": "DOC-PM-INC-123", "evidence_kind": "document", "relation_id": "REL-0266", "span_end": 1815, "span_start": 1610}
+{"evidence_kind": "record", "record_id": "INC-124/SVC-EMAIL-DISPATCHER", "record_table": "incident_services", "relation_id": "REL-0267"}
+{"document_id": "DOC-TKT-INC-124", "evidence_kind": "document", "relation_id": "REL-0267", "span_end": 217, "span_start": 195}
+{"document_id": "DOC-DIGEST-2026-08-19", "evidence_kind": "document", "relation_id": "REL-0268", "span_end": 359, "span_start": 227}
+{"document_id": "DOC-TKT-INC-124", "evidence_kind": "document", "relation_id": "REL-0268", "span_end": 672, "span_start": 545}
+{"document_id": "DOC-TKT-INC-124", "evidence_kind": "document", "relation_id": "REL-0269", "span_end": 739, "span_start": 673}
+{"evidence_kind": "record", "record_id": "INC-125/SVC-API-GATEWAY", "record_table": "incident_services", "relation_id": "REL-0270"}
+{"document_id": "DOC-TKT-INC-125", "evidence_kind": "document", "relation_id": "REL-0270", "span_end": 196, "span_start": 182}
+{"document_id": "DOC-DIGEST-2026-08-19", "evidence_kind": "document", "relation_id": "REL-0271", "span_end": 650, "span_start": 452}
+{"document_id": "DOC-TKT-INC-125", "evidence_kind": "document", "relation_id": "REL-0271", "span_end": 724, "span_start": 528}
+{"document_id": "DOC-TKT-INC-125", "evidence_kind": "document", "relation_id": "REL-0272", "span_end": 793, "span_start": 725}
+{"evidence_kind": "record", "record_id": "INC-126/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0273"}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0273", "span_end": 642, "span_start": 620}
+{"document_id": "DOC-TKT-INC-126", "evidence_kind": "document", "relation_id": "REL-0273", "span_end": 214, "span_start": 192}
+{"evidence_kind": "record", "record_id": "INC-126/SVC-PRICING-SERVICE", "record_table": "incident_services", "relation_id": "REL-0274"}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0274", "span_end": 669, "span_start": 644}
+{"document_id": "DOC-TKT-INC-126", "evidence_kind": "document", "relation_id": "REL-0274", "span_end": 242, "span_start": 216}
+{"evidence_kind": "record", "record_id": "INC-126/SVC-CATALOG-SERVICE", "record_table": "incident_services", "relation_id": "REL-0275"}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0275", "span_end": 697, "span_start": 671}
+{"document_id": "DOC-TKT-INC-126", "evidence_kind": "document", "relation_id": "REL-0275", "span_end": 266, "span_start": 244}
+{"evidence_kind": "record", "record_id": "INC-126/SVC-SHARED-REDIS", "record_table": "incident_services", "relation_id": "REL-0276"}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0276", "span_end": 722, "span_start": 699}
+{"document_id": "DOC-TKT-INC-126", "evidence_kind": "document", "relation_id": "REL-0276", "span_end": 291, "span_start": 268}
+{"evidence_kind": "record", "record_id": "INC-126/SVC-CART-SERVICE", "record_table": "incident_services", "relation_id": "REL-0277"}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0277", "span_end": 747, "span_start": 724}
+{"document_id": "DOC-TKT-INC-126", "evidence_kind": "document", "relation_id": "REL-0277", "span_end": 316, "span_start": 293}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0278", "span_end": 1165, "span_start": 871}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0278", "span_end": 1212, "span_start": 1166}
+{"document_id": "DOC-PM-INC-126", "evidence_kind": "document", "relation_id": "REL-0279", "span_end": 1165, "span_start": 871}
+{"evidence_kind": "record", "record_id": "INC-127/SVC-FRAUD-SERVICE", "record_table": "incident_services", "relation_id": "REL-0280"}
+{"document_id": "DOC-TKT-INC-127", "evidence_kind": "document", "relation_id": "REL-0280", "span_end": 244, "span_start": 213}
+{"evidence_kind": "record", "record_id": "INC-127/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0281"}
+{"document_id": "DOC-TKT-INC-127", "evidence_kind": "document", "relation_id": "REL-0281", "span_end": 271, "span_start": 246}
+{"document_id": "DOC-DIGEST-2026-09-02", "evidence_kind": "document", "relation_id": "REL-0282", "span_end": 604, "span_start": 431}
+{"document_id": "DOC-TKT-INC-127", "evidence_kind": "document", "relation_id": "REL-0282", "span_end": 774, "span_start": 602}
+{"document_id": "DOC-TKT-INC-127", "evidence_kind": "document", "relation_id": "REL-0283", "span_end": 903, "span_start": 775}
+{"evidence_kind": "record", "record_id": "INC-128/SVC-WAREHOUSE-SYNC", "record_table": "incident_services", "relation_id": "REL-0284"}
+{"document_id": "DOC-TKT-INC-128", "evidence_kind": "document", "relation_id": "REL-0284", "span_end": 208, "span_start": 184}
+{"evidence_kind": "record", "record_id": "INC-128/SVC-INVENTORY-SERVICE", "record_table": "incident_services", "relation_id": "REL-0285"}
+{"document_id": "DOC-TKT-INC-128", "evidence_kind": "document", "relation_id": "REL-0285", "span_end": 238, "span_start": 210}
+{"document_id": "DOC-DIGEST-2026-09-02", "evidence_kind": "document", "relation_id": "REL-0286", "span_end": 883, "span_start": 712}
+{"document_id": "DOC-TKT-INC-128", "evidence_kind": "document", "relation_id": "REL-0286", "span_end": 719, "span_start": 550}
+{"evidence_kind": "record", "record_id": "INC-129/SVC-AUTH-SERVICE", "record_table": "incident_services", "relation_id": "REL-0287"}
+{"document_id": "DOC-PM-INC-129", "evidence_kind": "document", "relation_id": "REL-0287", "span_end": 572, "span_start": 550}
+{"document_id": "DOC-TKT-INC-129", "evidence_kind": "document", "relation_id": "REL-0287", "span_end": 205, "span_start": 183}
+{"evidence_kind": "record", "record_id": "INC-129/SVC-API-GATEWAY", "record_table": "incident_services", "relation_id": "REL-0288"}
+{"document_id": "DOC-PM-INC-129", "evidence_kind": "document", "relation_id": "REL-0288", "span_end": 598, "span_start": 574}
+{"document_id": "DOC-TKT-INC-129", "evidence_kind": "document", "relation_id": "REL-0288", "span_end": 231, "span_start": 207}
+{"evidence_kind": "record", "record_id": "INC-129/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0289"}
+{"document_id": "DOC-PM-INC-129", "evidence_kind": "document", "relation_id": "REL-0289", "span_end": 625, "span_start": 600}
+{"document_id": "DOC-TKT-INC-129", "evidence_kind": "document", "relation_id": "REL-0289", "span_end": 252, "span_start": 233}
+{"evidence_kind": "record", "record_id": "INC-129/SVC-ACCOUNTS-SERVICE", "record_table": "incident_services", "relation_id": "REL-0290"}
+{"document_id": "DOC-PM-INC-129", "evidence_kind": "document", "relation_id": "REL-0290", "span_end": 656, "span_start": 627}
+{"document_id": "DOC-TKT-INC-129", "evidence_kind": "document", "relation_id": "REL-0290", "span_end": 283, "span_start": 254}
+{"document_id": "DOC-PM-INC-129", "evidence_kind": "document", "relation_id": "REL-0291", "span_end": 874, "span_start": 731}
+{"evidence_kind": "record", "record_id": "INC-130/SVC-ORDER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0292"}
+{"document_id": "DOC-TKT-INC-130", "evidence_kind": "document", "relation_id": "REL-0292", "span_end": 204, "span_start": 181}
+{"evidence_kind": "record", "record_id": "INC-130/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0293"}
+{"document_id": "DOC-TKT-INC-130", "evidence_kind": "document", "relation_id": "REL-0293", "span_end": 231, "span_start": 206}
+{"document_id": "DOC-DIGEST-2026-09-16", "evidence_kind": "document", "relation_id": "REL-0294", "span_end": 604, "span_start": 432}
+{"document_id": "DOC-TKT-INC-130", "evidence_kind": "document", "relation_id": "REL-0294", "span_end": 734, "span_start": 564}
+{"document_id": "DOC-TKT-INC-130", "evidence_kind": "document", "relation_id": "REL-0295", "span_end": 833, "span_start": 735}
+{"evidence_kind": "record", "record_id": "INC-131/SVC-PSP-ADAPTER", "record_table": "incident_services", "relation_id": "REL-0296"}
+{"document_id": "DOC-PM-INC-131", "evidence_kind": "document", "relation_id": "REL-0296", "span_end": 577, "span_start": 556}
+{"document_id": "DOC-TKT-INC-131", "evidence_kind": "document", "relation_id": "REL-0296", "span_end": 206, "span_start": 185}
+{"evidence_kind": "record", "record_id": "INC-131/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0297"}
+{"document_id": "DOC-PM-INC-131", "evidence_kind": "document", "relation_id": "REL-0297", "span_end": 604, "span_start": 579}
+{"document_id": "DOC-TKT-INC-131", "evidence_kind": "document", "relation_id": "REL-0297", "span_end": 233, "span_start": 208}
+{"evidence_kind": "record", "record_id": "INC-131/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0298"}
+{"document_id": "DOC-PM-INC-131", "evidence_kind": "document", "relation_id": "REL-0298", "span_end": 631, "span_start": 606}
+{"document_id": "DOC-TKT-INC-131", "evidence_kind": "document", "relation_id": "REL-0298", "span_end": 260, "span_start": 235}
+{"document_id": "DOC-PM-INC-131", "evidence_kind": "document", "relation_id": "REL-0299", "span_end": 974, "span_start": 767}
+{"document_id": "DOC-PM-INC-131", "evidence_kind": "document", "relation_id": "REL-0299", "span_end": 1013, "span_start": 975}
+{"document_id": "DOC-PM-INC-131", "evidence_kind": "document", "relation_id": "REL-0300", "span_end": 1144, "span_start": 1029}
+{"document_id": "DOC-TKT-INC-131", "evidence_kind": "document", "relation_id": "REL-0300", "span_end": 723, "span_start": 601}
+{"evidence_kind": "record", "record_id": "INC-132/SVC-NOTIFICATION-SERVICE", "record_table": "incident_services", "relation_id": "REL-0301"}
+{"document_id": "DOC-TKT-INC-132", "evidence_kind": "document", "relation_id": "REL-0301", "span_end": 227, "span_start": 197}
+{"document_id": "DOC-DIGEST-2026-09-30", "evidence_kind": "document", "relation_id": "REL-0302", "span_end": 631, "span_start": 446}
+{"document_id": "DOC-TKT-INC-132", "evidence_kind": "document", "relation_id": "REL-0302", "span_end": 739, "span_start": 565}
+{"document_id": "DOC-TKT-INC-132", "evidence_kind": "document", "relation_id": "REL-0303", "span_end": 804, "span_start": 740}
+{"evidence_kind": "record", "record_id": "INC-133/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0304"}
+{"document_id": "DOC-PM-INC-133", "evidence_kind": "document", "relation_id": "REL-0304", "span_end": 630, "span_start": 608}
+{"document_id": "DOC-TKT-INC-133", "evidence_kind": "document", "relation_id": "REL-0304", "span_end": 218, "span_start": 196}
+{"evidence_kind": "record", "record_id": "INC-133/SVC-INVENTORY-SERVICE", "record_table": "incident_services", "relation_id": "REL-0305"}
+{"document_id": "DOC-PM-INC-133", "evidence_kind": "document", "relation_id": "REL-0305", "span_end": 660, "span_start": 632}
+{"document_id": "DOC-TKT-INC-133", "evidence_kind": "document", "relation_id": "REL-0305", "span_end": 248, "span_start": 220}
+{"evidence_kind": "record", "record_id": "INC-133/SVC-ORDER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0306"}
+{"document_id": "DOC-PM-INC-133", "evidence_kind": "document", "relation_id": "REL-0306", "span_end": 688, "span_start": 662}
+{"document_id": "DOC-TKT-INC-133", "evidence_kind": "document", "relation_id": "REL-0306", "span_end": 276, "span_start": 250}
+{"document_id": "DOC-PM-INC-133", "evidence_kind": "document", "relation_id": "REL-0307", "span_end": 1294, "span_start": 1033}
+{"document_id": "DOC-PM-INC-133", "evidence_kind": "document", "relation_id": "REL-0307", "span_end": 1336, "span_start": 1295}
+{"document_id": "DOC-PM-INC-133", "evidence_kind": "document", "relation_id": "REL-0308", "span_end": 1634, "span_start": 1352}
+{"document_id": "DOC-TKT-INC-133", "evidence_kind": "document", "relation_id": "REL-0308", "span_end": 934, "span_start": 648}
+{"evidence_kind": "record", "record_id": "INC-134/SVC-PRICING-SERVICE", "record_table": "incident_services", "relation_id": "REL-0309"}
+{"document_id": "DOC-TKT-INC-134", "evidence_kind": "document", "relation_id": "REL-0309", "span_end": 226, "span_start": 201}
+{"evidence_kind": "record", "record_id": "INC-134/SVC-CART-SERVICE", "record_table": "incident_services", "relation_id": "REL-0310"}
+{"document_id": "DOC-TKT-INC-134", "evidence_kind": "document", "relation_id": "REL-0310", "span_end": 253, "span_start": 228}
+{"evidence_kind": "record", "record_id": "INC-134/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0311"}
+{"document_id": "DOC-TKT-INC-134", "evidence_kind": "document", "relation_id": "REL-0311", "span_end": 284, "span_start": 255}
+{"document_id": "DOC-DIGEST-2026-10-14", "evidence_kind": "document", "relation_id": "REL-0312", "span_end": 464, "span_start": 292}
+{"document_id": "DOC-TKT-INC-134", "evidence_kind": "document", "relation_id": "REL-0312", "span_end": 839, "span_start": 672}
+{"document_id": "DOC-TKT-INC-134", "evidence_kind": "document", "relation_id": "REL-0313", "span_end": 904, "span_start": 840}
+{"evidence_kind": "record", "record_id": "INC-135/SVC-EVENT-BUS", "record_table": "incident_services", "relation_id": "REL-0314"}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0314", "span_end": 665, "span_start": 646}
+{"document_id": "DOC-TKT-INC-135", "evidence_kind": "document", "relation_id": "REL-0314", "span_end": 199, "span_start": 180}
+{"evidence_kind": "record", "record_id": "INC-135/SVC-NOTIFICATION-SERVICE", "record_table": "incident_services", "relation_id": "REL-0315"}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0315", "span_end": 700, "span_start": 667}
+{"document_id": "DOC-TKT-INC-135", "evidence_kind": "document", "relation_id": "REL-0315", "span_end": 234, "span_start": 201}
+{"evidence_kind": "record", "record_id": "INC-135/SVC-WAREHOUSE-LOADER", "record_table": "incident_services", "relation_id": "REL-0316"}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0316", "span_end": 731, "span_start": 702}
+{"document_id": "DOC-TKT-INC-135", "evidence_kind": "document", "relation_id": "REL-0316", "span_end": 265, "span_start": 236}
+{"evidence_kind": "record", "record_id": "INC-135/SVC-ORDER-SERVICE", "record_table": "incident_services", "relation_id": "REL-0317"}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0317", "span_end": 750, "span_start": 733}
+{"document_id": "DOC-TKT-INC-135", "evidence_kind": "document", "relation_id": "REL-0317", "span_end": 291, "span_start": 267}
+{"evidence_kind": "record", "record_id": "INC-135/SVC-INVENTORY-SERVICE", "record_table": "incident_services", "relation_id": "REL-0318"}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0318", "span_end": 780, "span_start": 752}
+{"document_id": "DOC-TKT-INC-135", "evidence_kind": "document", "relation_id": "REL-0318", "span_end": 321, "span_start": 293}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0319", "span_end": 1131, "span_start": 943}
+{"document_id": "DOC-PM-INC-135", "evidence_kind": "document", "relation_id": "REL-0320", "span_end": 1315, "span_start": 1186}
+{"document_id": "DOC-TKT-INC-135", "evidence_kind": "document", "relation_id": "REL-0320", "span_end": 871, "span_start": 742}
+{"evidence_kind": "record", "record_id": "INC-136/SVC-CATALOG-SERVICE", "record_table": "incident_services", "relation_id": "REL-0321"}
+{"document_id": "DOC-TKT-INC-136", "evidence_kind": "document", "relation_id": "REL-0321", "span_end": 228, "span_start": 203}
+{"evidence_kind": "record", "record_id": "INC-137/SVC-PAYMENTS-API", "record_table": "incident_services", "relation_id": "REL-0322"}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0322", "span_end": 626, "span_start": 604}
+{"document_id": "DOC-TKT-INC-137", "evidence_kind": "document", "relation_id": "REL-0322", "span_end": 235, "span_start": 209}
+{"evidence_kind": "record", "record_id": "INC-137/SVC-PSP-ADAPTER", "record_table": "incident_services", "relation_id": "REL-0323"}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0323", "span_end": 650, "span_start": 628}
+{"document_id": "DOC-TKT-INC-137", "evidence_kind": "document", "relation_id": "REL-0323", "span_end": 259, "span_start": 237}
+{"evidence_kind": "record", "record_id": "INC-137/SVC-CHECKOUT-API", "record_table": "incident_services", "relation_id": "REL-0324"}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0324", "span_end": 681, "span_start": 652}
+{"document_id": "DOC-TKT-INC-137", "evidence_kind": "document", "relation_id": "REL-0324", "span_end": 286, "span_start": 261}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0325", "span_end": 1190, "span_start": 920}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0325", "span_end": 1230, "span_start": 1191}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0326", "span_end": 1580, "span_start": 1458}
+{"document_id": "DOC-TKT-INC-137", "evidence_kind": "document", "relation_id": "REL-0326", "span_end": 843, "span_start": 721}
+{"document_id": "DOC-PM-INC-137", "evidence_kind": "document", "relation_id": "REL-0327", "span_end": 1442, "span_start": 1245}
+{"evidence_kind": "record", "record_id": "INC-138/SVC-ACCOUNTS-SERVICE", "record_table": "incident_services", "relation_id": "REL-0328"}
+{"document_id": "DOC-TKT-INC-138", "evidence_kind": "document", "relation_id": "REL-0328", "span_end": 218, "span_start": 192}
+{"document_id": "DOC-DIGEST-2026-10-28", "evidence_kind": "document", "relation_id": "REL-0329", "span_end": 623, "span_start": 483}
+{"document_id": "DOC-TKT-INC-138", "evidence_kind": "document", "relation_id": "REL-0329", "span_end": 667, "span_start": 537}
+{"document_id": "DOC-TKT-INC-138", "evidence_kind": "document", "relation_id": "REL-0330", "span_end": 785, "span_start": 668}

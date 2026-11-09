@@ -3,6 +3,7 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+import backend.app.storage.tables  # noqa: F401  (registers all tables on Base.metadata)
 from backend.app.config import get_settings
 from backend.app.storage.postgres import Base
 
@@ -65,7 +66,9 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(
+            connection=connection, target_metadata=target_metadata, include_schemas=True
+        )
 
         with context.begin_transaction():
             context.run_migrations()

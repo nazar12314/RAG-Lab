@@ -1,0 +1,1061 @@
+# Gold benchmark labels. Never expose this file or its derived tables to retrievers or the agent.
+# required_facts      every fact needed for a complete answer (drives complete-evidence rate)
+# supporting_facts    helpful context; not required for completeness
+# acceptable_documents  documents that satisfy document-finding questions
+# expected_paths      chains of curated-graph edges [source, RELATION, target]
+# suggested_tools / first_tools   human-labeled suitable tools for agent evaluation
+# All questions are asked "as of" the dataset date (2026-11-01) unless stated.
+questions:
+  # ---------------------------------------------------------------- showcase (20)
+  - id: Q-001
+    split: showcase
+    category: exact_id
+    question: What happened in INC-104?
+    reference_answer: >-
+      INC-104 was a SEV1 incident on 22 April 2026 in which card payments failed at checkout.
+      Payments API v2.8.0 left the database connection pool at 10 instead of 40 connections, the
+      pool was exhausted and payment requests timed out. It was resolved by rolling back to v2.7.3.
+    accepted_answers: [payments-api v2.8.0, connection pool exhausted, rollback to v2.7.3]
+    answer_type: text
+    required_facts: [F-INC-104-OVERVIEW, F-INC-104-SUMMARY, F-INC-104-CAUSE, F-INC-104-RESOLUTION]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  - id: Q-002
+    split: showcase
+    category: exact_id
+    question: What is the severity and current status of INC-138?
+    reference_answer: INC-138 is a SEV3 incident that is still being monitored; it has not been resolved yet.
+    accepted_answers: [SEV3, monitoring]
+    answer_type: text
+    required_facts: [F-INC-138-OVERVIEW]
+    supporting_facts: [F-INC-138-DURATION]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-003
+    split: showcase
+    category: lexical
+    question: Which incident was caused by the PAYMENTS_DB_POOL_MAX setting?
+    reference_answer: INC-104 - Payments API v2.8.0 read the pool size from PAYMENTS_DB_POOL_MAX, which was unset in production.
+    accepted_answers: [INC-104]
+    answer_type: entity
+    required_facts: [F-INC-104-CAUSE]
+    supporting_facts: [F-DPL-010]
+    suggested_tools: [keyword_search, fetch_evidence]
+    first_tools: [keyword_search]
+
+  - id: Q-004
+    split: showcase
+    category: lexical
+    question: Which runbooks explain what to do about connection pool exhaustion or database saturation?
+    reference_answer: The Payments API runbook (connection pool exhaustion) and the Orders DB runbook (database saturation).
+    accepted_answers: [DOC-RB-PAYMENTS-API, DOC-RB-ORDERS-DB]
+    answer_type: entity_list
+    acceptable_documents: [DOC-RB-PAYMENTS-API, DOC-RB-ORDERS-DB]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+    notes: The staging load test report also mentions pool exhaustion but is not a runbook.
+
+  - id: Q-005
+    split: showcase
+    category: semantic
+    question: Why couldn't customers finish paying for their orders on 22 April?
+    reference_answer: >-
+      Payments API v2.8.0 shrank the database connection pool to 10 connections, the pool was
+      exhausted and payment authorizations timed out (INC-104).
+    accepted_answers: [INC-104, connection pool]
+    answer_type: text
+    required_facts: [F-INC-104-SUMMARY, F-INC-104-CAUSE]
+    suggested_tools: [semantic_search, fetch_evidence]
+    first_tools: [semantic_search]
+
+  - id: Q-006
+    split: showcase
+    category: semantic
+    question: Why did people get kicked out of their accounts in the middle of shopping in April?
+    reference_answer: >-
+      INC-102: the Shared Redis session shards hit their memory limit and the allkeys-lru policy
+      evicted live session keys.
+    accepted_answers: [INC-102, Redis eviction]
+    answer_type: text
+    required_facts: [F-INC-102-SUMMARY, F-INC-102-CAUSE]
+    suggested_tools: [semantic_search, fetch_evidence]
+    first_tools: [semantic_search]
+
+  - id: Q-007
+    split: showcase
+    category: semantic
+    question: Why did shoppers suddenly find their baskets empty at the end of June?
+    reference_answer: >-
+      INC-114: a hardware failure caused a failover of the cart shard in Shared Redis, and because
+      persistence was disabled the promoted replica had lost the carts.
+    accepted_answers: [INC-114, Redis failover without persistence]
+    answer_type: text
+    required_facts: [F-INC-114-SUMMARY, F-INC-114-CAUSE]
+    suggested_tools: [semantic_search, fetch_evidence]
+    first_tools: [semantic_search]
+
+  - id: Q-008
+    split: showcase
+    category: direct_relationship
+    question: What does the Checkout API depend on?
+    reference_answer: >-
+      Cart Service, Pricing Engine, Payments API, Inventory Service, Order Service and Auth Service.
+      It also called the Fraud Scoring Service until 1 June 2026.
+    accepted_answers: [cart-service, pricing-service, payments-api, inventory-service, order-service, auth-service]
+    answer_type: entity_list
+    required_facts: [F-LINK-04, F-LINK-05, F-LINK-06, F-LINK-07, F-LINK-08, F-LINK-09]
+    supporting_facts: [F-LINK-10]
+    expected_paths:
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-CART-SERVICE]]
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-PRICING-SERVICE]]
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-PAYMENTS-API]]
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-INVENTORY-SERVICE]]
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-ORDER-SERVICE]]
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-AUTH-SERVICE]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+
+  - id: Q-009
+    split: showcase
+    category: direct_relationship
+    question: Which team owns the PSP Adapter?
+    reference_answer: The Payments Team.
+    accepted_answers: [Payments Team, TEAM-PAYMENTS]
+    answer_type: entity
+    required_facts: [F-OWNER-psp-adapter]
+    expected_paths:
+      - [[SVC-PSP-ADAPTER, OWNED_BY, TEAM-PAYMENTS]]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-010
+    split: showcase
+    category: multi_hop
+    question: Which deployment affected Checkout through a dependency in April, and what fixed it?
+    reference_answer: >-
+      Payments API v2.8.0 (DPL-010) triggered INC-104 in the Payments API, which the Checkout API
+      depends on. It was fixed by rolling back to v2.7.3 (DPL-011).
+    accepted_answers: [DPL-010, payments-api v2.8.0, DPL-011]
+    answer_type: text
+    required_facts: [F-LINK-06, F-INC-104-AFFECTS-payments-api, F-INC-104-TRIGGER, F-INC-104-RESOLUTION]
+    supporting_facts: [F-DPL-010, F-DPL-011]
+    expected_paths:
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-PAYMENTS-API], [SVC-PAYMENTS-API, AFFECTED_BY, INC-104], [INC-104, TRIGGERED_BY, DPL-010]]
+      - [[INC-104, RESOLVED_BY, DPL-011]]
+    suggested_tools: [graph_traverse, fetch_evidence]
+    first_tools: [graph_traverse]
+    notes: Spec end-to-end demonstration. The cart-service release at 09:40 is a refuted suspect.
+
+  - id: Q-011
+    split: showcase
+    category: multi_hop
+    question: Which services that rely on the Orders DB were degraded during INC-108?
+    reference_answer: Order Service, Payments API and Ledger Service. The Warehouse Loader also uses the Orders DB but was the cause, not a victim.
+    accepted_answers: [order-service, payments-api, ledger-service]
+    answer_type: entity_list
+    required_facts: [F-LINK-14, F-LINK-16, F-LINK-17, F-INC-108-AFFECTS-payments-api, F-INC-108-AFFECTS-ledger-service, F-INC-108-AFFECTS-order-service]
+    supporting_facts: [F-INC-108-CAUSE]
+    expected_paths:
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-ORDERS-DB], [SVC-ORDERS-DB, AFFECTED_BY, INC-108]]
+      - [[SVC-LEDGER-SERVICE, DEPENDS_ON, SVC-ORDERS-DB], [SVC-ORDERS-DB, AFFECTED_BY, INC-108]]
+      - [[SVC-ORDER-SERVICE, DEPENDS_ON, SVC-ORDERS-DB], [SVC-ORDERS-DB, AFFECTED_BY, INC-108]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+
+  - id: Q-012
+    split: showcase
+    category: multi_hop
+    question: Which release was suspected but ruled out as the cause of INC-123, and what really triggered it?
+    reference_answer: >-
+      Checkout API v5.6.0 was suspected and ruled out. The real trigger was Payments API v3.1.0,
+      whose new reconciliation endpoint ran an unindexed query that saturated the Orders DB.
+    accepted_answers: [checkout-api v5.6.0, DPL-054, payments-api v3.1.0, DPL-055]
+    answer_type: text
+    required_facts: [F-INC-123-RULEDOUT-DPL-054, F-INC-123-TRIGGER, F-INC-123-CAUSE]
+    expected_paths:
+      - [[INC-123, TRIGGERED_BY, DPL-055]]
+    suggested_tools: [exact_lookup, fetch_evidence, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+    notes: Naive traversal that ignores verified_status follows the refuted SUSPECTED_TRIGGER edge.
+
+  - id: Q-013
+    split: showcase
+    category: multi_hop
+    question: Which team owns the service whose release triggered the big checkout outage in October?
+    reference_answer: The Checkout Team - INC-133 was triggered by Checkout API v6.0.0.
+    accepted_answers: [Checkout Team, TEAM-CHECKOUT]
+    answer_type: entity
+    required_facts: [F-INC-133-OVERVIEW, F-INC-133-TRIGGER, F-DPL-079, F-OWNER-checkout-api]
+    expected_paths:
+      - [[INC-133, TRIGGERED_BY, DPL-079], [DPL-079, DEPLOYED_TO, SVC-CHECKOUT-API], [SVC-CHECKOUT-API, OWNED_BY, TEAM-CHECKOUT]]
+    suggested_tools: [aggregate_records, exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, aggregate_records]
+
+  - id: Q-014
+    split: showcase
+    category: temporal
+    question: Which service called the Fraud Scoring Service before 1 June 2026, and which one calls it now?
+    reference_answer: The Checkout API called it before 1 June 2026; since then the Payments API calls it.
+    accepted_answers: [checkout-api, payments-api]
+    answer_type: text
+    required_facts: [F-LINK-10, F-LINK-11]
+    expected_paths:
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-FRAUD-SERVICE]]
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-FRAUD-SERVICE]]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+    notes: The Checkout architecture overview is stale and still describes the pre-June design.
+
+  - id: Q-015
+    split: showcase
+    category: temporal
+    question: How did the Notification Service receive order events before the event bus migration?
+    reference_answer: Through an HTTP webhook called by the Order Service, until 5 August 2026.
+    accepted_answers: [webhook, order-service]
+    answer_type: text
+    required_facts: [F-LINK-26]
+    supporting_facts: [F-LINK-27]
+    expected_paths:
+      - [[SVC-NOTIFICATION-SERVICE, DEPENDS_ON, SVC-ORDER-SERVICE]]
+    suggested_tools: [exact_lookup, graph_traverse, keyword_search]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-016
+    split: showcase
+    category: aggregate
+    question: How many severe incidents happened in October 2026?
+    reference_answer: Four - INC-131, INC-133, INC-135 and INC-137 (SEV1 or SEV2).
+    accepted_answers: ["4"]
+    answer_type: count
+    required_facts: [F-INC-131-OVERVIEW, F-INC-133-OVERVIEW, F-INC-135-OVERVIEW, F-INC-137-OVERVIEW]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+    notes: Severe means SEV1 or SEV2 per the on-call policy.
+
+  - id: Q-017
+    split: showcase
+    category: aggregate
+    question: How many production rollbacks were performed between April and October 2026?
+    reference_answer: Ten.
+    accepted_answers: ["10"]
+    answer_type: count
+    required_facts: [F-DPL-011, F-DPL-016, F-DPL-019, F-DPL-038, F-DPL-047, F-DPL-062, F-DPL-066, F-DPL-071, F-DPL-080, F-DPL-086]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+
+  - id: Q-018
+    split: showcase
+    category: mixed
+    question: What went wrong after the last Checkout API release, and was the rollback effective?
+    reference_answer: >-
+      Checkout API v6.0.0 (12 October) checked live stock for every cart line on every step, which
+      overloaded the Inventory Service and caused INC-133. The rollback to v5.7.1 was only partially
+      effective: inventory pods stayed saturated until they were restarted at 09:50.
+    accepted_answers: [INC-133, partially effective, inventory restart]
+    answer_type: text
+    required_facts: [F-DPL-079, F-INC-133-TRIGGER, F-INC-133-CAUSE, F-INC-133-RESOLUTION]
+    expected_paths:
+      - [[INC-133, TRIGGERED_BY, DPL-079]]
+      - [[INC-133, RESOLVED_BY, DPL-080]]
+    suggested_tools: [exact_lookup, graph_traverse, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  - id: Q-019
+    split: showcase
+    category: mixed
+    question: What triggered the last payment outage and how was it resolved?
+    reference_answer: >-
+      INC-137 on 28 October: the HTTP client upgrade in Payments API v3.4.0 reused dead keep-alive
+      connections to the PSP Adapter. It was resolved by rolling back to v3.3.1.
+    accepted_answers: [INC-137, payments-api v3.4.0, rollback to v3.3.1]
+    answer_type: text
+    required_facts: [F-INC-137-OVERVIEW, F-INC-137-TRIGGER, F-INC-137-CAUSE, F-INC-137-RESOLUTION]
+    supporting_facts: [F-INC-137-RULEDOUT-DPL-084]
+    expected_paths:
+      - [[INC-137, TRIGGERED_BY, DPL-085]]
+      - [[INC-137, RESOLVED_BY, DPL-086]]
+    suggested_tools: [aggregate_records, exact_lookup, fetch_evidence]
+    first_tools: [aggregate_records, exact_lookup]
+
+  - id: Q-020
+    split: showcase
+    category: unanswerable
+    question: Who approved the payments-api v2.8.0 change?
+    reference_answer: The corpus has no change-approval records, so the approver cannot be determined.
+    answer_type: abstain
+    answerable: false
+    supporting_facts: [F-DPL-010]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  # ---------------------------------------------------------------- development (30)
+  - id: Q-021
+    split: development
+    category: exact_id
+    question: When was INC-129 detected and how long did it last?
+    reference_answer: Detected 2026-09-21 00:04 UTC; it started at 00:00 and was resolved at 01:00 UTC, one hour in total.
+    accepted_answers: ["2026-09-21 00:04", 1 hour]
+    answer_type: text
+    required_facts: [F-INC-129-DURATION]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-022
+    split: development
+    category: exact_id
+    question: Which service and version were shipped in deployment DPL-055, and when?
+    reference_answer: Payments API v3.1.0, deployed 2026-08-17 08:10 UTC.
+    accepted_answers: [payments-api v3.1.0]
+    answer_type: text
+    required_facts: [F-DPL-055]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-023
+    split: development
+    category: exact_id
+    question: What is the primary service of INC-131?
+    reference_answer: >-
+      The PSP Adapter. The incident record lists Payments API, but the postmortem shows the 3-D
+      Secure change in PSP Adapter v1.8.0 was the primary failure.
+    accepted_answers: [psp-adapter]
+    answer_type: entity
+    required_facts: [F-INC-131-OVERVIEW]
+    supporting_facts: [F-INC-131-CAUSE]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+    notes: The business record misattributes the primary service; exact SQL alone answers wrongly.
+
+  - id: Q-024
+    split: development
+    category: lexical
+    question: Which releases changed the NOTIFY_ORDER_TOPIC setting?
+    reference_answer: Notification Service v4.0.0 introduced it (default orders.v1) and v4.0.1 corrected the default to order-events.
+    accepted_answers: [DPL-051, DPL-052]
+    answer_type: entity_list
+    required_facts: [F-DPL-051, F-DPL-052]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+
+  - id: Q-025
+    split: development
+    category: lexical
+    question: Find incidents where HTTP 429 responses were part of the problem.
+    reference_answer: INC-103 (MailRelay returned 429 after the quota was exceeded) and INC-125 (mobile users rate-limited with 429).
+    accepted_answers: [INC-103, INC-125]
+    answer_type: entity_list
+    required_facts: [F-INC-103-CAUSE, F-INC-125-IMPACT]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+
+  - id: Q-026
+    split: development
+    category: lexical
+    question: Which release notes entry mentions the recon_v2 feature flag?
+    reference_answer: Payments API v3.1.1 (DPL-056), which kept the reconciliation endpoint behind the recon_v2 flag.
+    accepted_answers: [DPL-056, payments-api v3.1.1]
+    answer_type: entity
+    required_facts: [F-DPL-056]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+
+  - id: Q-027
+    split: development
+    category: semantic
+    question: Why were genuine customers' cards declined right after fraud checks moved into payments?
+    reference_answer: >-
+      INC-110: Payments API v2.9.0 called fraud scoring with a 200 ms timeout and declined payments
+      whenever no score came back, which happened often at peak latency.
+    accepted_answers: [INC-110, 200 ms timeout]
+    answer_type: text
+    required_facts: [F-INC-110-SUMMARY, F-INC-110-CAUSE]
+    suggested_tools: [semantic_search, fetch_evidence]
+    first_tools: [semantic_search]
+
+  - id: Q-028
+    split: development
+    category: semantic
+    question: Why did customers get the same confirmation email several times in June?
+    reference_answer: >-
+      INC-111: the retry logic added in Notification Service v3.1.0 retried sends that had actually
+      succeeded, and the mailer could not detect duplicates.
+    accepted_answers: [INC-111]
+    answer_type: text
+    required_facts: [F-INC-111-CAUSE]
+    suggested_tools: [semantic_search]
+    first_tools: [semantic_search]
+
+  - id: Q-029
+    split: development
+    category: semantic
+    question: Why was nobody able to sign in around midnight on 21 September?
+    reference_answer: INC-129 - the token signing key expired because the quarterly manual rotation was missed.
+    accepted_answers: [INC-129, signing key expired]
+    answer_type: text
+    required_facts: [F-INC-129-SUMMARY, F-INC-129-CAUSE]
+    suggested_tools: [semantic_search, fetch_evidence]
+    first_tools: [semantic_search]
+
+  - id: Q-030
+    split: development
+    category: semantic
+    question: What made the basket total and the checkout total differ by a cent?
+    reference_answer: >-
+      INC-134: Pricing Engine v2.7.0 rounded per line with half-up rounding while the Cart Service
+      used banker's rounding.
+    accepted_answers: [INC-134, rounding]
+    answer_type: text
+    required_facts: [F-INC-134-CAUSE]
+    suggested_tools: [semantic_search]
+    first_tools: [semantic_search]
+
+  - id: Q-031
+    split: development
+    category: direct_relationship
+    question: Which services depend on Shared Redis?
+    reference_answer: Auth Service (sessions), Cart Service (carts) and Catalog Service (cache).
+    accepted_answers: [auth-service, cart-service, catalog-service]
+    answer_type: entity_list
+    required_facts: [F-LINK-19, F-LINK-22, F-LINK-25]
+    expected_paths:
+      - [[SVC-CART-SERVICE, DEPENDS_ON, SVC-SHARED-REDIS]]
+      - [[SVC-AUTH-SERVICE, DEPENDS_ON, SVC-SHARED-REDIS]]
+      - [[SVC-CATALOG-SERVICE, DEPENDS_ON, SVC-SHARED-REDIS]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+
+  - id: Q-032
+    split: development
+    category: direct_relationship
+    question: Which external system does the PSP Adapter call?
+    reference_answer: PayNova, the card payment processor.
+    accepted_answers: [PayNova, EXT-PAYNOVA]
+    answer_type: entity
+    required_facts: [F-LINK-15]
+    expected_paths:
+      - [[SVC-PSP-ADAPTER, DEPENDS_ON, EXT-PAYNOVA]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+
+  - id: Q-033
+    split: development
+    category: direct_relationship
+    question: Which team owns the Warehouse Loader?
+    reference_answer: The Data Platform Team (not the Inventory Team, which owns Warehouse Sync).
+    accepted_answers: [Data Platform Team, TEAM-DATA]
+    answer_type: entity
+    required_facts: [F-OWNER-warehouse-loader]
+    expected_paths:
+      - [[SVC-WAREHOUSE-LOADER, OWNED_BY, TEAM-DATA]]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+    notes: Alias trap - "warehouse" also refers to Warehouse Sync.
+
+  - id: Q-034
+    split: development
+    category: multi_hop
+    question: Which deployment caused an incident in a direct dependency of the Checkout API during July 2026?
+    reference_answer: Auth Service v6.2.0 (DPL-046), which triggered INC-119; it was rolled back to v6.1.4.
+    accepted_answers: [DPL-046, auth-service v6.2.0, INC-119]
+    answer_type: text
+    required_facts: [F-LINK-09, F-INC-119-AFFECTS-auth-service, F-INC-119-TRIGGER]
+    supporting_facts: [F-INC-119-RESOLUTION]
+    expected_paths:
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-AUTH-SERVICE], [SVC-AUTH-SERVICE, AFFECTED_BY, INC-119], [INC-119, TRIGGERED_BY, DPL-046]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse]
+    notes: INC-115 was in Checkout itself and INC-118 is two hops away (via Payments API).
+
+  - id: Q-035
+    split: development
+    category: multi_hop
+    question: The slow checkout on 3 September started in which component, and through which chain of dependencies did it reach the Checkout API?
+    reference_answer: >-
+      It started with the Redis 7.2.5 rolling restart of Shared Redis, which emptied the catalog
+      cache. Checkout API depends on Pricing Engine, which depends on Catalog Service, which uses
+      Shared Redis as its cache.
+    accepted_answers: [shared-redis, pricing-service, catalog-service]
+    answer_type: text
+    required_facts: [F-INC-126-CAUSE, F-LINK-05, F-LINK-21, F-LINK-25]
+    supporting_facts: [F-INC-126-TRIGGER]
+    expected_paths:
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-PRICING-SERVICE], [SVC-PRICING-SERVICE, DEPENDS_ON, SVC-CATALOG-SERVICE], [SVC-CATALOG-SERVICE, DEPENDS_ON, SVC-SHARED-REDIS]]
+      - [[INC-126, TRIGGERED_BY, DPL-063]]
+    suggested_tools: [exact_lookup, semantic_search, graph_traverse, fetch_evidence]
+    first_tools: [exact_lookup, semantic_search]
+
+  - id: Q-036
+    split: development
+    category: multi_hop
+    question: Which external provider was behind the June payment outage, and which internal service talks to it?
+    reference_answer: PayNova (EU authorization cluster outage, INC-113); the PSP Adapter is the service that calls PayNova.
+    accepted_answers: [PayNova, psp-adapter]
+    answer_type: text
+    required_facts: [F-INC-113-CAUSE, F-LINK-15]
+    expected_paths:
+      - [[INC-113, ROOT_CAUSE_IN, EXT-PAYNOVA]]
+      - [[SVC-PSP-ADAPTER, DEPENDS_ON, EXT-PAYNOVA]]
+    suggested_tools: [semantic_search, aggregate_records, graph_traverse]
+    first_tools: [semantic_search, aggregate_records]
+
+  - id: Q-037
+    split: development
+    category: multi_hop
+    question: Who owns the service whose release was ruled out as the cause of INC-137?
+    reference_answer: The Payments Team - the ruled-out release was Fraud Scoring Service v2.5.0.
+    accepted_answers: [Payments Team, TEAM-PAYMENTS]
+    answer_type: entity
+    required_facts: [F-INC-137-RULEDOUT-DPL-084, F-DPL-084, F-OWNER-fraud-service]
+    expected_paths:
+      - [[DPL-084, DEPLOYED_TO, SVC-FRAUD-SERVICE], [SVC-FRAUD-SERVICE, OWNED_BY, TEAM-PAYMENTS]]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup]
+
+  - id: Q-038
+    split: development
+    category: multi_hop
+    question: INC-105 broke the nightly data warehouse load. Which team's release caused it?
+    reference_answer: The Checkout Team - Order Service v4.2.0 renamed the shipping_addr column.
+    accepted_answers: [Checkout Team, TEAM-CHECKOUT]
+    answer_type: entity
+    required_facts: [F-INC-105-TRIGGER, F-DPL-012, F-OWNER-order-service]
+    expected_paths:
+      - [[INC-105, TRIGGERED_BY, DPL-012], [DPL-012, DEPLOYED_TO, SVC-ORDER-SERVICE], [SVC-ORDER-SERVICE, OWNED_BY, TEAM-CHECKOUT]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-039
+    split: development
+    category: temporal
+    question: Did the Inventory Service publish events to the Event Bus in July 2026?
+    reference_answer: No. It started publishing stock-changed events on 5 August 2026 (Inventory Service v3.6.0).
+    accepted_answers: ["no"]
+    answer_type: boolean
+    required_facts: [F-LINK-32]
+    supporting_facts: [F-DPL-050]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-040
+    split: development
+    category: temporal
+    question: Which Payments API version was running in production on 1 May 2026?
+    reference_answer: v2.7.3 - v2.8.0 was rolled back to v2.7.3 on 22 April, and v2.8.1 only shipped on 6 May.
+    accepted_answers: [v2.7.3]
+    answer_type: entity
+    required_facts: [F-DPL-010, F-DPL-011, F-DPL-017]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-041
+    split: development
+    category: temporal
+    question: At the time of the PayNova outage on 20 June, was the Checkout API still calling the fraud service?
+    reference_answer: No. Since 1 June 2026 the Payments API calls the Fraud Scoring Service; checkout stopped calling it directly.
+    accepted_answers: ["no"]
+    answer_type: boolean
+    required_facts: [F-LINK-10, F-LINK-11]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-042
+    split: development
+    category: aggregate
+    question: How many incidents had the Payments API as their primary service?
+    reference_answer: >-
+      Four - INC-104, INC-110, INC-123 and INC-137. The incident records show five because INC-131
+      is recorded under Payments API although its primary service was the PSP Adapter.
+    accepted_answers: ["4"]
+    answer_type: count
+    required_facts: [F-INC-104-OVERVIEW, F-INC-110-OVERVIEW, F-INC-123-OVERVIEW, F-INC-137-OVERVIEW]
+    supporting_facts: [F-INC-131-OVERVIEW]
+    suggested_tools: [aggregate_records, fetch_evidence]
+    first_tools: [aggregate_records]
+    notes: Exact SQL returns 5; showing why record quality matters.
+
+  - id: Q-043
+    split: development
+    category: aggregate
+    question: How many SEV1 incidents occurred between April and October 2026?
+    reference_answer: Four - INC-104, INC-113, INC-123 and INC-133.
+    accepted_answers: ["4"]
+    answer_type: count
+    required_facts: [F-INC-104-OVERVIEW, F-INC-113-OVERVIEW, F-INC-123-OVERVIEW, F-INC-133-OVERVIEW]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+
+  - id: Q-044
+    split: development
+    category: aggregate
+    question: Which service had the most production deployments, and how many?
+    reference_answer: The Payments API, with 14 deployments.
+    accepted_answers: [payments-api, "14"]
+    answer_type: text
+    required_facts: [F-DPL-007, F-DPL-010, F-DPL-011, F-DPL-017, F-DPL-027, F-DPL-028, F-DPL-041, F-DPL-055, F-DPL-056, F-DPL-067, F-DPL-072, F-DPL-078, F-DPL-085, F-DPL-086]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+
+  - id: Q-045
+    split: development
+    category: mixed
+    question: What went wrong with payments on 17 August, and was a rollback needed?
+    reference_answer: >-
+      INC-123: the reconciliation endpoint in Payments API v3.1.0 ran an unindexed query that
+      saturated the Orders DB. No rollback was needed - the recon_v2 flag was disabled and v3.1.1
+      added the missing index.
+    accepted_answers: [INC-123, no rollback, recon_v2]
+    answer_type: text
+    required_facts: [F-INC-123-TRIGGER, F-INC-123-CAUSE, F-INC-123-RESOLUTION]
+    supporting_facts: [F-DPL-056]
+    expected_paths:
+      - [[INC-123, TRIGGERED_BY, DPL-055]]
+      - [[INC-123, RESOLVED_BY, DPL-056]]
+    suggested_tools: [exact_lookup, aggregate_records, fetch_evidence]
+    first_tools: [exact_lookup, aggregate_records]
+
+  - id: Q-046
+    split: development
+    category: mixed
+    question: When did the event bus migration happen, and which incidents followed from it?
+    reference_answer: >-
+      On 5 August 2026. INC-121 (Notification Service v4.0.0 subscribed to the wrong topic) and
+      INC-122 (Inventory Service v3.6.0 published duplicate stock events) followed directly, and
+      INC-135 in October happened because event volume doubled without resizing broker disks.
+    accepted_answers: [INC-121, INC-122, INC-135]
+    answer_type: text
+    required_facts: [F-LINK-27, F-INC-121-TRIGGER, F-INC-122-TRIGGER, F-INC-135-CAUSE]
+    supporting_facts: [F-LINK-32]
+    expected_paths:
+      - [[INC-121, TRIGGERED_BY, DPL-051]]
+      - [[INC-122, TRIGGERED_BY, DPL-050]]
+    suggested_tools: [keyword_search, semantic_search, graph_traverse, fetch_evidence]
+    first_tools: [keyword_search, semantic_search]
+
+  - id: Q-047
+    split: development
+    category: mixed
+    question: Has the June card processor outage led to a secondary card processor being chosen?
+    reference_answer: >-
+      No. After INC-113 (PayNova outage) a secondary processor evaluation was started, but it is
+      still a draft with no decision; a decision is targeted for Q4.
+    accepted_answers: ["no", no decision]
+    answer_type: text
+    required_facts: [F-INC-113-CAUSE]
+    acceptable_documents: [DOC-VENDOR-EVAL-PSP]
+    suggested_tools: [semantic_search, fetch_evidence]
+    first_tools: [semantic_search]
+
+  - id: Q-048
+    split: development
+    category: unanswerable
+    question: How much revenue was lost during INC-133?
+    reference_answer: The corpus states the share of failed checkouts but no revenue figure, so this cannot be answered.
+    answer_type: abstain
+    answerable: false
+    supporting_facts: [F-INC-133-IMPACT]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  - id: Q-049
+    split: development
+    category: unanswerable
+    question: What was the root cause of INC-136?
+    reference_answer: The root cause was never determined; the problem disappeared after the badge cache was flushed.
+    answer_type: abstain
+    answerable: false
+    supporting_facts: [F-INC-136-CAUSE]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+    notes: The ticket's initial note blames stale stock events, which were later verified to be correct.
+
+  - id: Q-050
+    split: development
+    category: unanswerable
+    question: Who was the incident commander for INC-104?
+    reference_answer: Incident roles are not recorded for INC-104, so this cannot be answered.
+    answer_type: abstain
+    answerable: false
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  # ---------------------------------------------------------------- held-out (30)
+  - id: Q-051
+    split: heldout
+    category: exact_id
+    question: What was the status of the payments-api v2.8.0 deployment?
+    reference_answer: Rolled back - it was deployed on 22 April 2026 and rolled back to v2.7.3 the same morning.
+    accepted_answers: [rolled back]
+    answer_type: text
+    required_facts: [F-DPL-010]
+    supporting_facts: [F-DPL-011]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-052
+    split: heldout
+    category: exact_id
+    question: Which services were affected by INC-135?
+    reference_answer: Event Bus (primary), Notification Service and Warehouse Loader (downstream), Order Service and Inventory Service (degraded).
+    accepted_answers: [event-bus, notification-service, warehouse-loader, order-service, inventory-service]
+    answer_type: entity_list
+    required_facts: [F-INC-135-AFFECTS-event-bus, F-INC-135-AFFECTS-notification-service, F-INC-135-AFFECTS-warehouse-loader, F-INC-135-AFFECTS-order-service, F-INC-135-AFFECTS-inventory-service]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-053
+    split: heldout
+    category: exact_id
+    question: What severity was INC-118 and when was it resolved?
+    reference_answer: SEV2, resolved on 2026-07-19 at 12:00 UTC.
+    accepted_answers: [SEV2, "2026-07-19"]
+    answer_type: text
+    required_facts: [F-INC-118-OVERVIEW, F-INC-118-DURATION]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-054
+    split: heldout
+    category: lexical
+    question: Which incident involved a VACUUM FULL?
+    reference_answer: INC-120 - a manual VACUUM FULL on the Orders DB primary made the read replica fall behind.
+    accepted_answers: [INC-120]
+    answer_type: entity
+    required_facts: [F-INC-120-CAUSE]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+
+  - id: Q-055
+    split: heldout
+    category: lexical
+    question: Which deployments mention 3-D Secure?
+    reference_answer: PSP Adapter v1.8.0 (DPL-074) and v1.8.1 (DPL-075).
+    accepted_answers: [DPL-074, DPL-075]
+    answer_type: entity_list
+    required_facts: [F-DPL-074, F-DPL-075]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+
+  - id: Q-056
+    split: heldout
+    category: lexical
+    question: Which incident was caused by fetching the JWKS key set on every request?
+    reference_answer: INC-119, triggered by Auth Service v6.2.0.
+    accepted_answers: [INC-119]
+    answer_type: entity
+    required_facts: [F-INC-119-CAUSE]
+    suggested_tools: [keyword_search]
+    first_tools: [keyword_search]
+    notes: INC-129 also mentions JWKS caching, but only as something that was ruled out.
+
+  - id: Q-057
+    split: heldout
+    category: semantic
+    question: Why were shoppers able to buy items that were already sold out in early May?
+    reference_answer: >-
+      INC-106: Warehouse Sync v2.0.0 processed full stock snapshots in parallel and older snapshots
+      overwrote newer counts, so sold-out items reappeared as in stock.
+    accepted_answers: [INC-106, warehouse-sync v2.0.0]
+    answer_type: text
+    required_facts: [F-INC-106-SUMMARY, F-INC-106-CAUSE]
+    suggested_tools: [semantic_search]
+    first_tools: [semantic_search]
+
+  - id: Q-058
+    split: heldout
+    category: semantic
+    question: Why did product photos look outdated on the shop in April?
+    reference_answer: INC-101 - the new image pipeline in Catalog Service v2.1.0 set a one-week cache lifetime on thumbnails whose URLs never change.
+    accepted_answers: [INC-101, Cache-Control]
+    answer_type: text
+    required_facts: [F-INC-101-CAUSE]
+    suggested_tools: [semantic_search]
+    first_tools: [semantic_search]
+
+  - id: Q-059
+    split: heldout
+    category: semantic
+    question: Why were European shoppers stuck at their bank's verification step in early October?
+    reference_answer: >-
+      INC-131: PSP Adapter v1.8.0 moved the 3-D Secure return URL, but the EU acquirer at PayNova
+      still had the old callback URL registered.
+    accepted_answers: [INC-131, 3-D Secure]
+    answer_type: text
+    required_facts: [F-INC-131-CAUSE]
+    suggested_tools: [semantic_search]
+    first_tools: [semantic_search]
+
+  - id: Q-060
+    split: heldout
+    category: semantic
+    question: Why did refunds show up twice in the company's books in July?
+    reference_answer: INC-118 - Ledger Service v1.8.0 changed the refund idempotency key format, so retries of older refunds were posted again.
+    accepted_answers: [INC-118, idempotency key]
+    answer_type: text
+    required_facts: [F-INC-118-CAUSE]
+    suggested_tools: [semantic_search]
+    first_tools: [semantic_search]
+
+  - id: Q-061
+    split: heldout
+    category: direct_relationship
+    question: Which services does the Payments API depend on today?
+    reference_answer: Fraud Scoring Service (since 1 June 2026), PSP Adapter, Ledger Service and Orders DB.
+    accepted_answers: [fraud-service, psp-adapter, ledger-service, orders-db]
+    answer_type: entity_list
+    required_facts: [F-LINK-11, F-LINK-12, F-LINK-13, F-LINK-14]
+    expected_paths:
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-FRAUD-SERVICE]]
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-PSP-ADAPTER]]
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-LEDGER-SERVICE]]
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-ORDERS-DB]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+
+  - id: Q-062
+    split: heldout
+    category: direct_relationship
+    question: Which service does the WMS sync worker push stock updates into?
+    reference_answer: The Inventory Service.
+    accepted_answers: [inventory-service]
+    answer_type: entity
+    required_facts: [F-LINK-24]
+    expected_paths:
+      - [[SVC-WAREHOUSE-SYNC, DEPENDS_ON, SVC-INVENTORY-SERVICE]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+    notes: Uses the alias "wms sync" for Warehouse Sync.
+
+  - id: Q-063
+    split: heldout
+    category: direct_relationship
+    question: Which team runs the Kafka cluster?
+    reference_answer: The Data Platform Team runs the Event Bus (Kafka cluster).
+    accepted_answers: [Data Platform Team, TEAM-DATA]
+    answer_type: entity
+    required_facts: [F-OWNER-event-bus]
+    expected_paths:
+      - [[SVC-EVENT-BUS, OWNED_BY, TEAM-DATA]]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-064
+    split: heldout
+    category: multi_hop
+    question: Which deployments triggered incidents in a dependency of the Payments API, and which incidents were they?
+    reference_answer: >-
+      Ledger Service v1.8.0 triggered INC-118, Fraud Scoring Service v2.4.0 triggered INC-127 and
+      PSP Adapter v1.8.0 triggered INC-131.
+    accepted_answers: [DPL-043, DPL-065, DPL-074, INC-118, INC-127, INC-131]
+    answer_type: text
+    required_facts: [F-LINK-13, F-INC-118-AFFECTS-ledger-service, F-INC-118-TRIGGER, F-LINK-11, F-INC-127-AFFECTS-fraud-service, F-INC-127-TRIGGER, F-LINK-12, F-INC-131-AFFECTS-psp-adapter, F-INC-131-TRIGGER]
+    expected_paths:
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-LEDGER-SERVICE], [SVC-LEDGER-SERVICE, AFFECTED_BY, INC-118], [INC-118, TRIGGERED_BY, DPL-043]]
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-FRAUD-SERVICE], [SVC-FRAUD-SERVICE, AFFECTED_BY, INC-127], [INC-127, TRIGGERED_BY, DPL-065]]
+      - [[SVC-PAYMENTS-API, DEPENDS_ON, SVC-PSP-ADAPTER], [SVC-PSP-ADAPTER, AFFECTED_BY, INC-131], [INC-131, TRIGGERED_BY, DPL-074]]
+    suggested_tools: [graph_traverse, fetch_evidence]
+    first_tools: [graph_traverse]
+    notes: INC-113 also hit the PSP Adapter but had no triggering deployment.
+
+  - id: Q-065
+    split: heldout
+    category: multi_hop
+    question: INC-133 overloaded one of the Checkout API's dependencies. Which one, and which team owns it?
+    reference_answer: The Inventory Service, owned by the Inventory Team.
+    accepted_answers: [inventory-service, Inventory Team]
+    answer_type: text
+    required_facts: [F-LINK-07, F-INC-133-AFFECTS-inventory-service, F-INC-133-CAUSE, F-OWNER-inventory-service]
+    expected_paths:
+      - [[SVC-CHECKOUT-API, DEPENDS_ON, SVC-INVENTORY-SERVICE], [SVC-INVENTORY-SERVICE, AFFECTED_BY, INC-133]]
+      - [[SVC-INVENTORY-SERVICE, OWNED_BY, TEAM-INVENTORY]]
+    suggested_tools: [graph_traverse, exact_lookup]
+    first_tools: [graph_traverse, exact_lookup]
+
+  - id: Q-066
+    split: heldout
+    category: multi_hop
+    question: Which incidents were resolved by rolling back a Checkout API release, and which versions were rolled back?
+    reference_answer: INC-115 (v5.4.0 rolled back to v5.3.2) and INC-133 (v6.0.0 rolled back to v5.7.1).
+    accepted_answers: [INC-115, INC-133, v5.4.0, v6.0.0]
+    answer_type: text
+    required_facts: [F-INC-115-RESOLUTION, F-DPL-038, F-INC-133-RESOLUTION, F-DPL-080]
+    expected_paths:
+      - [[INC-115, RESOLVED_BY, DPL-038], [DPL-038, ROLLS_BACK, DPL-037]]
+      - [[INC-133, RESOLVED_BY, DPL-080], [DPL-080, ROLLS_BACK, DPL-079]]
+    suggested_tools: [exact_lookup, aggregate_records, graph_traverse]
+    first_tools: [exact_lookup, aggregate_records]
+
+  - id: Q-067
+    split: heldout
+    category: multi_hop
+    question: The Ledger Service was degraded during the largest payments outage of Q3. Which release triggered that outage and which team shipped it?
+    reference_answer: INC-123 was triggered by Payments API v3.1.0, shipped by the Payments Team.
+    accepted_answers: [DPL-055, payments-api v3.1.0, Payments Team]
+    answer_type: text
+    required_facts: [F-INC-123-AFFECTS-ledger-service, F-INC-123-TRIGGER, F-DPL-055, F-OWNER-payments-api]
+    expected_paths:
+      - [[SVC-LEDGER-SERVICE, AFFECTED_BY, INC-123], [INC-123, TRIGGERED_BY, DPL-055], [DPL-055, DEPLOYED_TO, SVC-PAYMENTS-API], [SVC-PAYMENTS-API, OWNED_BY, TEAM-PAYMENTS]]
+    suggested_tools: [graph_traverse, aggregate_records, exact_lookup]
+    first_tools: [graph_traverse, aggregate_records]
+
+  - id: Q-068
+    split: heldout
+    category: multi_hop
+    question: Which consumers of the Event Bus were hit when its brokers ran out of disk?
+    reference_answer: The Notification Service and the Warehouse Loader (INC-135).
+    accepted_answers: [notification-service, warehouse-loader]
+    answer_type: entity_list
+    required_facts: [F-LINK-27, F-LINK-30, F-INC-135-AFFECTS-notification-service, F-INC-135-AFFECTS-warehouse-loader]
+    expected_paths:
+      - [[SVC-NOTIFICATION-SERVICE, DEPENDS_ON, SVC-EVENT-BUS], [SVC-EVENT-BUS, AFFECTED_BY, INC-135]]
+      - [[SVC-WAREHOUSE-LOADER, DEPENDS_ON, SVC-EVENT-BUS], [SVC-EVENT-BUS, AFFECTED_BY, INC-135]]
+    suggested_tools: [semantic_search, graph_traverse]
+    first_tools: [semantic_search, graph_traverse]
+
+  - id: Q-069
+    split: heldout
+    category: temporal
+    question: Which services depended on the Event Bus before 5 August 2026?
+    reference_answer: Only the Order Service (producer) and the Warehouse Loader (consumer); Notification and Inventory joined on 5 August.
+    accepted_answers: [order-service, warehouse-loader]
+    answer_type: entity_list
+    required_facts: [F-LINK-18, F-LINK-30]
+    supporting_facts: [F-LINK-27, F-LINK-32]
+    expected_paths:
+      - [[SVC-ORDER-SERVICE, DEPENDS_ON, SVC-EVENT-BUS]]
+      - [[SVC-WAREHOUSE-LOADER, DEPENDS_ON, SVC-EVENT-BUS]]
+    suggested_tools: [exact_lookup, graph_traverse]
+    first_tools: [exact_lookup, graph_traverse]
+
+  - id: Q-070
+    split: heldout
+    category: temporal
+    question: Were customer notifications affected by the event bus consumer lag in July (INC-116)?
+    reference_answer: >-
+      No. Only analytics were delayed; at that time the Notification Service still received order
+      events through the Order Service webhook, not the Event Bus.
+    accepted_answers: ["no"]
+    answer_type: boolean
+    required_facts: [F-INC-116-IMPACT, F-LINK-26]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  - id: Q-071
+    split: heldout
+    category: temporal
+    question: Which Checkout API version was running right after the 12 October rollback?
+    reference_answer: v5.7.1.
+    accepted_answers: [v5.7.1]
+    answer_type: entity
+    required_facts: [F-DPL-080]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-072
+    split: heldout
+    category: aggregate
+    question: How many incidents in Q3 2026 (July to September) affected the Checkout API?
+    reference_answer: Five - INC-115, INC-119, INC-123, INC-126 and INC-129.
+    accepted_answers: ["5"]
+    answer_type: count
+    required_facts: [F-INC-115-AFFECTS-checkout-api, F-INC-119-AFFECTS-checkout-api, F-INC-123-AFFECTS-checkout-api, F-INC-126-AFFECTS-checkout-api, F-INC-129-AFFECTS-checkout-api]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+
+  - id: Q-073
+    split: heldout
+    category: aggregate
+    question: How many incidents had the Notification Service as primary service?
+    reference_answer: Three - INC-111, INC-121 and INC-132.
+    accepted_answers: ["3"]
+    answer_type: count
+    required_facts: [F-INC-111-OVERVIEW, F-INC-121-OVERVIEW, F-INC-132-OVERVIEW]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+
+  - id: Q-074
+    split: heldout
+    category: aggregate
+    question: How many production deployments were made in October 2026?
+    reference_answer: Fourteen (DPL-074 to DPL-087).
+    accepted_answers: ["14"]
+    answer_type: count
+    required_facts: [F-DPL-074, F-DPL-075, F-DPL-076, F-DPL-077, F-DPL-078, F-DPL-079, F-DPL-080, F-DPL-081, F-DPL-082, F-DPL-083, F-DPL-084, F-DPL-085, F-DPL-086, F-DPL-087]
+    suggested_tools: [aggregate_records]
+    first_tools: [aggregate_records]
+
+  - id: Q-075
+    split: heldout
+    category: mixed
+    question: Did the Redis patching on 3 September cause customer impact, and what was learned from it?
+    reference_answer: >-
+      Yes - INC-126: the rolling restart emptied the catalog cache and checkout slowed to about six
+      seconds per step for 80 minutes, cutting APAC conversion by a third. Lessons: warm caches
+      before returning a restarted shard and schedule Redis maintenance outside the APAC peak.
+    accepted_answers: [INC-126, "yes"]
+    answer_type: text
+    required_facts: [F-INC-126-IMPACT, F-INC-126-CAUSE, F-INC-126-TRIGGER]
+    suggested_tools: [semantic_search, exact_lookup, fetch_evidence]
+    first_tools: [semantic_search, exact_lookup]
+
+  - id: Q-076
+    split: heldout
+    category: mixed
+    question: Was the 20 June card processor outage caused by our own release that morning?
+    reference_answer: >-
+      No. PSP Adapter v1.6.0 was suspected, but a canary rollback changed nothing and PayNova
+      confirmed an outage of its EU authorization cluster. (The incident record still lists the
+      release as "suspected".)
+    accepted_answers: ["no", PayNova]
+    answer_type: text
+    required_facts: [F-INC-113-RULEDOUT-DPL-032, F-INC-113-CAUSE]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+    notes: The business table keeps a stale "suspected" link; only the postmortem is authoritative.
+
+  - id: Q-077
+    split: heldout
+    category: mixed
+    question: What do INC-104, INC-108 and INC-123 have in common, and how did their root causes differ?
+    reference_answer: >-
+      All three starved payments of Orders DB connections. INC-104 was a too-small pool in Payments
+      API v2.8.0, INC-108 was a Warehouse Loader export running against the primary, and INC-123 was
+      an unindexed reconciliation query from Payments API v3.1.0.
+    accepted_answers: [connection, orders-db]
+    answer_type: text
+    required_facts: [F-INC-104-CAUSE, F-INC-108-CAUSE, F-INC-123-CAUSE]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  - id: Q-078
+    split: heldout
+    category: unanswerable
+    question: Who signed off on the Checkout API v6.0.0 release?
+    reference_answer: There are no approval or sign-off records in the corpus.
+    answer_type: abstain
+    answerable: false
+    supporting_facts: [F-DPL-079]
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]
+
+  - id: Q-079
+    split: heldout
+    category: unanswerable
+    question: How many orders were lost during INC-123?
+    reference_answer: Only the share of failed checkouts (about 60%) is recorded, not the number of lost orders.
+    answer_type: abstain
+    answerable: false
+    supporting_facts: [F-INC-123-IMPACT]
+    suggested_tools: [exact_lookup, fetch_evidence]
+    first_tools: [exact_lookup]
+
+  - id: Q-080
+    split: heldout
+    category: unanswerable
+    question: What is the on-call phone number for the Payments Team?
+    reference_answer: Phone numbers are not part of the corpus.
+    answer_type: abstain
+    answerable: false
+    suggested_tools: [exact_lookup]
+    first_tools: [exact_lookup]

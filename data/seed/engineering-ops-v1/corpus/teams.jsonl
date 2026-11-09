@@ -1,0 +1,7 @@
+{"id": "TEAM-CHECKOUT", "lead": "Priya Raman", "name": "Checkout Team", "slack_channel": "#team-checkout"}
+{"id": "TEAM-PAYMENTS", "lead": "Tomasz Wierzbicki", "name": "Payments Team", "slack_channel": "#team-payments"}
+{"id": "TEAM-IDENTITY", "lead": "Amara Okafor", "name": "Identity Team", "slack_channel": "#team-identity"}
+{"id": "TEAM-INVENTORY", "lead": "Jonas Lindqvist", "name": "Inventory Team", "slack_channel": "#team-inventory"}
+{"id": "TEAM-COMMS", "lead": "Sofia Marquez", "name": "Customer Comms Team", "slack_channel": "#team-comms"}
+{"id": "TEAM-DATA", "lead": "Kenji Watanabe", "name": "Data Platform Team", "slack_channel": "#team-data"}
+{"id": "TEAM-SRE", "lead": "Hannah Becker", "name": "Platform SRE", "slack_channel": "#sre"}

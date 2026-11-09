@@ -1,0 +1,68 @@
+# Directed edges: `service` DEPENDS_ON `depends_on` (the caller needs the callee).
+# valid_from / valid_to are inclusive-exclusive dates; null means open-ended within the dataset period.
+dependencies:
+  - {id: LINK-01, service: api-gateway, depends_on: auth-service, type: sync_http, criticality: hard}
+  - {id: LINK-02, service: api-gateway, depends_on: checkout-api, type: sync_http, criticality: hard}
+  - {id: LINK-03, service: api-gateway, depends_on: catalog-service, type: sync_http, criticality: hard}
+  - {id: LINK-04, service: checkout-api, depends_on: cart-service, type: sync_http, criticality: hard}
+  - {id: LINK-05, service: checkout-api, depends_on: pricing-service, type: sync_http, criticality: hard}
+  - {id: LINK-06, service: checkout-api, depends_on: payments-api, type: sync_http, criticality: hard}
+  - {id: LINK-07, service: checkout-api, depends_on: inventory-service, type: sync_http, criticality: hard}
+  - {id: LINK-08, service: checkout-api, depends_on: order-service, type: sync_http, criticality: hard}
+  - {id: LINK-09, service: checkout-api, depends_on: auth-service, type: sync_http, criticality: hard}
+  - id: LINK-10
+    service: checkout-api
+    depends_on: fraud-service
+    type: sync_http
+    criticality: soft
+    valid_to: "2026-06-01"
+    change_ref: ADR-fraud-scoring-ownership
+  - id: LINK-11
+    service: payments-api
+    depends_on: fraud-service
+    type: sync_http
+    criticality: hard
+    valid_from: "2026-06-01"
+    change_ref: ADR-fraud-scoring-ownership
+  - {id: LINK-12, service: payments-api, depends_on: psp-adapter, type: sync_http, criticality: hard}
+  - {id: LINK-13, service: payments-api, depends_on: ledger-service, type: async_queue, criticality: soft}
+  - {id: LINK-14, service: payments-api, depends_on: orders-db, type: database, criticality: hard}
+  - {id: LINK-15, service: psp-adapter, depends_on: EXT-PAYNOVA, type: external_api, criticality: hard}
+  - {id: LINK-16, service: ledger-service, depends_on: orders-db, type: database, criticality: hard}
+  - {id: LINK-17, service: order-service, depends_on: orders-db, type: database, criticality: hard}
+  - {id: LINK-18, service: order-service, depends_on: event-bus, type: async_queue, criticality: soft}
+  - {id: LINK-19, service: cart-service, depends_on: shared-redis, type: cache, criticality: hard}
+  - {id: LINK-20, service: cart-service, depends_on: pricing-service, type: sync_http, criticality: hard}
+  - {id: LINK-21, service: pricing-service, depends_on: catalog-service, type: sync_http, criticality: hard}
+  - {id: LINK-22, service: auth-service, depends_on: shared-redis, type: cache, criticality: hard}
+  - {id: LINK-23, service: auth-service, depends_on: accounts-service, type: sync_http, criticality: soft}
+  - {id: LINK-24, service: warehouse-sync, depends_on: inventory-service, type: sync_http, criticality: hard}
+  - {id: LINK-25, service: catalog-service, depends_on: shared-redis, type: cache, criticality: soft}
+  - id: LINK-26
+    service: notification-service
+    depends_on: order-service
+    type: webhook
+    criticality: hard
+    valid_to: "2026-08-05"
+    change_ref: ADR-event-bus-migration
+  - id: LINK-27
+    service: notification-service
+    depends_on: event-bus
+    type: async_queue
+    criticality: hard
+    valid_from: "2026-08-05"
+    change_ref: ADR-event-bus-migration
+  - {id: LINK-28, service: notification-service, depends_on: email-dispatcher, type: async_queue, criticality: hard}
+  - {id: LINK-29, service: email-dispatcher, depends_on: EXT-MAILRELAY, type: external_api, criticality: hard}
+  - {id: LINK-30, service: warehouse-loader, depends_on: event-bus, type: async_queue, criticality: hard}
+  - {id: LINK-31, service: warehouse-loader, depends_on: orders-db, type: database, criticality: hard}
+  - id: LINK-32
+    service: inventory-service
+    depends_on: event-bus
+    type: async_queue
+    criticality: soft
+    valid_from: "2026-08-05"
+    change_ref: ADR-event-bus-migration
+  - {id: LINK-33, service: fraud-service, depends_on: accounts-service, type: sync_http, criticality: soft}
+  - {id: LINK-34, service: order-service, depends_on: inventory-service, type: sync_http, criticality: hard}
+  - {id: LINK-35, service: catalog-service, depends_on: inventory-service, type: async_queue, criticality: soft}

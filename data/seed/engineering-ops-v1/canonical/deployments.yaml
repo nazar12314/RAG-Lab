@@ -1,0 +1,183 @@
+# kind: release | hotfix | rollback | config_change | infra_upgrade
+# status: succeeded | rolled_back
+# `changes` feed the release notes; they describe what changed, never whether it caused an incident.
+# Deliberately absent: approver / change-approval data (used for unanswerable questions).
+deployments:
+  - {id: DPL-001, service: checkout-api, version: v5.2.0, kind: release, at: "2026-04-01T09:15:00Z", by: Lena Fischer,
+     changes: ["Gift-card balance shown on the review step", "Upgraded Spring Boot to 3.4.2"]}
+  - {id: DPL-002, service: warehouse-loader, version: v1.3.0, kind: release, at: "2026-04-02T14:00:00Z", by: Ravi Menon,
+     changes: ["Nightly order export now includes shipping address fields", "Airflow DAG split into extract and load tasks"]}
+  - {id: DPL-003, service: auth-service, version: v6.0.0, kind: release, at: "2026-04-07T10:30:00Z", by: Mateo Silva,
+     changes: ["Moved session storage keys to a new prefix in Shared Redis", "Dropped support for legacy v1 session cookies"]}
+  - {id: DPL-004, service: catalog-service, version: v2.1.0, kind: release, at: "2026-04-08T11:00:00Z", by: Chloe Dubois,
+     changes: ["New product image pipeline with WebP thumbnails", "CDN cache headers now set by the service"]}
+  - {id: DPL-005, service: shared-redis, version: maxmemory-policy-volatile-lru, kind: config_change, at: "2026-04-09T15:20:00Z", by: Hannah Becker,
+     changes: ["Changed eviction policy from allkeys-lru to volatile-lru", "Increased maxmemory from 8 GB to 16 GB per shard"]}
+  - {id: DPL-006, service: order-service, version: v4.1.0, kind: release, at: "2026-04-14T13:20:00Z", by: Lena Fischer,
+     changes: ["Added partial-shipment support to the order state machine"]}
+  - {id: DPL-007, service: payments-api, version: v2.7.3, kind: hotfix, at: "2026-04-16T10:00:00Z", by: Oskar Nowak,
+     changes: ["Fixed currency code validation for refunds in CHF"]}
+  - {id: DPL-008, service: warehouse-sync, version: v1.9.4, kind: release, at: "2026-04-20T15:00:00Z", by: Ines Carvalho,
+     changes: ["Retry with backoff on WMS API 429 responses"]}
+  - {id: DPL-009, service: cart-service, version: v1.12.0, kind: release, at: "2026-04-22T09:40:00Z", by: Daniel Kim,
+     changes: ["Cart TTL extended from 7 to 14 days", "Added cart merge on login"]}
+  - {id: DPL-010, service: payments-api, version: v2.8.0, kind: release, at: "2026-04-22T10:05:00Z", by: Oskar Nowak, status: rolled_back,
+     changes: ["Refactored database settings into a typed config module; pool size is now read from PAYMENTS_DB_POOL_MAX (default 10)",
+               "Added structured logging for authorization requests"]}
+  - {id: DPL-011, service: payments-api, version: v2.7.3, kind: rollback, rolls_back: DPL-010, at: "2026-04-22T11:02:00Z", by: Oskar Nowak,
+     changes: ["Rollback of v2.8.0 to v2.7.3"]}
+  - {id: DPL-012, service: order-service, version: v4.2.0, kind: release, at: "2026-04-27T08:30:00Z", by: Lena Fischer,
+     changes: ["Database migration renames orders.shipping_addr to orders.shipping_address", "Order history API returns full address objects"]}
+  - {id: DPL-013, service: warehouse-loader, version: v1.3.1, kind: hotfix, at: "2026-04-29T10:10:00Z", by: Ravi Menon,
+     changes: ["Column mapping updated for orders.shipping_address", "Loader now fails loudly on unknown source columns"]}
+  - {id: DPL-014, service: pricing-service, version: v2.6.0, kind: release, at: "2026-05-02T09:00:00Z", by: Yusuf Demir,
+     changes: ["Promotion rules can be scheduled with start and end timestamps"]}
+  - {id: DPL-015, service: warehouse-sync, version: v2.0.0, kind: release, at: "2026-05-04T07:45:00Z", by: Ines Carvalho, status: rolled_back,
+     changes: ["Switched from incremental deltas to full stock snapshots every 15 minutes", "Parallel batch processing per warehouse"]}
+  - {id: DPL-016, service: warehouse-sync, version: v1.9.4, kind: rollback, rolls_back: DPL-015, at: "2026-05-04T12:30:00Z", by: Ines Carvalho,
+     changes: ["Rollback of v2.0.0 to v1.9.4"]}
+  - {id: DPL-017, service: payments-api, version: v2.8.1, kind: release, at: "2026-05-06T10:00:00Z", by: Oskar Nowak,
+     changes: ["Re-release of the typed config module with PAYMENTS_DB_POOL_MAX default restored to 40",
+               "Startup check fails if the pool is smaller than the worker count"]}
+  - {id: DPL-018, service: pricing-service, version: v2.6.0+rules-r42, kind: config_change, at: "2026-05-11T08:00:00Z", by: Yusuf Demir, status: rolled_back,
+     changes: ["Spring promotion rule set r42 (stackable category discounts)"]}
+  - {id: DPL-019, service: pricing-service, version: v2.6.0+rules-r41, kind: rollback, rolls_back: DPL-018, at: "2026-05-11T10:20:00Z", by: Yusuf Demir,
+     changes: ["Reverted promotion rule set to r41"]}
+  - {id: DPL-020, service: ledger-service, version: v1.7.2, kind: release, at: "2026-05-14T11:00:00Z", by: Marta Kowalczyk,
+     changes: ["Monthly payout report export to CSV"]}
+  - {id: DPL-021, service: warehouse-loader, version: v1.3.1+export-source-replica, kind: config_change, at: "2026-05-19T15:30:00Z", by: Ravi Menon,
+     changes: ["Full order export pinned to the orders-db read replica endpoint"]}
+  - {id: DPL-022, service: inventory-service, version: v3.4.0, kind: release, at: "2026-05-20T10:00:00Z", by: Jonas Lindqvist,
+     changes: ["Reservation expiry reduced from 30 to 15 minutes", "Stock reconciliation endpoint for warehouse sync"]}
+  - {id: DPL-023, service: warehouse-sync, version: v2.0.1, kind: release, at: "2026-05-25T09:30:00Z", by: Ines Carvalho,
+     changes: ["Snapshot mode re-enabled with a version check that rejects stale snapshots"]}
+  - {id: DPL-024, service: api-gateway, version: edge-cert-2026-05, kind: config_change, at: "2026-05-27T06:00:00Z", by: Hannah Becker,
+     changes: ["Rotated public TLS certificate for shop and api hostnames"]}
+  - {id: DPL-025, service: email-dispatcher, version: v2.2.0, kind: release, at: "2026-05-29T13:00:00Z", by: Sofia Marquez,
+     changes: ["Dark-mode friendly email templates"]}
+  - {id: DPL-026, service: checkout-api, version: v5.3.0, kind: release, at: "2026-06-01T08:00:00Z", by: Lena Fischer,
+     changes: ["Removed the direct call to Fraud Scoring; fraud checks now happen inside Payments API"]}
+  - {id: DPL-027, service: payments-api, version: v2.9.0, kind: release, at: "2026-06-01T08:30:00Z", by: Oskar Nowak,
+     changes: ["Payments API now calls Fraud Scoring before authorization with a 200 ms timeout",
+               "Transactions are declined when the fraud score is unavailable"]}
+  - {id: DPL-028, service: payments-api, version: v2.9.1, kind: hotfix, at: "2026-06-02T13:15:00Z", by: Oskar Nowak,
+     changes: ["Fraud call timeout raised to 800 ms", "Fail-open for low-value orders when the fraud score is unavailable"]}
+  - {id: DPL-029, service: notification-service, version: v3.1.0, kind: release, at: "2026-06-08T14:00:00Z", by: Ahmed Hassan,
+     changes: ["Automatic retries for failed sends with exponential backoff"]}
+  - {id: DPL-030, service: notification-service, version: v3.1.1, kind: hotfix, at: "2026-06-09T11:30:00Z", by: Ahmed Hassan,
+     changes: ["Retries now carry an idempotency key so the mailer can drop duplicates"]}
+  - {id: DPL-031, service: auth-service, version: v6.1.4, kind: release, at: "2026-06-16T10:00:00Z", by: Mateo Silva,
+     changes: ["Refresh token rotation", "Rate limit on password reset requests"]}
+  - {id: DPL-032, service: psp-adapter, version: v1.6.0, kind: release, at: "2026-06-20T07:10:00Z", by: Tomasz Wierzbicki,
+     changes: ["Support for PayNova API version 2026-06", "New metrics for authorization latency per card network"]}
+  - {id: DPL-033, service: order-service, version: v4.3.0, kind: release, at: "2026-06-23T10:00:00Z", by: Lena Fischer,
+     changes: ["Order cancellation window configurable per market"]}
+  - {id: DPL-034, service: checkout-api, version: v5.3.2, kind: hotfix, at: "2026-06-24T15:00:00Z", by: Daniel Kim,
+     changes: ["Fixed postcode validation for Irish Eircodes"]}
+  - {id: DPL-035, service: shared-redis, version: appendonly-yes, kind: config_change, at: "2026-06-27T09:00:00Z", by: Hannah Becker,
+     changes: ["Enabled AOF persistence (appendfsync everysec) on cart and session shards"]}
+  - {id: DPL-036, service: cart-service, version: v1.13.0, kind: release, at: "2026-06-29T10:00:00Z", by: Daniel Kim,
+     changes: ["Carts of logged-in users are also written to the orders-db draft table as a fallback"]}
+  - {id: DPL-037, service: checkout-api, version: v5.4.0, kind: release, at: "2026-07-01T09:00:00Z", by: Daniel Kim, status: rolled_back,
+     changes: ["Saved addresses are pre-filled on the shipping step", "Address book loaded from Accounts Service"]}
+  - {id: DPL-038, service: checkout-api, version: v5.3.2, kind: rollback, rolls_back: DPL-037, at: "2026-07-02T08:20:00Z", by: Daniel Kim,
+     changes: ["Rollback of v5.4.0 to v5.3.2"]}
+  - {id: DPL-039, service: inventory-service, version: v3.5.0, kind: release, at: "2026-07-06T10:00:00Z", by: Jonas Lindqvist,
+     changes: ["Per-warehouse stock breakdown in the stock API"]}
+  - {id: DPL-040, service: event-bus, version: kafka-3.7.1, kind: infra_upgrade, at: "2026-07-08T06:00:00Z", by: Kenji Watanabe,
+     changes: ["Broker upgrade from Kafka 3.6.2 to 3.7.1", "Switched consumer groups to the cooperative rebalancing protocol"]}
+  - {id: DPL-041, service: payments-api, version: v3.0.0, kind: release, at: "2026-07-15T10:00:00Z", by: Oskar Nowak,
+     changes: ["New refunds API v2", "Dropped the deprecated payment-service hostname alias"]}
+  - {id: DPL-042, service: catalog-service, version: v2.2.0, kind: release, at: "2026-07-15T14:00:00Z", by: Chloe Dubois,
+     changes: ["Search index rebuild job moved from cron to the scheduler service"]}
+  - {id: DPL-043, service: ledger-service, version: v1.8.0, kind: release, at: "2026-07-17T16:00:00Z", by: Marta Kowalczyk,
+     changes: ["Idempotency key for refund postings now derived from refund id instead of payment id + amount"]}
+  - {id: DPL-044, service: ledger-service, version: v1.8.1, kind: hotfix, at: "2026-07-18T15:00:00Z", by: Marta Kowalczyk,
+     changes: ["Idempotency key falls back to the legacy format for refunds created before v1.8.0"]}
+  - {id: DPL-045, service: checkout-api, version: v5.5.0, kind: release, at: "2026-07-21T10:00:00Z", by: Lena Fischer,
+     changes: ["Saved addresses re-enabled with null-safe address mapping"]}
+  - {id: DPL-046, service: auth-service, version: v6.2.0, kind: release, at: "2026-07-23T18:00:00Z", by: Mateo Silva, status: rolled_back,
+     changes: ["JWKS key set fetched per request to pick up rotations immediately"]}
+  - {id: DPL-047, service: auth-service, version: v6.1.4, kind: rollback, rolls_back: DPL-046, at: "2026-07-24T09:40:00Z", by: Mateo Silva,
+     changes: ["Rollback of v6.2.0 to v6.1.4"]}
+  - {id: DPL-048, service: fraud-service, version: v2.3.2, kind: release, at: "2026-07-28T11:00:00Z", by: Elif Yilmaz,
+     changes: ["Model v23 retrained on Q2 data"]}
+  - {id: DPL-049, service: psp-adapter, version: v1.7.0, kind: release, at: "2026-08-03T10:00:00Z", by: Tomasz Wierzbicki,
+     changes: ["Network token support for Visa and Mastercard"]}
+  - {id: DPL-050, service: inventory-service, version: v3.6.0, kind: release, at: "2026-08-05T07:00:00Z", by: Jonas Lindqvist,
+     changes: ["Publishes stock-changed events to the Event Bus topic stock-events"]}
+  - {id: DPL-051, service: notification-service, version: v4.0.0, kind: release, at: "2026-08-05T08:00:00Z", by: Ahmed Hassan,
+     changes: ["Consumes order lifecycle events from the Event Bus instead of the Order Service webhook",
+               "Consumer subscribes to topic configured in NOTIFY_ORDER_TOPIC (default orders.v1)"]}
+  - {id: DPL-052, service: notification-service, version: v4.0.1, kind: hotfix, at: "2026-08-05T11:45:00Z", by: Ahmed Hassan,
+     changes: ["NOTIFY_ORDER_TOPIC default corrected to order-events", "Replay tool for missed order events"]}
+  - {id: DPL-053, service: inventory-service, version: v3.6.1, kind: hotfix, at: "2026-08-12T10:30:00Z", by: Jonas Lindqvist,
+     changes: ["Stock events carry a deterministic event id for consumer-side de-duplication", "Producer retries made idempotent"]}
+  - {id: DPL-054, service: checkout-api, version: v5.6.0, kind: release, at: "2026-08-17T07:30:00Z", by: Daniel Kim,
+     changes: ["Express checkout button for returning customers"]}
+  - {id: DPL-055, service: payments-api, version: v3.1.0, kind: release, at: "2026-08-17T08:10:00Z", by: Oskar Nowak,
+     changes: ["New settlement reconciliation endpoint used by Finance dashboards", "Refund listing supports filtering by settlement batch"]}
+  - {id: DPL-056, service: payments-api, version: v3.1.1, kind: hotfix, at: "2026-08-17T12:40:00Z", by: Oskar Nowak,
+     changes: ["Index on payments(settlement_batch_id, created_at)", "Reconciliation endpoint kept behind the recon_v2 feature flag"]}
+  - {id: DPL-057, service: auth-service, version: v6.2.1, kind: release, at: "2026-08-20T10:00:00Z", by: Mateo Silva,
+     changes: ["JWKS key set cached for 5 minutes with background refresh"]}
+  - {id: DPL-058, service: email-dispatcher, version: v2.3.0, kind: release, at: "2026-08-23T09:00:00Z", by: Sofia Marquez,
+     changes: ["Template assets served from the new static asset bucket"]}
+  - {id: DPL-059, service: email-dispatcher, version: v2.3.1, kind: hotfix, at: "2026-08-23T15:10:00Z", by: Sofia Marquez,
+     changes: ["Absolute URLs for template images"]}
+  - {id: DPL-060, service: order-service, version: v4.4.0, kind: release, at: "2026-08-26T10:00:00Z", by: Lena Fischer,
+     changes: ["Order events published with schema version 3"]}
+  - {id: DPL-061, service: api-gateway, version: rl-policy-v7, kind: config_change, at: "2026-08-29T13:00:00Z", by: Hannah Becker, status: rolled_back,
+     changes: ["Rate limit keyed by client IP instead of API key"]}
+  - {id: DPL-062, service: api-gateway, version: rl-policy-v6, kind: rollback, rolls_back: DPL-061, at: "2026-08-29T14:05:00Z", by: Hannah Becker,
+     changes: ["Reverted rate limit policy to v6"]}
+  - {id: DPL-063, service: shared-redis, version: redis-7.2.5, kind: infra_upgrade, at: "2026-09-03T05:00:00Z", by: Hannah Becker,
+     changes: ["Security patch upgrade to Redis 7.2.5 with rolling restart of all shards"]}
+  - {id: DPL-064, service: notification-service, version: v4.1.0, kind: release, at: "2026-09-08T10:00:00Z", by: Ahmed Hassan,
+     changes: ["Shipping delay notifications"]}
+  - {id: DPL-065, service: fraud-service, version: v2.4.0, kind: release, at: "2026-09-09T09:00:00Z", by: Elif Yilmaz, status: rolled_back,
+     changes: ["Model v24 with device fingerprint features", "Decline threshold lowered from 0.92 to 0.85"]}
+  - {id: DPL-066, service: fraud-service, version: v2.3.2, kind: rollback, rolls_back: DPL-065, at: "2026-09-09T16:30:00Z", by: Elif Yilmaz,
+     changes: ["Rollback of v2.4.0 to v2.3.2"]}
+  - {id: DPL-067, service: payments-api, version: v3.2.0, kind: release, at: "2026-09-10T10:00:00Z", by: Oskar Nowak,
+     changes: ["Partial captures for split shipments"]}
+  - {id: DPL-068, service: checkout-api, version: v5.7.0, kind: release, at: "2026-09-14T10:00:00Z", by: Lena Fischer,
+     changes: ["Delivery date estimate on the review step"]}
+  - {id: DPL-069, service: fraud-service, version: v2.4.1, kind: release, at: "2026-09-23T10:00:00Z", by: Elif Yilmaz,
+     changes: ["Model v24 re-released with the 0.92 decline threshold"]}
+  - {id: DPL-070, service: order-service, version: v4.5.0, kind: release, at: "2026-09-26T17:00:00Z", by: Lena Fischer, status: rolled_back,
+     changes: ["Order state machine rewritten as an explicit transition table"]}
+  - {id: DPL-071, service: order-service, version: v4.4.0, kind: rollback, rolls_back: DPL-070, at: "2026-09-27T10:15:00Z", by: Lena Fischer,
+     changes: ["Rollback of v4.5.0 to v4.4.0"]}
+  - {id: DPL-072, service: payments-api, version: v3.3.0, kind: release, at: "2026-09-29T10:00:00Z", by: Oskar Nowak,
+     changes: ["Apple Pay merchant validation moved server-side"]}
+  - {id: DPL-073, service: checkout-api, version: v5.7.1, kind: hotfix, at: "2026-09-30T10:00:00Z", by: Daniel Kim,
+     changes: ["Fixed delivery estimate for weekend cut-off"]}
+  - {id: DPL-074, service: psp-adapter, version: v1.8.0, kind: release, at: "2026-10-01T09:00:00Z", by: Tomasz Wierzbicki,
+     changes: ["3-D Secure callback moved to the new /v2/3ds/return path"]}
+  - {id: DPL-075, service: psp-adapter, version: v1.8.1, kind: hotfix, at: "2026-10-02T14:30:00Z", by: Tomasz Wierzbicki,
+     changes: ["Legacy 3-D Secure return path kept as an alias; callback URL registered with PayNova for EU acquirer"]}
+  - {id: DPL-076, service: notification-service, version: v4.2.0, kind: release, at: "2026-10-06T10:00:00Z", by: Ahmed Hassan,
+     changes: ["In-memory template cache for faster rendering"]}
+  - {id: DPL-077, service: notification-service, version: v4.2.1, kind: hotfix, at: "2026-10-07T16:00:00Z", by: Ahmed Hassan,
+     changes: ["Template cache bounded to 500 entries with LRU eviction"]}
+  - {id: DPL-078, service: payments-api, version: v3.3.1, kind: hotfix, at: "2026-10-08T10:00:00Z", by: Oskar Nowak,
+     changes: ["Fixed rounding of partial capture amounts in JPY"]}
+  - {id: DPL-079, service: checkout-api, version: v6.0.0, kind: release, at: "2026-10-12T08:00:00Z", by: Lena Fischer, status: rolled_back,
+     changes: ["New single-page checkout flow", "Live stock check for every cart line on each step"]}
+  - {id: DPL-080, service: checkout-api, version: v5.7.1, kind: rollback, rolls_back: DPL-079, at: "2026-10-12T09:10:00Z", by: Lena Fischer,
+     changes: ["Rollback of v6.0.0 to v5.7.1"]}
+  - {id: DPL-081, service: pricing-service, version: v2.7.0, kind: release, at: "2026-10-15T10:00:00Z", by: Yusuf Demir,
+     changes: ["Multi-currency price lists", "Rounding moved from cart-level to line-level"]}
+  - {id: DPL-082, service: pricing-service, version: v2.7.1, kind: hotfix, at: "2026-10-16T12:00:00Z", by: Yusuf Demir,
+     changes: ["Line-level rounding uses banker's rounding to match the Cart Service"]}
+  - {id: DPL-083, service: event-bus, version: retention-48h, kind: config_change, at: "2026-10-20T15:00:00Z", by: Kenji Watanabe,
+     changes: ["Retention on high-volume topics reduced from 7 days to 48 hours", "Broker data volumes expanded to 2 TB"]}
+  - {id: DPL-084, service: fraud-service, version: v2.5.0, kind: release, at: "2026-10-28T08:30:00Z", by: Elif Yilmaz,
+     changes: ["Explainability fields added to the fraud score response"]}
+  - {id: DPL-085, service: payments-api, version: v3.4.0, kind: release, at: "2026-10-28T09:15:00Z", by: Oskar Nowak, status: rolled_back,
+     changes: ["HTTP client library upgraded; connection keep-alive to the PSP Adapter now managed by the new client"]}
+  - {id: DPL-086, service: payments-api, version: v3.3.1, kind: rollback, rolls_back: DPL-085, at: "2026-10-28T10:05:00Z", by: Oskar Nowak,
+     changes: ["Rollback of v3.4.0 to v3.3.1"]}
+  - {id: DPL-087, service: accounts-service, version: v1.5.1, kind: hotfix, at: "2026-10-31T11:00:00Z", by: Amara Okafor,
+     changes: ["Index on privacy_export_requests(status, requested_at)"]}
