@@ -164,6 +164,10 @@ def test_graph_retriever_follows_a_dependency_chain_to_its_evidence(built):
     assert result.entities[0].key == "SVC-CHECKOUT-API"
     assert any("DEPENDS_ON" in s for item in result.evidence for s in item.supports)
     assert result.graph_paths
+    for path in result.graph_paths:
+        assert path.nodes[0] == "SVC-CHECKOUT-API" and len(path.nodes) == path.hops + 1
+        for step, edge in enumerate(path.edges):
+            assert {edge.source, edge.target} == {path.nodes[step], path.nodes[step + 1]}
     assert result.metadata["hop_limit"] == 2
 
 

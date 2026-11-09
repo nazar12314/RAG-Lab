@@ -43,6 +43,10 @@ Retrievers read through the `raglab_retriever` role, which has no access to the 
    Refuted edges stay available at reduced weight, because "what was ruled out?" is a real
    question.
 
+The playground draws the 10 strongest paths on the Graph Explorer canvas, hops running left to
+right. A path is only as strong as its worst-supported edge, so a direct, well-evidenced edge is
+never pushed out by a long, weak chain.
+
 This walks the **curated** graph, an upper-bound baseline: its edges were authored with the
 dataset, so scores show what graph retrieval can do with a perfect graph, not an extracted one.
 

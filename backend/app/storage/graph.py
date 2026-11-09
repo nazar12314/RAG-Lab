@@ -73,6 +73,11 @@ class GraphEdge:
     verified_status: str
     valid_from: date | None
     valid_to: date | None
+    key: str
+    source_key: str
+    target_key: str
+    source_type: str
+    target_type: str
 
     @property
     def statement(self) -> str:
@@ -132,6 +137,11 @@ class PostgresGraphStore:
                 Relation.verified_status,
                 Relation.valid_from,
                 Relation.valid_to,
+                Relation.key,
+                source.key,
+                target.key,
+                source.entity_type,
+                target.entity_type,
             )
             .join(source, source.id == Relation.source_entity_id)
             .join(target, target.id == Relation.target_entity_id)

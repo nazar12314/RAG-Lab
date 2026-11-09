@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, computed_field
@@ -70,10 +70,30 @@ class Evidence(BaseModel):
         return f"{self.document_id}:{self.span_start}-{self.span_end}"
 
 
+class PathEdge(BaseModel):
+    """`source` and `target` are the stored direction, which a walk may cross either way."""
+
+    id: str
+    source: str
+    source_label: str
+    source_type: str
+    target: str
+    target_label: str
+    target_type: str
+    relation_type: str
+    verified_status: str
+    valid_from: date | None
+    valid_to: date | None
+    evidence_ids: list[str] = Field(default_factory=list)
+
+
 class GraphPath(BaseModel):
     steps: list[str]
     hops: int
     refuted: bool
+    # Entity keys in walk order, starting at the entity the walk began from.
+    nodes: list[str] = Field(default_factory=list)
+    edges: list[PathEdge] = Field(default_factory=list)
 
 
 class EntityRef(BaseModel):

@@ -12,6 +12,7 @@ from backend.app.models.contracts import (
     EntityRef,
     Evidence,
     GraphPath,
+    PathEdge,
     RetrievalRequest,
     RetrievalResult,
 )
@@ -86,6 +87,34 @@ def _reliability(edge: GraphEdge) -> float:
     return edge.confidence * (REFUTED_WEIGHT if edge.verified_status == "refuted" else 1.0)
 
 
+def _walk_nodes(walk: list[GraphEdge], seeds: set[str]) -> list[str]:
+    """Entity keys in the order walked; edges can be crossed against their stored direction."""
+    first = walk[0]
+    current = first.source_key if first.source_key in seeds else first.target_key
+    nodes = [current]
+    for edge in walk:
+        current = edge.target_key if edge.source_key == current else edge.source_key
+        nodes.append(current)
+    return nodes
+
+
+def _path_edge(edge: GraphEdge, evidence_ids: list[str]) -> PathEdge:
+    return PathEdge(
+        id=edge.key,
+        source=edge.source_key,
+        source_label=edge.source,
+        source_type=edge.source_type,
+        target=edge.target_key,
+        target_label=edge.target,
+        target_type=edge.target_type,
+        relation_type=edge.relation_type,
+        verified_status=edge.verified_status,
+        valid_from=edge.valid_from,
+        valid_to=edge.valid_to,
+        evidence_ids=evidence_ids,
+    )
+
+
 class GraphRetriever:
     label = "Graph"
     description = "Starts from entities named in the question and follows their relationships."
@@ -156,10 +185,15 @@ class GraphRetriever:
             self._evidence(chunks[key], rank, scores[key], supporting[key], edges, depth)
             for rank, key in enumerate(ranked, start=1)
         ]
-        used = {relation for key in ranked for relation in supporting[key]}
+        backing: dict[int, list[str]] = {}
+        best_rank: dict[int, int] = {}
+        for key, item in zip(ranked, evidence, strict=True):
+            for relation in dict.fromkeys(supporting[key]):
+                backing.setdefault(relation, []).append(item.evidence_id)
+                best_rank.setdefault(relation, item.rank)
         return RetrievalResult(
             evidence=evidence,
-            graph_paths=self._paths(walks, edges, used),
+            graph_paths=self._paths(walks, edges, backing, best_rank, set(seeds)),
             entities=entities,
             metadata=metadata,
         )
@@ -191,16 +225,26 @@ class GraphRetriever:
 
     @staticmethod
     def _paths(
-        walks: list[tuple[int, ...]], edges: dict[int, GraphEdge], used: set[int]
+        walks: list[tuple[int, ...]],
+        edges: dict[int, GraphEdge],
+        backing: dict[int, list[str]],
+        best_rank: dict[int, int],
+        seeds: set[str],
     ) -> list[GraphPath]:
-        """Walks fully backed by the selected evidence, longest first to show whole chains."""
-        relevant = [walk for walk in walks if used.issuperset(walk)]
-        relevant.sort(key=lambda walk: (-len(walk), walk))
+        """Walks fully backed by the selected evidence, strongest first.
+
+        A walk is only as strong as its worst-supported edge. Among equals the longer one wins,
+        since it shows more of the chain.
+        """
+        relevant = [walk for walk in walks if backing.keys() >= set(walk)]
+        relevant.sort(key=lambda walk: (max(best_rank[r] for r in walk), -len(walk), walk))
         return [
             GraphPath(
                 steps=[edges[r].statement for r in walk],
                 hops=len(walk),
                 refuted=any(edges[r].verified_status == "refuted" for r in walk),
+                nodes=_walk_nodes([edges[r] for r in walk], seeds),
+                edges=[_path_edge(edges[r], backing[r]) for r in walk],
             )
             for walk in relevant[:MAX_PATHS]
         ]

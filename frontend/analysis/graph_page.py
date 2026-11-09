@@ -276,7 +276,7 @@ def _apply_preselect(view: dict[str, Any]) -> None:
             return
 
 
-def _theme() -> str:
+def active_theme() -> str:
     try:
         return st.context.theme.type or "light"
     except AttributeError:
@@ -298,7 +298,7 @@ def _canvas(
         pos,
         highlight,
         selected_node,
-        theme=_theme(),
+        theme=active_theme(),
         radial_labels=not path_mode,
         dim_unfocused=not path_mode,
         width=graph_view.COMPACT_WIDTH if layout.is_compact() else graph_view.WIDTH,

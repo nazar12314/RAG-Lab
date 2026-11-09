@@ -5,6 +5,7 @@ from streamlit.testing.v1 import AppTest
 
 from frontend.analysis.api import LabApiError
 from frontend.playground import api
+from frontend.playground.graph import canvas_layout, path_graph
 from frontend.playground.views import answer_markdown, escape_markdown, snippet
 
 SCREEN = Path(__file__).parents[2] / "frontend/screens/playground.py"
@@ -22,6 +23,74 @@ OPTIONS = {
     "max_hops": 3,
 }
 EXAMPLES = [{"id": "Q-001", "category": "exact_id", "question": "What happened in INC-104?"}]
+
+
+def path_edge(edge_id, source, target, relation, status="verified", evidence_ids=()):
+    return {
+        "id": edge_id,
+        "source": source,
+        "source_label": f"{source} name",
+        "source_type": "service",
+        "target": target,
+        "target_label": f"{target} name",
+        "target_type": "incident",
+        "relation_type": relation,
+        "verified_status": status,
+        "valid_from": None,
+        "valid_to": None,
+        "evidence_ids": list(evidence_ids),
+    }
+
+
+def test_paths_merge_into_one_graph_with_shared_parts_once():
+    shared = path_edge("R1", "A", "B", "DEPENDS_ON")
+    paths = [
+        {"nodes": ["A", "B", "C"], "edges": [shared, path_edge("R2", "B", "C", "AFFECTED_BY")]},
+        {"nodes": ["A", "B"], "edges": [shared]},
+    ]
+    nodes, edges = path_graph(paths, [])
+    by_key = {n["key"]: n for n in nodes}
+    assert sorted(by_key) == ["A", "B", "C"]
+    assert sorted(e["id"] for e in edges) == ["R1", "R2"]
+    assert [by_key[k]["depth"] for k in ("A", "B", "C")] == [0, 1, 2]
+    assert by_key["A"]["is_seed"] and not by_key["B"]["is_seed"]
+    assert (by_key["B"]["in_degree"], by_key["B"]["out_degree"]) == (1, 1)
+
+
+def test_nodes_use_stored_direction_even_when_walked_backwards():
+    paths = [{"nodes": ["B", "A"], "edges": [path_edge("R1", "A", "B", "AFFECTED_BY")]}]
+    nodes, edges = path_graph(paths, [])
+    assert {n["key"]: n["depth"] for n in nodes} == {"B": 0, "A": 1}
+    assert (edges[0]["source"], edges[0]["target"]) == ("A", "B")
+    assert {n["label"] for n in nodes} == {"A name", "B name"}
+
+
+def test_every_node_sits_at_its_earliest_hop():
+    paths = [{"nodes": ["A", "B", "C"], "edges": []}, {"nodes": ["A", "C"], "edges": []}]
+    positions = canvas_layout(paths, compact=True)
+    assert positions["C"][0] == 1
+    assert positions["A"][0] == 0
+
+
+def test_wide_layout_stretches_hops_and_tightens_rows():
+    paths = [{"nodes": ["A", "B"], "edges": []}, {"nodes": ["A", "C"], "edges": []}]
+    wide, compact = canvas_layout(paths, compact=False), canvas_layout(paths, compact=True)
+    assert wide["B"][0] > compact["B"][0]
+    assert abs(wide["B"][1] - wide["C"][1]) < abs(compact["B"][1] - compact["C"][1])
+
+
+def test_refuted_edges_say_so_in_their_label():
+    paths = [{"nodes": ["A", "B"], "edges": [path_edge("R1", "A", "B", "SUSPECTED", "refuted")]}]
+    assert path_graph(paths, [])[1][0]["relation_type"] == "SUSPECTED (refuted)"
+
+
+def test_edge_tooltips_point_at_the_retrieved_evidence():
+    evidence = [{"evidence_id": "E1", "rank": 1}, {"evidence_id": "E2", "rank": 3}]
+    backed = path_edge("R1", "A", "B", "X", evidence_ids=["E2", "E1"])
+    unbacked = path_edge("R2", "B", "C", "X", evidence_ids=["gone"])
+    paths = [{"nodes": ["A", "B", "C"], "edges": [backed, unbacked]}]
+    by_id = {e["id"]: e["evidence"] for e in path_graph(paths, evidence)[1]}
+    assert by_id == {"R1": "evidence #1, #3", "R2": "graph record"}
 
 
 def result(strategy="bm25", **overrides):
@@ -154,12 +223,23 @@ def test_graph_paths_and_supported_edges_are_shown(backend):
     backend["reply"] = [
         result(
             evidence=[item],
-            graph_paths=[{"steps": ["A -DEPENDS_ON-> B", "B -AFFECTED_BY-> C"], "hops": 2}],
+            graph_paths=[
+                {
+                    "steps": ["A -DEPENDS_ON-> B", "B -AFFECTED_BY-> C"],
+                    "hops": 2,
+                    "nodes": ["A", "B", "C"],
+                    "edges": [
+                        path_edge("R1", "A", "B", "DEPENDS_ON"),
+                        path_edge("R2", "B", "C", "AFFECTED_BY"),
+                    ],
+                }
+            ],
             entities=[{"name": "A", "entity_type": "service"}],
         )
     ]
     app = press_run(page())
     assert not app.exception
+    assert len(app.get("vega_lite_chart")) == 1
     assert any(t.value == "A -DEPENDS_ON-> B\nB -AFFECTED_BY-> C" for t in app.text)
     assert any(c.value == "Backs: A -DEPENDS_ON-> B" for c in app.caption)
     assert any(c.value == "Started from: A (service)" for c in app.caption)

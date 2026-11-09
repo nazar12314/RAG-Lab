@@ -14,6 +14,7 @@ import streamlit as st
 from frontend.analysis.api import LabApiError
 from frontend.analysis.rendering import snippet_html
 from frontend.playground import api
+from frontend.playground.graph import render_paths
 
 QUESTION_KEY, EXAMPLE_KEY, RESULT_KEY = "pg_question", "pg_example", "pg_result"
 SNIPPET_CHARS = 220
@@ -209,9 +210,7 @@ def _result(result: dict[str, Any], info: dict[str, Any]) -> None:
     if result["tool_trace"]:
         _tool_trace(result)
     if result["graph_paths"]:
-        st.markdown("**Graph paths**")
-        for path in result["graph_paths"]:
-            st.text("\n".join(path["steps"]))
+        render_paths(result)
     if result["tool_trace"]:
         st.markdown(f"**Evidence collected** · {len(result['evidence'])}, cited first")
     else:

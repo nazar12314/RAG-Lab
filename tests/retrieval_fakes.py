@@ -76,7 +76,19 @@ POOL_ENTITY = GraphEntity("SVC-POOL", "Pool Service", "service")
 
 def make_edge(edge_id: int, status: str = "verified", confidence: float = 1.0) -> GraphEdge:
     return GraphEdge(
-        edge_id, f"A{edge_id}", f"B{edge_id}", "DEPENDS_ON", confidence, status, None, None
+        edge_id,
+        f"A{edge_id}",
+        f"B{edge_id}",
+        "DEPENDS_ON",
+        confidence,
+        status,
+        None,
+        None,
+        f"REL-{edge_id}",
+        f"KEY-A{edge_id}",
+        f"KEY-B{edge_id}",
+        "service",
+        "service",
     )
 
 
