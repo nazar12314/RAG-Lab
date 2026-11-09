@@ -51,6 +51,8 @@ class Evidence(BaseModel):
     rank: int
     score: float
     matched_terms: list[str] = Field(default_factory=list)
+    # For fused results: the rank each component strategy gave this evidence.
+    rank_details: dict[str, int] = Field(default_factory=dict)
 
     # Chunk row ids change on every rebuild; document spans do not.
     @computed_field  # type: ignore[prop-decorator]

@@ -39,7 +39,7 @@ def make_client(store=None, chat=None, extra=None, examples=None) -> TestClient:
 
 def test_options_list_strategies_and_ready_indexes():
     body = make_client(chat=FakeChat()).get("/query/options").json()
-    assert [s["id"] for s in body["strategies"]] == ["bm25", "vector"]
+    assert [s["id"] for s in body["strategies"]] == ["bm25", "vector", "hybrid"]
     assert [i["id"] for i in body["indexes"]] == ["test-index"]
     assert body["generation_available"] is True
 
@@ -65,7 +65,7 @@ def test_compare_runs_every_strategy_on_the_same_normalized_question():
     body = make_client().post("/query/compare", json=QUESTION).json()
     assert body["question"] == "connection pool exhaustion"
     assert body["index_profile"] == "test-index"
-    assert [r["strategy"] for r in body["results"]] == ["bm25", "vector"]
+    assert [r["strategy"] for r in body["results"]] == ["bm25", "vector", "hybrid"]
 
 
 def test_compare_can_be_limited_to_named_strategies():
@@ -102,7 +102,13 @@ def test_one_failing_strategy_does_not_affect_the_others():
     extra = {"down": Raising(ProviderError("OpenAI failed")), "off": Raising(Unsupported("no"))}
     body = make_client(extra=extra).post("/query/compare", json=QUESTION).json()
     statuses = {r["strategy"]: r["status"] for r in body["results"]}
-    assert statuses == {"bm25": "ok", "vector": "ok", "down": "error", "off": "unsupported"}
+    assert statuses == {
+        "bm25": "ok",
+        "vector": "ok",
+        "hybrid": "ok",
+        "down": "error",
+        "off": "unsupported",
+    }
 
 
 def test_generation_failure_keeps_the_retrieved_evidence():

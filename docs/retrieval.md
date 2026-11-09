@@ -20,6 +20,7 @@ chunk. Without that prefix, a chunk in the middle of a postmortem may never name
 | --- | --- | --- | --- | --- |
 | `bm25` | BM25 | Okapi BM25 (k1 1.5, b 0.75) in Python over stemmed terms | IDs, config names, exact wording | paraphrases |
 | `vector` | Vector | exact cosine similarity in pgvector | paraphrases, concepts | identifiers, rare tokens |
+| `hybrid` | Hybrid | Reciprocal Rank Fusion (k 60) of BM25 and vector | mixed questions | the failure of both sides |
 
 BM25 is computed in the backend because PostgreSQL's `ts_rank` is a different formula. The
 tokenizer keeps identifiers such as `INC-104` whole and also indexes their parts.

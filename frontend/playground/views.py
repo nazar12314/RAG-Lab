@@ -16,8 +16,8 @@ from frontend.analysis.rendering import snippet_html
 from frontend.playground import api
 
 QUESTION_KEY, EXAMPLE_KEY, RESULT_KEY = "pg_question", "pg_example", "pg_result"
-COMPARE = "__compare__"
 SNIPPET_CHARS = 220
+COLUMNS_PER_ROW = 3
 
 _MARKDOWN_SPECIAL = re.compile(r"([\\`*_\[\]~$:])")
 
@@ -55,13 +55,9 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
     st.text_area("Question", key=QUESTION_KEY, height=80)
 
     labels = {s["id"]: s["label"] for s in options["strategies"]}
-    choices = [COMPARE, *labels]
     cols = st.columns([3, 2, 2])
-    strategy = cols[0].radio(
-        "Strategy",
-        choices,
-        horizontal=True,
-        format_func=lambda c: "Compare all" if c == COMPARE else labels[c],
+    strategies = cols[0].multiselect(
+        "Strategies", list(labels), default=list(labels), format_func=labels.get
     )
     top_k = cols[1].slider("Top-k", 1, options["max_top_k"], options["default_top_k"])
     indexes = [i["id"] for i in options["indexes"]]
@@ -82,8 +78,11 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
     if not question:
         st.warning("Write a question or pick an example first.")
         return None
+    if not strategies:
+        st.warning("Pick at least one strategy.")
+        return None
     return {
-        "strategy": None if strategy == COMPARE else strategy,
+        "strategies": strategies,
         "payload": {
             "question": question,
             "index_profile": index_profile,
@@ -104,6 +103,9 @@ def _evidence_card(item: dict[str, Any]) -> None:
         st.html(snippet_html(snippet(item["text"])))
         if item["matched_terms"]:
             st.caption("Matched terms: " + ", ".join(item["matched_terms"]))
+        if item["rank_details"]:
+            ranks = ", ".join(f"{name} #{rank}" for name, rank in item["rank_details"].items())
+            st.caption(f"Ranked by: {ranks}")
         with st.expander("Full chunk"):
             st.html(snippet_html(item["text"]))
             st.caption(f"Evidence id: {item['evidence_id']}")
@@ -184,7 +186,7 @@ def render() -> None:
             with st.spinner("Running retrieval"):
                 st.session_state[RESULT_KEY] = {
                     "question": request["payload"]["question"],
-                    "results": api.run(request["strategy"], request["payload"]),
+                    "results": api.run(request["strategies"], request["payload"]),
                 }
         except LabApiError as exc:
             st.error(str(exc))
@@ -197,6 +199,9 @@ def render() -> None:
     st.markdown(f"**Results for:** {escape_markdown(run['question'])}")
     st.caption("Scores are on different scales, so compare ranks between strategies, not scores.")
     infos = {s["id"]: s for s in options["strategies"]}
-    for column, result in zip(st.columns(len(run["results"])), run["results"], strict=True):
-        with column:
-            _result(result, infos[result["strategy"]])
+    results = run["results"]
+    for start in range(0, len(results), COLUMNS_PER_ROW):
+        row = results[start : start + COLUMNS_PER_ROW]
+        for column, result in zip(st.columns(COLUMNS_PER_ROW), row, strict=False):
+            with column:
+                _result(result, infos[result["strategy"]])

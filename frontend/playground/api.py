@@ -37,8 +37,7 @@ def examples() -> list[dict[str, Any]]:
     return _send("GET", "/examples")
 
 
-def run(strategy: str | None, payload: dict[str, Any]) -> list[dict[str, Any]]:
-    """One strategy, or every strategy on the same question when `strategy` is None."""
-    if strategy is None:
-        return _send("POST", "/query/compare", payload)["results"]
-    return [_send("POST", "/query", {**payload, "strategy": strategy})]
+def run(strategies: list[str], payload: dict[str, Any]) -> list[dict[str, Any]]:
+    if len(strategies) == 1:
+        return [_send("POST", "/query", {**payload, "strategy": strategies[0]})]
+    return _send("POST", "/query/compare", {**payload, "strategies": strategies})["results"]

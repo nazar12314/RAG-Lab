@@ -33,6 +33,7 @@ def result(strategy="bm25", **overrides):
         "rank": 1,
         "score": 12.5,
         "matched_terms": ["pool"],
+        "rank_details": {},
     }
     answer = {
         "text": "The pool ran out [1].",
@@ -60,8 +61,8 @@ def result(strategy="bm25", **overrides):
 def backend(monkeypatch):
     calls = {}
 
-    def run(strategy, payload):
-        calls.update(strategy=strategy, payload=payload)
+    def run(strategies, payload):
+        calls.update(strategies=strategies, payload=payload)
         return calls["reply"]
 
     calls["reply"] = [result("bm25"), result("vector")]
@@ -84,7 +85,7 @@ def test_page_offers_examples_strategies_and_shows_no_results_yet(backend):
     app = page()
     assert not app.exception
     assert app.selectbox[0].options[0].startswith("Q-001")
-    assert list(app.radio[0].options) == ["Compare all", "BM25", "Vector"]
+    assert list(app.multiselect[0].options) == ["BM25", "Vector"]
     assert not app.subheader
 
 
@@ -92,7 +93,7 @@ def test_compare_shows_each_strategy_and_sends_the_controls(backend):
     app = press_run(page())
     assert not app.exception
     assert [s.value for s in app.subheader] == ["BM25", "Vector"]
-    assert backend["strategy"] is None
+    assert backend["strategies"] == ["bm25", "vector"]
     assert backend["payload"] == {
         "question": "What happened in INC-104?",
         "index_profile": "test-index",
@@ -128,8 +129,23 @@ def test_abstention_and_failed_strategies_are_visible(backend):
 
 def test_empty_question_is_not_submitted(backend):
     app = page().button[0].click().run()
-    assert "strategy" not in backend
+    assert "strategies" not in backend
     assert any("Write a question" in w.value for w in app.warning)
+
+
+def test_no_selected_strategy_is_not_submitted(backend):
+    app = page()
+    app.multiselect[0].set_value([])
+    app = press_run(app)
+    assert "strategies" not in backend
+    assert any("at least one strategy" in w.value for w in app.warning)
+
+
+def test_fused_ranks_are_explained(backend):
+    item = dict(result()["evidence"][0], rank_details={"bm25": 2, "vector": 5})
+    backend["reply"] = [result(evidence=[item])]
+    app = press_run(page())
+    assert any(c.value == "Ranked by: bm25 #2, vector #5" for c in app.caption)
 
 
 def test_missing_index_explains_how_to_build_one(backend, monkeypatch):
