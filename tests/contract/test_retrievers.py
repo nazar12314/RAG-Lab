@@ -4,14 +4,19 @@ import pytest
 
 from backend.app.models.contracts import RetrievalRequest
 from backend.app.retrieval.registry import build_retrievers
-from tests.retrieval_fakes import FakeEmbedder, FakeStore, make_profile
+from tests.retrieval_fakes import FakeEmbedder, FakeGraphStore, FakeStore, make_profile
 
-STRATEGIES = list(build_retrievers(FakeStore(), lambda model: FakeEmbedder()))
+
+def registry():
+    return build_retrievers(FakeStore(), FakeGraphStore(), lambda model: FakeEmbedder())
+
+
+STRATEGIES = list(registry())
 
 
 @pytest.fixture(params=STRATEGIES)
 def retriever(request):
-    return build_retrievers(FakeStore(), lambda model: FakeEmbedder())[request.param]
+    return registry()[request.param]
 
 
 def run(retriever, top_k=5):

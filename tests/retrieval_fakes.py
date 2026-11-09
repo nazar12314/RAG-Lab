@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from backend.app.generation.answer import Completion
 from backend.app.indexing.embeddings import Embeddings
 from backend.app.models.contracts import IndexProfile
+from backend.app.storage.graph import GraphEdge, GraphEntity
 from backend.app.storage.search import StoredChunk
 
 BUILT_AT = datetime(2026, 11, 1, tzinfo=UTC)
@@ -68,6 +69,50 @@ class FakeStore:
         self, profile_id: str, vector: list[float], top_k: int
     ) -> list[tuple[StoredChunk, float]]:
         return [(c, 0.9 - i / 10) for i, c in enumerate(self.stored[:top_k])]
+
+
+POOL_ENTITY = GraphEntity("SVC-POOL", "Pool Service", "service")
+
+
+def make_edge(edge_id: int, status: str = "verified", confidence: float = 1.0) -> GraphEdge:
+    return GraphEdge(
+        edge_id, f"A{edge_id}", f"B{edge_id}", "DEPENDS_ON", confidence, status, None, None
+    )
+
+
+class FakeGraphStore:
+    def __init__(
+        self,
+        version: str | None = "curated",
+        walks: list[tuple[int, ...]] | None = None,
+        edges: dict[int, GraphEdge] | None = None,
+        evidence: list[tuple[int, StoredChunk]] | None = None,
+    ) -> None:
+        self.version = version
+        self.walk_rows = [(1,), (2,), (1, 3)] if walks is None else walks
+        self.edge_rows = edges or {i: make_edge(i) for i in (1, 2, 3)}
+        self.evidence = (
+            evidence
+            if evidence is not None
+            else [(1, SAMPLE_CHUNKS[0]), (2, SAMPLE_CHUNKS[1]), (3, SAMPLE_CHUNKS[2])]
+        )
+        self.walk_calls: list[tuple[list[str], int]] = []
+
+    def curated_version(self, dataset: str) -> str | None:
+        return self.version
+
+    def alias_matches(self, version: str, text_norm: str) -> list[tuple[str, GraphEntity]]:
+        return [("pool", POOL_ENTITY)] if "pool" in text_norm else []
+
+    def walks(self, version: str, seeds, hops: int) -> list[tuple[int, ...]]:
+        self.walk_calls.append((list(seeds), hops))
+        return self.walk_rows
+
+    def edges(self, relation_ids) -> dict[int, GraphEdge]:
+        return self.edge_rows
+
+    def evidence_chunks(self, profile_id: str, relation_ids) -> list[tuple[int, StoredChunk]]:
+        return self.evidence
 
 
 class FakeEmbedder:

@@ -21,11 +21,29 @@ chunk. Without that prefix, a chunk in the middle of a postmortem may never name
 | `bm25` | BM25 | Okapi BM25 (k1 1.5, b 0.75) in Python over stemmed terms | IDs, config names, exact wording | paraphrases |
 | `vector` | Vector | exact cosine similarity in pgvector | paraphrases, concepts | identifiers, rare tokens |
 | `hybrid` | Hybrid | Reciprocal Rank Fusion (k 60) of BM25 and vector | mixed questions | the failure of both sides |
+| `graph` | Graph | entity linking, then a bounded walk over typed edges | relationships, multi-hop chains | questions naming no known entity |
 
 BM25 is computed in the backend because PostgreSQL's `ts_rank` is a different formula. The
 tokenizer keeps identifiers such as `INC-104` whole and also indexes their parts.
 
 Retrievers read through the `raglab_retriever` role, which has no access to the `eval` schema.
+
+### Graph retrieval
+
+1. Names and aliases in the question are linked to entities. The longest alias wins its span,
+   and an ambiguous alias keeps every entity it names. If nothing links, the strategy reports
+   `unsupported` rather than falling back.
+2. A recursive SQL query walks edges in both directions, up to the hop limit (default 2, max 3).
+   Team and subsystem nodes can end a walk but not continue one, since sharing an owner says
+   nothing about cause.
+3. Each edge's supporting document spans are mapped to chunks of the selected index, so results
+   compare directly with the other strategies.
+4. Chunks are ranked by question overlap, divided by hop distance, multiplied by edge confidence.
+   Refuted edges stay available at reduced weight, because "what was ruled out?" is a real
+   question.
+
+This walks the **curated** graph, an upper-bound baseline: its edges were authored with the
+dataset, so scores show what graph retrieval can do with a perfect graph, not an extracted one.
 
 To add a strategy, implement `Retriever` in `backend/app/retrieval/` and register it in
 `registry.py`. The contract tests, API and playground pick it up from the registry.

@@ -45,12 +45,14 @@ class QueryService:
         answers: AnswerGenerator | None,
         dataset: str,
         default_top_k: int = 5,
+        default_hop_limit: int = 2,
     ) -> None:
         self.retrievers = retrievers
         self.profiles = profiles
         self.answers = answers
         self.dataset = dataset
         self.default_top_k = default_top_k
+        self.default_hop_limit = default_hop_limit
 
     def options(self) -> PlaygroundOptions:
         return PlaygroundOptions(
@@ -62,6 +64,7 @@ class QueryService:
             indexes=self.profiles.ready_profiles(self.dataset),
             generation_available=self.answers is not None,
             default_top_k=self.default_top_k,
+            default_hop_limit=self.default_hop_limit,
         )
 
     def _index(self, requested: str | None) -> IndexProfile | None:
@@ -110,7 +113,12 @@ class QueryService:
             return failed("unsupported", NO_INDEX_MESSAGE, started)
         try:
             result = self.retrievers[strategy].retrieve(
-                RetrievalRequest(question=question, index=index, top_k=options.top_k)
+                RetrievalRequest(
+                    question=question,
+                    index=index,
+                    top_k=options.top_k,
+                    hop_limit=options.hop_limit,
+                )
             )
         except Unsupported as exc:
             return failed("unsupported", str(exc), started)
@@ -123,6 +131,8 @@ class QueryService:
             index_profile=index.id,
             top_k=options.top_k,
             evidence=result.evidence,
+            graph_paths=result.graph_paths,
+            entities=result.entities,
             latency=Latency(retrieval_ms=_elapsed_ms(started)),
             usage=result.usage,
             metadata=result.metadata,

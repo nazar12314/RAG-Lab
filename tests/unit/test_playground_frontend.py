@@ -18,6 +18,8 @@ OPTIONS = {
     "generation_available": True,
     "default_top_k": 5,
     "max_top_k": 20,
+    "default_hop_limit": 2,
+    "max_hops": 3,
 }
 EXAMPLES = [{"id": "Q-001", "category": "exact_id", "question": "What happened in INC-104?"}]
 
@@ -34,6 +36,7 @@ def result(strategy="bm25", **overrides):
         "score": 12.5,
         "matched_terms": ["pool"],
         "rank_details": {},
+        "supports": [],
     }
     answer = {
         "text": "The pool ran out [1].",
@@ -49,6 +52,8 @@ def result(strategy="bm25", **overrides):
         "message": None,
         "top_k": 5,
         "evidence": [evidence],
+        "graph_paths": [],
+        "entities": [],
         "answer": answer,
         "answer_error": None,
         "latency": {"retrieval_ms": 3.0, "generation_ms": 900.0},
@@ -98,6 +103,7 @@ def test_compare_shows_each_strategy_and_sends_the_controls(backend):
         "question": "What happened in INC-104?",
         "index_profile": "test-index",
         "top_k": 5,
+        "hop_limit": 2,
         "generate": True,
     }
 
@@ -139,6 +145,27 @@ def test_no_selected_strategy_is_not_submitted(backend):
     app = press_run(app)
     assert "strategies" not in backend
     assert any("at least one strategy" in w.value for w in app.warning)
+
+
+def test_graph_paths_and_supported_edges_are_shown(backend):
+    item = dict(result()["evidence"][0], supports=["A -DEPENDS_ON-> B"])
+    backend["reply"] = [
+        result(
+            evidence=[item],
+            graph_paths=[{"steps": ["A -DEPENDS_ON-> B", "B -AFFECTED_BY-> C"], "hops": 2}],
+            entities=[{"name": "A", "entity_type": "service"}],
+        )
+    ]
+    app = press_run(page())
+    assert not app.exception
+    assert any(t.value == "A -DEPENDS_ON-> B\nB -AFFECTED_BY-> C" for t in app.text)
+    assert any(c.value == "Backs: A -DEPENDS_ON-> B" for c in app.caption)
+    assert any(c.value == "Started from: A (service)" for c in app.caption)
+
+
+def test_hop_control_only_applies_to_graph(backend):
+    app = page()
+    assert app.slider[1].disabled is True
 
 
 def test_fused_ranks_are_explained(backend):

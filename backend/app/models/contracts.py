@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field, computed_field
 Status = Literal["ok", "unsupported", "error"]
 
 MAX_TOP_K = 20
+MAX_HOPS = 3
 MAX_QUESTION_CHARS = 2000
 
 
@@ -30,6 +31,7 @@ class RetrievalRequest(BaseModel):
     question: str
     index: IndexProfile
     top_k: int = 5
+    hop_limit: int = 2
 
 
 class Usage(BaseModel):
@@ -53,6 +55,8 @@ class Evidence(BaseModel):
     matched_terms: list[str] = Field(default_factory=list)
     # For fused results: the rank each component strategy gave this evidence.
     rank_details: dict[str, int] = Field(default_factory=dict)
+    # For graph results: the relationships this evidence backs.
+    supports: list[str] = Field(default_factory=list)
 
     # Chunk row ids change on every rebuild; document spans do not.
     @computed_field  # type: ignore[prop-decorator]
@@ -61,8 +65,23 @@ class Evidence(BaseModel):
         return f"{self.document_id}:{self.span_start}-{self.span_end}"
 
 
+class GraphPath(BaseModel):
+    steps: list[str]
+    hops: int
+    refuted: bool
+
+
+class EntityRef(BaseModel):
+    key: str
+    name: str
+    entity_type: str
+    mention: str
+
+
 class RetrievalResult(BaseModel):
     evidence: list[Evidence]
+    graph_paths: list[GraphPath] = Field(default_factory=list)
+    entities: list[EntityRef] = Field(default_factory=list)
     usage: Usage = Field(default_factory=Usage)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
@@ -82,6 +101,7 @@ class QueryOptions(BaseModel):
     question: str = Field(min_length=1, max_length=MAX_QUESTION_CHARS)
     index_profile: str | None = None
     top_k: int = Field(default=5, ge=1, le=MAX_TOP_K)
+    hop_limit: int = Field(default=2, ge=1, le=MAX_HOPS)
     generate: bool = False
 
 
@@ -105,6 +125,8 @@ class QueryResponse(BaseModel):
     index_profile: str | None
     top_k: int
     evidence: list[Evidence] = Field(default_factory=list)
+    graph_paths: list[GraphPath] = Field(default_factory=list)
+    entities: list[EntityRef] = Field(default_factory=list)
     answer: Answer | None = None
     answer_error: str | None = None
     latency: Latency
@@ -131,6 +153,8 @@ class PlaygroundOptions(BaseModel):
     generation_available: bool
     default_top_k: int
     max_top_k: int = MAX_TOP_K
+    default_hop_limit: int = 2
+    max_hops: int = MAX_HOPS
 
 
 class ExampleQuestion(BaseModel):

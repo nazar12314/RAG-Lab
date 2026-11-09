@@ -22,6 +22,7 @@ from backend.app.retrieval.base import Unsupported
 from backend.app.retrieval.registry import build_retrievers
 from backend.app.services.query_service import QueryService, UnknownStrategy
 from backend.app.storage.examples import PostgresExampleStore
+from backend.app.storage.graph import PostgresGraphStore
 from backend.app.storage.postgres import create_db_engine
 from backend.app.storage.search import PostgresSearchStore
 
@@ -31,7 +32,8 @@ router = APIRouter(tags=["query"])
 @lru_cache
 def get_query_service() -> QueryService:
     settings = get_settings()
-    store = PostgresSearchStore(create_db_engine(settings.database_url))
+    engine = create_db_engine(settings.database_url)
+    store = PostgresSearchStore(engine)
     key = settings.openai_api_key.get_secret_value() if settings.openai_api_key else None
 
     @lru_cache
@@ -41,11 +43,12 @@ def get_query_service() -> QueryService:
         return OpenAIEmbedder(key, model)
 
     return QueryService(
-        build_retrievers(store, embedder_for),
+        build_retrievers(store, PostgresGraphStore(engine), embedder_for),
         store,
         AnswerGenerator(OpenAIChat(key, settings.openai_chat_model)) if key else None,
         settings.dataset_version,
         settings.default_top_k,
+        settings.default_graph_hops,
     )
 
 

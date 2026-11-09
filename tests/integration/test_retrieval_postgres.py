@@ -11,10 +11,12 @@ from backend.app.indexing.chunkers import SectionChunker, indexed_text
 from backend.app.indexing.embeddings import Embeddings
 from backend.app.indexing.pipeline import build_index
 from backend.app.models.contracts import RetrievalRequest
+from backend.app.retrieval.graph import GraphRetriever
 from backend.app.retrieval.keyword import BM25Retriever
 from backend.app.retrieval.vector import VectorRetriever
 from backend.app.storage.documents import PostgresDocumentStore
 from backend.app.storage.examples import PostgresExampleStore
+from backend.app.storage.graph import PostgresGraphStore
 from backend.app.storage.postgres import create_db_engine
 from backend.app.storage.search import PostgresSearchStore
 from backend.app.storage.tables.search import EMBEDDING_DIM
@@ -116,6 +118,59 @@ def test_retriever_connection_cannot_read_gold_labels(built):
     _, _, store, _, _ = built
     with pytest.raises(ProgrammingError), store._retriever_connection() as conn:
         conn.execute(text("SELECT count(*) FROM eval.questions"))
+
+
+def graph_retriever(engine):
+    return GraphRetriever(PostgresGraphStore(engine))
+
+
+def test_entities_resolve_from_names_and_aliases(built):
+    engine, *_ = built
+    links = graph_retriever(engine).resolve(DATASET, "Did payment-service break INC-104?")
+    assert {"SVC-PAYMENTS-API", "INC-104"} <= {link.entity.key for link in links}
+
+
+def test_walks_respect_the_hop_limit_and_never_repeat_a_node(built):
+    engine, *_ = built
+    store = PostgresGraphStore(engine)
+    version = store.curated_version(DATASET)
+    for hops in (1, 2):
+        walks = store.walks(version, ["SVC-CHECKOUT-API"], hops)
+        assert walks and max(len(walk) for walk in walks) == hops
+    assert all(len(set(walk)) == len(walk) for walk in walks)
+
+
+def test_walks_do_not_pass_through_a_shared_team(built):
+    engine, *_ = built
+    store = PostgresGraphStore(engine)
+    version = store.curated_version(DATASET)
+    walks = store.walks(version, ["SVC-CHECKOUT-API"], 2)
+    edges = store.edges(sorted({r for walk in walks for r in walk}))
+    middle_owned = [
+        walk
+        for walk in walks
+        if len(walk) == 2
+        and edges[walk[0]].relation_type == edges[walk[1]].relation_type == "OWNED_BY"
+    ]
+    assert middle_owned == []
+
+
+def test_graph_retriever_follows_a_dependency_chain_to_its_evidence(built):
+    engine, _, store, _, report = built
+    result = graph_retriever(engine).retrieve(
+        request_for(store, report, "What does the Checkout API depend on?", top_k=10)
+    )
+    assert result.entities[0].key == "SVC-CHECKOUT-API"
+    assert any("DEPENDS_ON" in s for item in result.evidence for s in item.supports)
+    assert result.graph_paths
+    assert result.metadata["hop_limit"] == 2
+
+
+def test_graph_evidence_overlaps_the_span_behind_each_edge(built):
+    engine, _, store, _, report = built
+    result = graph_retriever(engine).retrieve(request_for(store, report, "INC-104", top_k=20))
+    assert any(e.document_id == "DOC-PM-INC-104" for e in result.evidence)
+    assert all(e.text and e.supports for e in result.evidence)
 
 
 def test_showcase_examples_come_from_the_benchmark(built):

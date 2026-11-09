@@ -15,7 +15,7 @@ from backend.app.storage.tables import RETRIEVER_ROLE
 from backend.app.storage.tables.corpus import Document
 from backend.app.storage.tables.search import DocumentChunk, IndexProfile
 
-_CHUNK_COLUMNS = (
+CHUNK_COLUMNS = (
     DocumentChunk.document_id,
     DocumentChunk.ordinal,
     DocumentChunk.text,
@@ -55,20 +55,24 @@ class NewChunk:
     embedding: list[float]
 
 
-def _stored(row: Row[Any]) -> StoredChunk:
-    return StoredChunk(*row[: len(_CHUNK_COLUMNS)])
+def stored_chunk(row: Row[Any]) -> StoredChunk:
+    return StoredChunk(*row[: len(CHUNK_COLUMNS)])
+
+
+@contextmanager
+def retriever_connection(engine: Engine) -> Iterator[Connection]:
+    """Reads run as the role that cannot see `eval`, so gold labels cannot leak in."""
+    with engine.begin() as conn:
+        conn.execute(text(f"SET LOCAL ROLE {RETRIEVER_ROLE}"))
+        yield conn
 
 
 class PostgresSearchStore:
     def __init__(self, engine: Engine) -> None:
         self.engine = engine
 
-    @contextmanager
-    def _retriever_connection(self) -> Iterator[Connection]:
-        """Reads run as the role that cannot see `eval`, so gold labels cannot leak in."""
-        with self.engine.begin() as conn:
-            conn.execute(text(f"SET LOCAL ROLE {RETRIEVER_ROLE}"))
-            yield conn
+    def _retriever_connection(self):
+        return retriever_connection(self.engine)
 
     def _profiles(self, *conditions: Any) -> list[IndexProfileModel]:
         query = select(IndexProfile).where(*conditions).order_by(IndexProfile.id)
@@ -86,13 +90,13 @@ class PostgresSearchStore:
 
     def chunks(self, profile_id: str) -> list[StoredChunk]:
         query = (
-            select(*_CHUNK_COLUMNS)
+            select(*CHUNK_COLUMNS)
             .join(Document, Document.id == DocumentChunk.document_id)
             .where(DocumentChunk.index_profile_id == profile_id)
             .order_by(DocumentChunk.document_id, DocumentChunk.ordinal)
         )
         with self._retriever_connection() as conn:
-            return [_stored(row) for row in conn.execute(query)]
+            return [stored_chunk(row) for row in conn.execute(query)]
 
     def nearest(
         self, profile_id: str, vector: list[float], top_k: int
@@ -100,7 +104,7 @@ class PostgresSearchStore:
         """Exact cosine search; the corpus is small enough not to need an approximate index."""
         distance = DocumentChunk.embedding.cosine_distance(vector)
         query = (
-            select(*_CHUNK_COLUMNS, distance.label("distance"))
+            select(*CHUNK_COLUMNS, distance.label("distance"))
             .join(Document, Document.id == DocumentChunk.document_id)
             .where(
                 DocumentChunk.index_profile_id == profile_id,
@@ -110,7 +114,7 @@ class PostgresSearchStore:
             .limit(top_k)
         )
         with self._retriever_connection() as conn:
-            return [(_stored(row), 1.0 - row.distance) for row in conn.execute(query)]
+            return [(stored_chunk(row), 1.0 - row.distance) for row in conn.execute(query)]
 
     def replace_index(self, profile: dict[str, Any], chunks: Sequence[NewChunk]) -> None:
         """Swaps a whole index in one transaction, so readers never see a partial build."""

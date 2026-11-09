@@ -55,13 +55,20 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
     st.text_area("Question", key=QUESTION_KEY, height=80)
 
     labels = {s["id"]: s["label"] for s in options["strategies"]}
-    cols = st.columns([3, 2, 2])
+    cols = st.columns([3, 2, 2, 3])
     strategies = cols[0].multiselect(
         "Strategies", list(labels), default=list(labels), format_func=labels.get
     )
     top_k = cols[1].slider("Top-k", 1, options["max_top_k"], options["default_top_k"])
     indexes = [i["id"] for i in options["indexes"]]
-    index_profile = cols[2].selectbox("Index", indexes)
+    hop_limit = cols[2].slider(
+        "Graph hops",
+        1,
+        options["max_hops"],
+        options["default_hop_limit"],
+        disabled="graph" not in strategies,
+    )
+    index_profile = cols[3].selectbox("Index", indexes)
 
     with st.container(key="bar-playground"):
         bar = st.columns([1, 2, 3])
@@ -87,6 +94,7 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
             "question": question,
             "index_profile": index_profile,
             "top_k": top_k,
+            "hop_limit": hop_limit,
             "generate": generate,
         },
     }
@@ -106,6 +114,8 @@ def _evidence_card(item: dict[str, Any]) -> None:
         if item["rank_details"]:
             ranks = ", ".join(f"{name} #{rank}" for name, rank in item["rank_details"].items())
             st.caption(f"Ranked by: {ranks}")
+        if item["supports"]:
+            st.caption("Backs: " + "; ".join(item["supports"]))
         with st.expander("Full chunk"):
             st.html(snippet_html(item["text"]))
             st.caption(f"Evidence id: {item['evidence_id']}")
@@ -155,6 +165,13 @@ def _result(result: dict[str, Any], info: dict[str, Any]) -> None:
             ),
         )
 
+    if result["entities"]:
+        named = ", ".join(f"{e['name']} ({e['entity_type']})" for e in result["entities"])
+        st.caption(f"Started from: {named}")
+    if result["graph_paths"]:
+        st.markdown("**Graph paths**")
+        for path in result["graph_paths"]:
+            st.text("\n".join(path["steps"]))
     st.markdown(f"**Retrieved evidence** · top {result['top_k']}")
     if not result["evidence"]:
         st.info("No chunk matched this question.", icon=":material/search_off:")

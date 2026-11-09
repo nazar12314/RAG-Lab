@@ -14,7 +14,7 @@ from backend.app.retrieval.base import ProviderError
 
 logger = logging.getLogger(__name__)
 
-PROMPT_VERSION = "answer-v1"
+PROMPT_VERSION = "answer-v2"
 ABSTENTION = "Not enough evidence."
 MAX_CONTEXT_CHARS = 8000
 TIMEOUT_SECONDS = 45.0
@@ -87,8 +87,10 @@ def format_sources(evidence: list[Evidence]) -> str:
     for number, item in enumerate(evidence, start=1):
         section = f" / {item.section_path}" if item.section_path else ""
         date = item.created_at.date().isoformat()
+        facts = f"Graph facts: {'; '.join(item.supports)}\n" if item.supports else ""
         blocks.append(
-            f"[{number}] {item.document_title}{section} ({item.doc_type}, {date})\n{item.text}"
+            f"[{number}] {item.document_title}{section} ({item.doc_type}, {date})\n"
+            f"{facts}{item.text}"
         )
     return "\n\n".join(blocks)
 

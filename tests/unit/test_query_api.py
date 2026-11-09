@@ -8,7 +8,7 @@ from backend.app.models.contracts import ExampleQuestion, RetrievalResult
 from backend.app.retrieval.base import ProviderError, Unsupported
 from backend.app.retrieval.registry import build_retrievers
 from backend.app.services.query_service import NO_INDEX_MESSAGE, NO_KEY_MESSAGE, QueryService
-from tests.retrieval_fakes import FakeChat, FakeEmbedder, FakeStore
+from tests.retrieval_fakes import FakeChat, FakeEmbedder, FakeGraphStore, FakeStore
 
 QUESTION = {"question": "  connection pool exhaustion  "}
 
@@ -26,7 +26,8 @@ class Raising:
 
 def make_client(store=None, chat=None, extra=None, examples=None) -> TestClient:
     store = store or FakeStore()
-    retrievers = {**build_retrievers(store, lambda model: FakeEmbedder()), **(extra or {})}
+    built = build_retrievers(store, FakeGraphStore(), lambda model: FakeEmbedder())
+    retrievers = {**built, **(extra or {})}
     service = QueryService(
         retrievers, store, AnswerGenerator(chat) if chat else None, "engineering-ops-v1"
     )
@@ -39,7 +40,7 @@ def make_client(store=None, chat=None, extra=None, examples=None) -> TestClient:
 
 def test_options_list_strategies_and_ready_indexes():
     body = make_client(chat=FakeChat()).get("/query/options").json()
-    assert [s["id"] for s in body["strategies"]] == ["bm25", "vector", "hybrid"]
+    assert [s["id"] for s in body["strategies"]] == ["bm25", "vector", "hybrid", "graph"]
     assert [i["id"] for i in body["indexes"]] == ["test-index"]
     assert body["generation_available"] is True
 
@@ -65,7 +66,20 @@ def test_compare_runs_every_strategy_on_the_same_normalized_question():
     body = make_client().post("/query/compare", json=QUESTION).json()
     assert body["question"] == "connection pool exhaustion"
     assert body["index_profile"] == "test-index"
-    assert [r["strategy"] for r in body["results"]] == ["bm25", "vector", "hybrid"]
+    assert [r["strategy"] for r in body["results"]] == ["bm25", "vector", "hybrid", "graph"]
+
+
+def test_graph_results_carry_paths_and_entities():
+    body = make_client().post("/query", json={**QUESTION, "strategy": "graph"}).json()
+    assert body["status"] == "ok"
+    assert body["graph_paths"] and body["entities"][0]["key"] == "SVC-POOL"
+
+
+def test_question_without_an_entity_is_unsupported_for_graph_only():
+    payload = {"question": "customers could not pay"}
+    body = make_client().post("/query/compare", json=payload).json()
+    statuses = {r["strategy"]: r["status"] for r in body["results"]}
+    assert statuses == {"bm25": "ok", "vector": "ok", "hybrid": "ok", "graph": "unsupported"}
 
 
 def test_compare_can_be_limited_to_named_strategies():
@@ -80,6 +94,7 @@ def test_compare_can_be_limited_to_named_strategies():
         ("/query/compare", {**QUESTION, "strategies": ["bm25", "nope"]}),
         ("/query", {"question": "", "strategy": "bm25"}),
         ("/query", {**QUESTION, "strategy": "bm25", "top_k": 0}),
+        ("/query", {**QUESTION, "strategy": "graph", "hop_limit": 4}),
     ],
 )
 def test_invalid_requests_are_rejected(path, payload):
@@ -106,6 +121,7 @@ def test_one_failing_strategy_does_not_affect_the_others():
         "bm25": "ok",
         "vector": "ok",
         "hybrid": "ok",
+        "graph": "ok",
         "down": "error",
         "off": "unsupported",
     }
