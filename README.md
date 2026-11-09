@@ -97,6 +97,6 @@ traversal, shortest paths and edge provenance. See [docs/data_analysis.md](docs/
 ## Retrieval Playground
 
 The **Playground** page runs one question through BM25, vector, hybrid, graph and agent
-retrieval side by side, shows the evidence, and then an answer with citations. Graph results
-include their paths and the agent shows its tool trace. Turn off *Generate answer* to stop after
+retrieval, with one tab per approach showing its evidence and then an answer with citations. The
+Graph tab includes its paths and the Agent tab shows its tool trace. Turn off *Generate answer* to stop after
 retrieval. See [docs/retrieval.md](docs/retrieval.md).

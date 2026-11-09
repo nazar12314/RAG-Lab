@@ -93,13 +93,13 @@ def test_page_offers_examples_strategies_and_shows_no_results_yet(backend):
     assert not app.exception
     assert app.selectbox[0].options[0].startswith("Q-001")
     assert list(app.multiselect[0].options) == ["BM25", "Vector"]
-    assert not app.subheader
+    assert not app.tabs
 
 
 def test_compare_shows_each_strategy_and_sends_the_controls(backend):
     app = press_run(page())
     assert not app.exception
-    assert [s.value for s in app.subheader] == ["BM25", "Vector"]
+    assert [t.label for t in app.tabs] == ["BM25", "Vector"]
     assert backend["strategies"] == ["bm25", "vector"]
     assert backend["payload"] == {
         "question": "What happened in INC-104?",
@@ -225,6 +225,21 @@ def test_backend_outage_is_reported(backend, monkeypatch):
 
     monkeypatch.setattr(api, "options", down)
     assert page().error[0].value == "Backend not reachable"
+
+
+def test_tabs_run_first_to_last_however_strategies_were_picked(backend):
+    backend["reply"] = [result("vector"), result("bm25")]
+    assert [t.label for t in press_run(page()).tabs] == ["BM25", "Vector"]
+
+
+def test_each_tab_holds_only_its_own_strategy(backend):
+    backend["reply"] = [
+        result("bm25", latency={"retrieval_ms": 1.0, "generation_ms": None}),
+        result("vector", latency={"retrieval_ms": 222.0, "generation_ms": None}),
+    ]
+    tabs = press_run(page()).tabs
+    assert [m.value for m in tabs[0].metric if m.label == "Retrieval"] == ["1 ms"]
+    assert [m.value for m in tabs[1].metric if m.label == "Retrieval"] == ["222 ms"]
 
 
 def test_markdown_helpers():

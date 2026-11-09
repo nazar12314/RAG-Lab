@@ -17,8 +17,22 @@ from frontend.playground import api
 
 QUESTION_KEY, EXAMPLE_KEY, RESULT_KEY = "pg_question", "pg_example", "pg_result"
 SNIPPET_CHARS = 220
-COLUMNS_PER_ROW = 3
 COSTLY_BY_DEFAULT = {"agent"}
+
+# Colours are fixed rather than themed so the active tab stands out in light and dark mode.
+TAB_STYLE = """
+<style>
+.st-key-strategy-tabs [role="tablist"] { gap: 0.25rem; }
+.st-key-strategy-tabs [role="tab"] {
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.st-key-strategy-tabs [role="tab"][aria-selected="true"] { background: #2a78d6; }
+.st-key-strategy-tabs [role="tab"][aria-selected="true"],
+.st-key-strategy-tabs [role="tab"][aria-selected="true"] * { color: #ffffff; }
+.st-key-strategy-tabs [role="tab"] [class*="SelectionIndicator"] { background: #2a78d6; }
+</style>
+"""
 
 _MARKDOWN_SPECIAL = re.compile(r"([\\`*_\[\]~$:])")
 
@@ -34,6 +48,11 @@ def answer_markdown(text: str) -> str:
 
 def snippet(text: str, limit: int = SNIPPET_CHARS) -> str:
     return text if len(text) <= limit else text[:limit].rstrip() + "…"
+
+
+def in_strategy_order(results: list[dict[str, Any]], order: list[str]) -> list[dict[str, Any]]:
+    """Tabs follow the backend's first-to-last order, however the strategies were picked."""
+    return sorted(results, key=lambda result: order.index(result["strategy"]))
 
 
 def _use_example() -> None:
@@ -163,7 +182,6 @@ def _tool_trace(result: dict[str, Any]) -> None:
 
 
 def _result(result: dict[str, Any], info: dict[str, Any]) -> None:
-    st.subheader(info["label"])
     st.caption(info["description"])
     if result["status"] != "ok":
         show = st.error if result["status"] == "error" else st.warning
@@ -241,9 +259,10 @@ def render() -> None:
     st.markdown(f"**Results for:** {escape_markdown(run['question'])}")
     st.caption("Scores are on different scales, so compare ranks between strategies, not scores.")
     infos = {s["id"]: s for s in options["strategies"]}
-    results = run["results"]
-    for start in range(0, len(results), COLUMNS_PER_ROW):
-        row = results[start : start + COLUMNS_PER_ROW]
-        for column, result in zip(st.columns(COLUMNS_PER_ROW), row, strict=False):
-            with column:
-                _result(result, infos[result["strategy"]])
+    results = in_strategy_order(run["results"], list(infos))
+    st.html(TAB_STYLE)
+    with st.container(key="strategy-tabs"):
+        tabs = st.tabs([infos[result["strategy"]]["label"] for result in results])
+    for tab, result in zip(tabs, results, strict=True):
+        with tab:
+            _result(result, infos[result["strategy"]])
