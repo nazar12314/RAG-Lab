@@ -1,4 +1,4 @@
-.PHONY: install up down logs db migrate revision dataset dataset-check seed backend frontend test test-integration lint format
+.PHONY: install up down logs db migrate revision dataset dataset-check seed index backend frontend test test-integration lint format
 
 install:
 	uv sync --all-extras
@@ -29,6 +29,9 @@ dataset-check:
 
 seed:
 	uv run python -m backend.app.dataset.load
+
+index:
+	uv run python -m backend.app.indexing.pipeline
 
 backend:
 	uv run uvicorn backend.app.main:app --reload

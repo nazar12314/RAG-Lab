@@ -16,3 +16,4 @@ except httpx.HTTPError:
     st.error(f"Backend not reachable at {BACKEND_URL}")
 
 st.page_link("screens/data_analysis.py", label="Open Data Analysis", icon=":material/query_stats:")
+st.page_link("screens/playground.py", label="Open Playground", icon=":material/manage_search:")

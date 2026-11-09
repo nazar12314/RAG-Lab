@@ -25,7 +25,9 @@ def test_postgres_and_seed_files_give_the_same_analysis(postgres_service):
 
     pg = postgres_service.overview(pg_ref, FilterSet())
     seed = seed_service.overview(seed_ref, FilterSet())
-    assert [(c.id, c.value) for c in pg.cards] == [(c.id, c.value) for c in seed.cards]
+    # The chunk count depends on which indexes were built, not on the dataset.
+    pg_cards = [(c.id, c.value) for c in pg.cards if c.id != "chunks"]
+    assert pg_cards == [(c.id, c.value) for c in seed.cards if c.id != "chunks"]
     assert [c.rows for c in pg.charts] == [c.rows for c in seed.charts]
 
     f = FilterSet(service="SVC-PAYMENTS-API", q="pool")

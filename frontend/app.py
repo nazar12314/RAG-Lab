@@ -19,6 +19,7 @@ navigation = st.navigation(
     [
         st.Page("screens/home.py", title="Home", icon=":material/home:", default=True),
         st.Page("screens/data_analysis.py", title="Data Analysis", icon=":material/query_stats:"),
+        st.Page("screens/playground.py", title="Playground", icon=":material/manage_search:"),
     ],
     position="top",
 )
