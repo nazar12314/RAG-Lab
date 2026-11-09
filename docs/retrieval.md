@@ -22,6 +22,7 @@ chunk. Without that prefix, a chunk in the middle of a postmortem may never name
 | `vector` | Vector | exact cosine similarity in pgvector | paraphrases, concepts | identifiers, rare tokens |
 | `hybrid` | Hybrid | Reciprocal Rank Fusion (k 60) of BM25 and vector | mixed questions | the failure of both sides |
 | `graph` | Graph | entity linking, then a bounded walk over typed edges | relationships, multi-hop chains | questions naming no known entity |
+| `agent` | Agent | an LLM calls retrieval tools step by step | investigations, counts, mixed questions | cost and latency |
 
 BM25 is computed in the backend because PostgreSQL's `ts_rank` is a different formula. The
 tokenizer keeps identifiers such as `INC-104` whole and also indexes their parts.
@@ -47,6 +48,28 @@ dataset, so scores show what graph retrieval can do with a perfect graph, not an
 
 To add a strategy, implement `Retriever` in `backend/app/retrieval/` and register it in
 `registry.py`. The contract tests, API and playground pick it up from the registry.
+
+### Agent
+
+One LangChain `create_agent` loop over six typed, read-only tools. The search tools are the same
+retriever instances the other strategies use, so the modes cannot drift apart.
+
+| Tool | Backed by |
+| --- | --- |
+| `exact_lookup` | parameterized queries over incidents, deployments, services, teams |
+| `aggregate_records` | counts with fixed group-by columns and filters |
+| `keyword_search` | the BM25 retriever |
+| `semantic_search` | the vector retriever |
+| `graph_traverse` | the graph retriever, from one named entity |
+| `fetch_evidence` | the full document or record behind an evidence ID |
+
+There is no free-form SQL. Limits: 8 tool calls and 90 seconds per question, top-k per search
+call. The model must give a reason with each call. That reason, the arguments, returned
+evidence IDs and timing form the tool trace shown in the playground.
+
+The agent writes its own answer, so it bypasses the shared answer prompt. Citations that do not
+match evidence it actually retrieved are not counted. Its evidence is everything it collected,
+cited items first, so it can exceed top-k.
 
 ## API
 

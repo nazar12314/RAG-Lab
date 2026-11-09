@@ -6,6 +6,8 @@ from functools import lru_cache
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
+from langchain_openai import ChatOpenAI
+from pydantic import SecretStr
 
 from backend.app.config import get_settings
 from backend.app.generation.answer import AnswerGenerator, OpenAIChat
@@ -21,12 +23,30 @@ from backend.app.models.contracts import (
 from backend.app.retrieval.base import Unsupported
 from backend.app.retrieval.registry import build_retrievers
 from backend.app.services.query_service import QueryService, UnknownStrategy
+from backend.app.storage.business import PostgresBusinessRepository
+from backend.app.storage.documents import PostgresDocumentStore
 from backend.app.storage.examples import PostgresExampleStore
 from backend.app.storage.graph import PostgresGraphStore
 from backend.app.storage.postgres import create_db_engine
 from backend.app.storage.search import PostgresSearchStore
 
 router = APIRouter(tags=["query"])
+
+AGENT_MODEL_TIMEOUT_SECONDS = 30
+AGENT_MAX_OUTPUT_TOKENS = 800
+
+
+def _agent_model(key: str | None, model: str) -> ChatOpenAI | None:
+    if key is None:
+        return None
+    return ChatOpenAI(
+        model=model,
+        api_key=SecretStr(key),
+        temperature=0,
+        timeout=AGENT_MODEL_TIMEOUT_SECONDS,
+        max_retries=1,
+        max_tokens=AGENT_MAX_OUTPUT_TOKENS,
+    )
 
 
 @lru_cache
@@ -43,7 +63,15 @@ def get_query_service() -> QueryService:
         return OpenAIEmbedder(key, model)
 
     return QueryService(
-        build_retrievers(store, PostgresGraphStore(engine), embedder_for),
+        build_retrievers(
+            store,
+            PostgresGraphStore(engine),
+            embedder_for,
+            PostgresBusinessRepository(engine),
+            PostgresDocumentStore(engine),
+            _agent_model(key, settings.openai_chat_model),
+            settings.openai_chat_model,
+        ),
         store,
         AnswerGenerator(OpenAIChat(key, settings.openai_chat_model)) if key else None,
         settings.dataset_version,

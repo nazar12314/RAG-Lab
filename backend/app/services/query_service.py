@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from time import perf_counter
 from typing import Protocol
 
@@ -89,10 +90,13 @@ class QueryService:
         question = request.question.strip()
         # Resolved once, so every strategy answers against the same index snapshot.
         index = self._index(request.index_profile)
+        # Concurrent so a slow strategy such as the agent does not hold up the rest.
+        with ThreadPoolExecutor(max_workers=len(strategies)) as pool:
+            results = list(pool.map(lambda s: self._run(s, question, index, request), strategies))
         return CompareResponse(
             question=question,
             index_profile=index.id if index else None,
-            results=[self._run(s, question, index, request) for s in strategies],
+            results=results,
         )
 
     def _run(
@@ -133,11 +137,13 @@ class QueryService:
             evidence=result.evidence,
             graph_paths=result.graph_paths,
             entities=result.entities,
+            tool_trace=result.tool_trace,
+            answer=result.answer,
             latency=Latency(retrieval_ms=_elapsed_ms(started)),
             usage=result.usage,
             metadata=result.metadata,
         )
-        if options.generate:
+        if options.generate and result.answer is None:
             self._generate(question, response)
         return response
 

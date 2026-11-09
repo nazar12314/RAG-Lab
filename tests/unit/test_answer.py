@@ -49,10 +49,23 @@ def test_sources_are_numbered_in_the_prompt():
     assert "[1] Doc 1" in user and "[2] Doc 2" in user and "Question: why?" in user
 
 
-@pytest.mark.parametrize("reply", [ABSTENTION, "Not enough evidence. Nothing covers revenue."])
+@pytest.mark.parametrize(
+    "reply",
+    [
+        ABSTENTION,
+        "Not enough evidence. Nothing covers revenue.",
+        "The sources never mention revenue.\n\nNot enough evidence",
+    ],
+)
 def test_abstention_is_detected_and_cites_nothing(reply):
-    answer = AnswerGenerator(FakeChat(reply + " [1]")).generate("q", [evidence(1)])
+    answer = AnswerGenerator(FakeChat(reply)).generate("q", [evidence(1)])
     assert answer.abstained and answer.citations == []
+
+
+def test_mentioning_the_phrase_mid_answer_is_not_an_abstention():
+    reply = "At first there was not enough evidence, then logs showed X [1]."
+    answer = AnswerGenerator(FakeChat(reply)).generate("q", [evidence(1)])
+    assert not answer.abstained and answer.citations
 
 
 def test_no_evidence_abstains_without_calling_the_model():

@@ -70,6 +70,13 @@ class OpenAIChat:
         )
 
 
+def is_abstention(text: str) -> bool:
+    """Models often explain what is missing first, so the phrase may open or close the answer."""
+    normalized = text.strip().casefold().rstrip(".")
+    phrase = ABSTENTION.casefold().rstrip(".")
+    return normalized.startswith(phrase) or normalized.endswith(phrase)
+
+
 def select_context(evidence: list[Evidence], budget: int = MAX_CONTEXT_CHARS) -> list[Evidence]:
     """Highest-ranked evidence that fits, so every strategy gets the same context budget."""
     selected: list[Evidence] = []
@@ -86,7 +93,7 @@ def format_sources(evidence: list[Evidence]) -> str:
     blocks = []
     for number, item in enumerate(evidence, start=1):
         section = f" / {item.section_path}" if item.section_path else ""
-        date = item.created_at.date().isoformat()
+        date = item.created_at.date().isoformat() if item.created_at else "undated"
         facts = f"Graph facts: {'; '.join(item.supports)}\n" if item.supports else ""
         blocks.append(
             f"[{number}] {item.document_title}{section} ({item.doc_type}, {date})\n"
@@ -121,7 +128,7 @@ class AnswerGenerator:
             SYSTEM_PROMPT, f"Sources:\n\n{format_sources(context)}\n\nQuestion: {question}"
         )
         text = completion.text.strip()
-        abstained = text.casefold().startswith(ABSTENTION.casefold().rstrip("."))
+        abstained = is_abstention(text)
         return Answer(
             text=text,
             abstained=abstained,

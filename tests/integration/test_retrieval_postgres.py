@@ -14,6 +14,7 @@ from backend.app.models.contracts import RetrievalRequest
 from backend.app.retrieval.graph import GraphRetriever
 from backend.app.retrieval.keyword import BM25Retriever
 from backend.app.retrieval.vector import VectorRetriever
+from backend.app.storage.business import PostgresBusinessRepository, RecordFilter
 from backend.app.storage.documents import PostgresDocumentStore
 from backend.app.storage.examples import PostgresExampleStore
 from backend.app.storage.graph import PostgresGraphStore
@@ -171,6 +172,81 @@ def test_graph_evidence_overlaps_the_span_behind_each_edge(built):
     result = graph_retriever(engine).retrieve(request_for(store, report, "INC-104", top_k=20))
     assert any(e.document_id == "DOC-PM-INC-104" for e in result.evidence)
     assert all(e.text and e.supports for e in result.evidence)
+
+
+def test_incident_lookup_includes_affected_services_and_deployments(built):
+    engine, *_ = built
+    records = PostgresBusinessRepository(engine).lookup(
+        "incident", RecordFilter(record_id="INC-104")
+    )
+    assert len(records) == 1
+    assert records[0].ref == "incidents/INC-104"
+    assert "Affected services" in records[0].text and "Severity: SEV" in records[0].text
+    assert any(ref.startswith("incident_services/INC-104/") for ref in records[0].refs)
+
+
+def test_deployments_for_a_service_are_newest_first(built):
+    engine, *_ = built
+    records = PostgresBusinessRepository(engine).lookup(
+        "deployment", RecordFilter(service_id="SVC-PAYMENTS-API")
+    )
+    dates = [record.created_at for record in records]
+    assert dates and dates == sorted(dates, reverse=True)
+
+
+def test_service_record_lists_its_dependencies(built):
+    engine, *_ = built
+    records = PostgresBusinessRepository(engine).lookup(
+        "service", RecordFilter(record_id="SVC-CHECKOUT-API")
+    )
+    assert "Depends on" in records[0].text
+    assert any(ref.startswith("service_dependencies/") for ref in records[0].refs)
+
+
+def test_ids_are_parameters_not_sql(built):
+    engine, *_ = built
+    repo = PostgresBusinessRepository(engine)
+    assert repo.lookup("incident", RecordFilter(record_id="' OR 1=1 --")) == []
+
+
+def test_aggregate_counts_match_the_loaded_records(built):
+    engine, *_ = built
+    result = PostgresBusinessRepository(engine).aggregate("incidents", ["severity"], RecordFilter())
+    assert result.total == 38
+    assert sum(row["count"] for row in result.rows) == 38
+    assert {row["severity"] for row in result.rows} == {1, 2, 3, 4}
+
+
+def test_aggregate_filters_and_groups_by_month(built):
+    engine, *_ = built
+    repo = PostgresBusinessRepository(engine)
+    severe = repo.aggregate("incidents", ["month"], RecordFilter(severity=(1,)))
+    assert severe.total == 4 and len(severe.refs) == 4
+    assert all(len(row["month"]) == 7 for row in severe.rows)
+
+
+def test_primary_service_filter_is_narrower_than_affected(built):
+    engine, *_ = built
+    repo = PostgresBusinessRepository(engine)
+    service = "SVC-PAYMENTS-API"
+    affected = repo.aggregate("incidents", [], RecordFilter(service_id=service))
+    primary = repo.aggregate(
+        "incidents", [], RecordFilter(service_id=service, primary_service_only=True)
+    )
+    # 5 includes INC-131, which the dataset deliberately records under the wrong primary service.
+    assert primary.total == 5 and affected.total > primary.total
+
+
+def test_aggregate_rejects_columns_outside_the_template(built):
+    engine, *_ = built
+    with pytest.raises(ValueError, match="cannot be grouped"):
+        PostgresBusinessRepository(engine).aggregate("incidents", ["kind"], RecordFilter())
+
+
+def test_full_document_is_readable_by_id(built):
+    _, documents, *_ = built
+    assert documents.document("DOC-PM-INC-104").title.startswith("Postmortem")
+    assert documents.document("nope") is None
 
 
 def test_showcase_examples_come_from_the_benchmark(built):

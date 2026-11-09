@@ -54,6 +54,8 @@ def result(strategy="bm25", **overrides):
         "evidence": [evidence],
         "graph_paths": [],
         "entities": [],
+        "tool_trace": [],
+        "metadata": {},
         "answer": answer,
         "answer_error": None,
         "latency": {"retrieval_ms": 3.0, "generation_ms": 900.0},
@@ -161,6 +163,41 @@ def test_graph_paths_and_supported_edges_are_shown(backend):
     assert any(t.value == "A -DEPENDS_ON-> B\nB -AFFECTED_BY-> C" for t in app.text)
     assert any(c.value == "Backs: A -DEPENDS_ON-> B" for c in app.caption)
     assert any(c.value == "Started from: A (service)" for c in app.caption)
+
+
+def test_agent_is_opt_in_because_it_costs_more(backend, monkeypatch):
+    strategies = [*OPTIONS["strategies"], {"id": "agent", "label": "Agent", "description": "LLM"}]
+    monkeypatch.setattr(api, "options", lambda: {**OPTIONS, "strategies": strategies})
+    assert page().multiselect[0].value == ["bm25", "vector"]
+
+
+def test_agent_trace_and_undated_records_are_shown(backend, monkeypatch):
+    record = dict(result()["evidence"][0], created_at=None, doc_type="record")
+    call = {
+        "tool": "exact_lookup",
+        "args": {"record_id": "INC-104"},
+        "reason": "An ID was given",
+        "evidence_ids": ["incidents/INC-104"],
+        "duration_ms": 4.0,
+        "message": None,
+    }
+    backend["reply"] = [
+        result("agent", evidence=[record], tool_trace=[call], metadata={"stop_reason": "answered"})
+    ]
+    backend_options = {
+        **OPTIONS,
+        "strategies": [
+            *OPTIONS["strategies"],
+            {"id": "agent", "label": "Agent", "description": "L"},
+        ],
+    }
+    monkeypatch.setattr(api, "options", lambda: backend_options)
+    app = press_run(page())
+    assert not app.exception
+    assert app.expander[0].label == "Tool trace · 1 calls · stopped: answered"
+    assert any(t.value == "record_id=INC-104" for t in app.text)
+    assert any(m.value.startswith("**Evidence collected**") for m in app.markdown)
+    assert any("undated" in m.value for m in app.markdown)
 
 
 def test_hop_control_only_applies_to_graph(backend):

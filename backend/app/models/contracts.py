@@ -45,7 +45,7 @@ class Evidence(BaseModel):
     document_title: str
     doc_type: str
     source_uri: str
-    created_at: datetime
+    created_at: datetime | None
     section_path: str | None
     text: str
     span_start: int
@@ -57,11 +57,16 @@ class Evidence(BaseModel):
     rank_details: dict[str, int] = Field(default_factory=dict)
     # For graph results: the relationships this evidence backs.
     supports: list[str] = Field(default_factory=list)
+    # Structured results are records, not passages: document_id then holds the record reference.
+    source_kind: Literal["document", "record"] = "document"
+    record_refs: list[str] = Field(default_factory=list)
 
     # Chunk row ids change on every rebuild; document spans do not.
     @computed_field  # type: ignore[prop-decorator]
     @property
     def evidence_id(self) -> str:
+        if self.source_kind == "record":
+            return self.document_id
         return f"{self.document_id}:{self.span_start}-{self.span_end}"
 
 
@@ -78,12 +83,28 @@ class EntityRef(BaseModel):
     mention: str
 
 
+class ToolCall(BaseModel):
+    """One observable agent step. `reason` is the model's stated reason, not hidden reasoning."""
+
+    tool: str
+    args: dict[str, Any]
+    reason: str
+    evidence_ids: list[str] = Field(default_factory=list)
+    duration_ms: float
+    embedding_tokens: int = 0
+    status: Literal["ok", "error", "budget"] = "ok"
+    message: str | None = None
+
+
 class RetrievalResult(BaseModel):
     evidence: list[Evidence]
     graph_paths: list[GraphPath] = Field(default_factory=list)
     entities: list[EntityRef] = Field(default_factory=list)
     usage: Usage = Field(default_factory=Usage)
     metadata: dict[str, Any] = Field(default_factory=dict)
+    # Set only by strategies that write their own answer (the agent).
+    answer: Answer | None = None
+    tool_trace: list[ToolCall] = Field(default_factory=list)
 
 
 class Answer(BaseModel):
@@ -127,6 +148,7 @@ class QueryResponse(BaseModel):
     evidence: list[Evidence] = Field(default_factory=list)
     graph_paths: list[GraphPath] = Field(default_factory=list)
     entities: list[EntityRef] = Field(default_factory=list)
+    tool_trace: list[ToolCall] = Field(default_factory=list)
     answer: Answer | None = None
     answer_error: str | None = None
     latency: Latency

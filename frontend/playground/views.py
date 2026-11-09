@@ -18,6 +18,7 @@ from frontend.playground import api
 QUESTION_KEY, EXAMPLE_KEY, RESULT_KEY = "pg_question", "pg_example", "pg_result"
 SNIPPET_CHARS = 220
 COLUMNS_PER_ROW = 3
+COSTLY_BY_DEFAULT = {"agent"}
 
 _MARKDOWN_SPECIAL = re.compile(r"([\\`*_\[\]~$:])")
 
@@ -57,7 +58,11 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
     labels = {s["id"]: s["label"] for s in options["strategies"]}
     cols = st.columns([3, 2, 2, 3])
     strategies = cols[0].multiselect(
-        "Strategies", list(labels), default=list(labels), format_func=labels.get
+        "Strategies",
+        list(labels),
+        default=[s for s in labels if s not in COSTLY_BY_DEFAULT],
+        format_func=labels.get,
+        help="The agent makes several LLM calls per question, so it is off by default.",
     )
     top_k = cols[1].slider("Top-k", 1, options["max_top_k"], options["default_top_k"])
     indexes = [i["id"] for i in options["indexes"]]
@@ -67,6 +72,7 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
         options["max_hops"],
         options["default_hop_limit"],
         disabled="graph" not in strategies,
+        help="Used by Graph. The agent chooses its own depth.",
     )
     index_profile = cols[3].selectbox("Index", indexes)
 
@@ -77,7 +83,7 @@ def _controls(options: dict[str, Any], examples: list[dict[str, Any]]) -> dict[s
             "Generate answer",
             value=options["generation_available"],
             disabled=not options["generation_available"],
-            help="Off stops after retrieval, which costs no LLM calls.",
+            help="Off stops after retrieval. The agent always uses the LLM.",
         )
     if not submitted:
         return None
@@ -104,7 +110,7 @@ def _evidence_card(item: dict[str, Any]) -> None:
     with st.container(border=True):
         st.markdown(
             f"**#{item['rank']}** · score `{item['score']:.3f}` · "
-            f"{escape_markdown(item['doc_type'])} · {item['created_at'][:10]}"
+            f"{escape_markdown(item['doc_type'])} · {(item['created_at'] or 'undated')[:10]}"
         )
         section = f" › {escape_markdown(item['section_path'])}" if item["section_path"] else ""
         st.markdown(f"**{escape_markdown(item['document_title'])}**{section}")
@@ -142,6 +148,20 @@ def _answer(result: dict[str, Any]) -> None:
     )
 
 
+def _tool_trace(result: dict[str, Any]) -> None:
+    trace = result["tool_trace"]
+    stop = result["metadata"].get("stop_reason", "unknown")
+    with st.expander(f"Tool trace · {len(trace)} calls · stopped: {stop}", expanded=True):
+        for number, call in enumerate(trace, start=1):
+            args = ", ".join(f"{key}={value}" for key, value in call["args"].items())
+            st.markdown(f"**{number}. {call['tool']}** · {call['duration_ms']:.0f} ms")
+            st.text(args)
+            found = f"{len(call['evidence_ids'])} evidence items"
+            st.caption(f"{escape_markdown(call['reason'])} ({found})")
+            if call["message"]:
+                st.warning(call["message"])
+
+
 def _result(result: dict[str, Any], info: dict[str, Any]) -> None:
     st.subheader(info["label"])
     st.caption(info["description"])
@@ -168,11 +188,16 @@ def _result(result: dict[str, Any], info: dict[str, Any]) -> None:
     if result["entities"]:
         named = ", ".join(f"{e['name']} ({e['entity_type']})" for e in result["entities"])
         st.caption(f"Started from: {named}")
+    if result["tool_trace"]:
+        _tool_trace(result)
     if result["graph_paths"]:
         st.markdown("**Graph paths**")
         for path in result["graph_paths"]:
             st.text("\n".join(path["steps"]))
-    st.markdown(f"**Retrieved evidence** · top {result['top_k']}")
+    if result["tool_trace"]:
+        st.markdown(f"**Evidence collected** · {len(result['evidence'])}, cited first")
+    else:
+        st.markdown(f"**Retrieved evidence** · top {result['top_k']}")
     if not result["evidence"]:
         st.info("No chunk matched this question.", icon=":material/search_off:")
     for item in result["evidence"]:
