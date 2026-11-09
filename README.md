@@ -63,6 +63,7 @@ Host ports are configurable via `POSTGRES_PORT`, `BACKEND_PORT`, `FRONTEND_PORT`
 make db                   # only PostgreSQL in Docker
 make migrate
 make seed                 # load the engineering-ops-v1 dataset
+make index                # chunk and embed it (needs OPENAI_API_KEY)
 make backend              # in one terminal
 make frontend             # in another
 ```
@@ -92,3 +93,9 @@ The **Data Analysis** page explores that corpus before any retriever runs: distr
 click-to-filter charts, a record browser, record details with their supporting passages, a
 document inspector with evidence highlights, and a Graph Explorer for bounded neighborhood
 traversal, shortest paths and edge provenance. See [docs/data_analysis.md](docs/data_analysis.md).
+
+## Retrieval Playground
+
+The **Playground** page runs one question through BM25 and vector retrieval side by side, shows
+the ranked evidence, and then an answer generated from that evidence with citations. Turn off
+*Generate answer* to stop after retrieval. See [docs/retrieval.md](docs/retrieval.md).
